@@ -35,7 +35,7 @@ rect_cambio_x = 5
 rect_cambio_y = 5
  
 # Esta es la fuente que usaremos para el texto que aparecerá en pantalla (tamaño 36)
-fuente = pygame.font.Font(None, 36)
+fuente = pygame.font.Font('resources/fonts/alatsi.ttf', 30)
  
 mostrar_instrucciones = True
 pagina_de_instrucciones = 1
