@@ -32,12 +32,15 @@ def main():
     # Fuente para el texto que aparecerá en pantalla (tamaño 30)
     fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_TITULOS)
     fuente_descripciones = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_DESCRIPCIONES)
-
-    # Iteramos hasta que el usuario haga click sobre le botón de salida.
+    
+    # Devuelve la altura en píxeles para distancia "ideal" entre líneas de texto con la fuente.
+    fd_linesize = fuente_descripciones.get_linesize()
+    
+    # Iteramos hasta que el usuario haga click sobre el botón de salida.
     # Condicion de salida del bucle principal
     salir = False
 
-    #  Gestionamos como de rápido actualiza la pantalla
+    # Gestionamos como de rápido actualiza la pantalla
     reloj = pygame.time.Clock()
 
     mostrar_instrucciones = True  # Bandera para condicion
@@ -76,35 +79,32 @@ def main():
 
             # Texto por lineas y posicion en pantalla
             linea_texto2 = fuente_descripciones.render('Historia del juego: La búsqueda comienza en un planeta tierra', True, BLANCO)
-            # pantalla.blit(linea_texto2, [10, ALTO_TEXTO_TITULOS + 15])
+            pantalla.blit(linea_texto2, [10, ALTO_TEXTO_TITULOS + fd_linesize])
             
             # Texto por lineas y posicion en pantalla
             linea_texto3 = fuente_descripciones.render('moribundo por el cambio climático. Partiremos a la búsqueda de', True, BLANCO)
-            # pantalla.blit(linea_texto3, [10, (ALTO_TEXTO_TITULOS * 2 + 10) + 5])
+            pantalla.blit(linea_texto3, [10, ALTO_TEXTO_TITULOS + fd_linesize * 2])
             
             # Texto por lineas y posicion en pantalla
             linea_texto4 = fuente_descripciones.render('un planeta compatible con la vida humana para colonizarlo.', True, BLANCO)
-            # pantalla.blit(linea_texto4, [10, ALTO_TEXTO_DESCRIPCIONES + 5])
+            pantalla.blit(linea_texto4, [10, ALTO_TEXTO_TITULOS + fd_linesize * 3])
 
             # Texto por lineas y posicion en pantalla
             linea_texto5 = fuente_descripciones.render('Esquiva los obstaculos, hazte con el control de la nave y logra aterrizar!', True, BLANCO)
-            # pantalla.blit(linea_texto5, [10, ALTO_TEXTO_DESCRIPCIONES + 5])
+            pantalla.blit(linea_texto5, [10, ALTO_TEXTO_TITULOS + fd_linesize * 4])
             
             
-             
-            
-
         if pagina_de_instrucciones == 2:
             # Instrucciones de dibujo, página 2
-            linea_texto1 = fuente.render(
+            linea_texto1 = fuente_titulo.render(
                 'Pantalla de instrucciones', True, BLANCO)
             pantalla.blit(linea_texto1, [10, 10])
 
             # Texto por lineas y posicion en pantalla
-            linea_texto2 = fuente.render('Página 2', True, BLANCO)
+            linea_texto2 = fuente_titulo.render('Página 2', True, BLANCO)
             pantalla.blit(linea_texto2, [10, 44])
 
-        # # Limitamos a 20 fotogramas por segundo.
+        # Limitamos a 20 fotogramas por segundo.
         # reloj.tick(20)
         # Avancemos y actualicemos la pantalla con lo que hemos dibujado.
         pygame.display.flip()
