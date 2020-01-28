@@ -7,6 +7,10 @@
 """
 import pygame
 
+# Variables de uso global
+LARGO = 700
+ANCHO = 500
+
 # Definimos algunos colores
 NEGRO = (0, 0, 0)
 BLANCO = (255, 255, 255)
@@ -14,11 +18,15 @@ BLANCO = (255, 255, 255)
 pygame.init()
 
 #  Establecemos el largo y ancho de la pantalla.
-dimensiones = [700, 500]
+dimensiones = [LARGO, ANCHO]
 pantalla = pygame.display.set_mode(dimensiones)
 fondo_pantalla = pygame.image.load('resources/background.png').convert()
 
+# Titulo de la barra de la aplicacion
 pygame.display.set_caption("Pantalla de Instrucciones")
+
+# Esta es la fuente que usaremos para el texto que aparecerá en pantalla (tamaño 36)
+fuente = pygame.font.Font('resources/fonts/alatsi.ttf', 30)
 
 # Iteramos hasta que el usuario haga click sobre le botón de salida.
 hecho = False
@@ -33,9 +41,6 @@ rect_y = 50
 # Velocidad y dirección del rectángulo
 rect_cambio_x = 5
 rect_cambio_y = 5
-
-# Esta es la fuente que usaremos para el texto que aparecerá en pantalla (tamaño 36)
-fuente = pygame.font.Font('resources/fonts/alatsi.ttf', 30)
 
 mostrar_instrucciones = True
 pagina_de_instrucciones = 1
@@ -63,7 +68,7 @@ while not hecho and mostrar_instrucciones:
         pantalla.blit(texto, [10, 10])
 
         texto = fuente.render("Página 1", True, BLANCO)
-        pantalla.blit(texto, [10, 40])
+        pantalla.blit(texto, [10, 44])
 
     if pagina_de_instrucciones == 2:
         # Instrucciones de dibujo, página 2
@@ -72,7 +77,7 @@ while not hecho and mostrar_instrucciones:
         pantalla.blit(texto, [10, 10])
 
         texto = fuente.render("Página 2", True, BLANCO)
-        pantalla.blit(texto, [10, 40])
+        pantalla.blit(texto, [10, 44])
     # Limitamos a 20 fotogramas por segundo.
     reloj.tick(20)
 

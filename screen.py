@@ -12,17 +12,16 @@ BLANCO = (255, 255, 255)
 FPS = 60  
 
 def main():
-    # Inicialización de Pygame
-    pygame.init()
-
     # Inicialización de la superficie de dibujo (display surface)
     # Establecemos el largo y ancho de la pantalla.
     dimensiones = [LARGO, ANCHO]
     pantalla = pygame.display.set_mode(dimensiones)
-    pygame.display.set_caption("Pantalla de Instrucciones")
-
+    
     # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
     fondo_pantalla = pygame.image.load('resources/background.png').convert()
+
+    # Titulo de la barra de la aplicacion
+    pygame.display.set_caption("The Quest Juego pyGame")
 
     # Fuente para el texto que aparecerá en pantalla (tamaño 30)
     fuente = pygame.font.Font('resources/fonts/alatsi.ttf', 30)
@@ -33,14 +32,6 @@ def main():
 
     #  Gestionamos como de rápido actualiza la pantalla
     reloj = pygame.time.Clock()
-
-    # Posición de partida del rectángulo
-    rect_x = 50
-    rect_y = 50
-
-    # Velocidad y dirección del rectángulo
-    rect_cambio_x = 5
-    rect_cambio_y = 5
 
     mostrar_instrucciones = True  # Bandera para condicion
     pagina_de_instrucciones = 1   # Bandera
@@ -57,30 +48,35 @@ def main():
                     # Cambio del flag para dejar de mostarar pantallas de instrucciones
                     mostrar_instrucciones = False
 
-    # Limpia la pantalla y establece su color de fondo
-    pantalla.blit(fondo_pantalla, (0, 0))
+        # Limpia la pantalla y establece su color de fondo
+        pantalla.blit(fondo_pantalla, (0, 0))
 
-    if pagina_de_instrucciones == 1:
-        # Instrucciones de dibujo, página 1
-        # También podría cargar una imagen realizada por cualquier otro programa.
-        # De esta forma sería más fácil y flexible.
+        if pagina_de_instrucciones == 1:
+            # Instrucciones de dibujo, página 1
+            # También podría cargar una imagen realizada por cualquier otro programa.
+            # De esta forma sería más fácil y flexible.
 
-        # Texto por lineas y posicion en pantalla
-        linea_texto1 = fuente.render("Instrucciones...\n ver", True, BLANCO)
-        pantalla.blit(linea_texto1, [10, 10])
+            # Texto por lineas y posicion en pantalla
+            linea_texto1 = fuente.render("Bienvenido al Juego The Quest...", True, BLANCO)
+            pantalla.blit(linea_texto1, [10, 10])
+            
+            # Texto por lineas y posicion en pantalla
+            linea_texto2 = fuente.render("Página 1", True, BLANCO)
+            pantalla.blit(linea_texto2, [10, 44])
         
-        # Texto por lineas y posicion en pantalla
-        linea_texto2 = fuente.render("Página 1", True, BLANCO)
-        pantalla.blit(linea_texto1, [10, 44])
+        if pagina_de_instrucciones == 2:
+            # Instrucciones de dibujo, página 2
+            linea_texto1 = fuente.render("Pantalla de instrucciones", True, BLANCO)
+            pantalla.blit(linea_texto1, [10, 10])
+            
+            # Texto por lineas y posicion en pantalla
+            linea_texto2 = fuente.render("Página 2", True, BLANCO)
+            pantalla.blit(linea_texto2, [10, 44])
         
-    if pagina_de_instrucciones == 2:
-        # Instrucciones de dibujo, página 2
-        linea_texto1 = fuente.render("Este programa hace rebotar un rectángulo", True, BLANCO)
-        pantalla.blit(linea_texto1, [10, 10])
-        
-        # Texto por lineas y posicion en pantalla
-        linea_texto2 = fuente.render("Página 2", True, BLANCO)
-        pantalla.blit(linea_texto2, [10, 44])
+        # # Limitamos a 20 fotogramas por segundo.
+        # reloj.tick(20)
+        # Avancemos y actualicemos la pantalla con lo que hemos dibujado.
+        pygame.display.flip()
         
     # Bucle Principal del Programa -----------
     while not salir:
@@ -96,5 +92,8 @@ def main():
     pygame.quit()
 
 
+
 if __name__ == "__main__":
+    # Inicialización de Pygame
+    pygame.init()
     main()
