@@ -17,7 +17,7 @@ def main():
     pygame.display.set_caption("Pantalla de Instrucciones")
 
     # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
-    background_img = pg.image.load('resources/background.png').convert()
+    fondo_pantalla = pg.image.load('resources/background.png').convert()
 
     # Iteramos hasta que el usuario haga click sobre le botón de salida.
     # Condicion de salida del bucle principal
@@ -47,7 +47,13 @@ def main():
                 # Cambio del Flag, rompe la condicion del bucle y sale.
                 salir = True
             if evento.type == pygame.MOUSEBUTTONDOWN:  # El usuario presiona click derecho sobre screen
-                pagina_de_instrucciones += 1
+                pagina_de_instrucciones += 1  # Aumentamos contador para forzar el cambio de pantalla
+                if pagina_de_instrucciones == 3:  # Esperando evento que fuerce el ultimo cambio de pantalla
+                    # Cambio del flag para dejar de mostarar pantallas de instrucciones
+                    mostrar_instrucciones = False
+
+    # Limpia la pantalla y establece su color de fondo
+    pantalla.blit(fondo_pantalla, (0, 0))
     pygame.quit()
 
 
