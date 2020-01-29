@@ -12,6 +12,7 @@ ALTO_TEXTO_DESCRIPCIONES = 22
 VERDE = (30, 186, 22)
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
+AMARILLO = (216, 229, 24)
 
 # Fotogramas por segundo
 FPS = 60
@@ -65,38 +66,43 @@ def main():
             # Instrucciones de dibujo, página 1
             # Podría cargar una imagen realizada por cualquier otro programa.
             # de esta forma sería más fácil y flexible.
-
-            # Texto por lineas y posicion en pantalla
-            linea_texto0 = fuente_titulo.render(
+            
+            # Texto por lineas y posicion en pantalla, (Head)
+            linea_head = fuente_titulo.render(
                 'Bienvenidos a El juego: The quest!', True, VERDE)
             # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
-            ancho_linea_texto0 = linea_texto0.get_rect().width
+            ancho_linea_head = linea_head.get_rect().width
             # Calculo del posicionamiento de linea_texto1
-            posicion_centrada = (LARGO/2)-(ancho_linea_texto0/2)
+            posicion_centrada = (LARGO/2)-(ancho_linea_head/2)
             # Presentacion del texto en pantalla
-            pantalla.blit(linea_texto0, [posicion_centrada, 10])
+            pantalla.blit(linea_head, [posicion_centrada, 20])
 
-
+            # Introduccion al juego:
             # Texto por lineas y posicion en pantalla
             linea_texto1 = fuente_descripciones.render('Historia del juego:', True, BLANCO)
-            pantalla.blit(linea_texto1, [10, ALTO_TEXTO_TITULOS + fd_linesize])
+            pantalla.blit(linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + fd_linesize])
 
-            # Texto por lineas y posicion en pantalla
-            linea_texto2 = fuente_descripciones.render('Historia del juego: La búsqueda comienza en un planeta tierra', True, BLANCO)
-            pantalla.blit(linea_texto2, [32, ALTO_TEXTO_TITULOS + fd_linesize * 2])
+            linea_texto2 = fuente_descripciones.render('La búsqueda comienza en un planeta tierra moribundo por el cambio', True, BLANCO)
+            pantalla.blit(linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + fd_linesize * 2])
             
-            # Texto por lineas y posicion en pantalla
-            linea_texto3 = fuente_descripciones.render('moribundo por el cambio climático. Partiremos a la búsqueda de', True, BLANCO)
-            pantalla.blit(linea_texto3, [32, ALTO_TEXTO_TITULOS + fd_linesize * 3])
+            linea_texto3 = fuente_descripciones.render('climático. Partiremos a la búsqueda de un planeta compatible ', True, BLANCO)
+            pantalla.blit(linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + fd_linesize * 3])
             
-            # Texto por lineas y posicion en pantalla
-            linea_texto4 = fuente_descripciones.render('un planeta compatible con la vida humana para colonizarlo.', True, BLANCO)
-            pantalla.blit(linea_texto4, [32, ALTO_TEXTO_TITULOS + fd_linesize * 4])
+            linea_texto4 = fuente_descripciones.render('con la vida humana para colonizarlo. Esquiva los obstaculos,', True, BLANCO)
+            pantalla.blit(linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + fd_linesize * 4])
 
-            # Texto por lineas y posicion en pantalla
-            linea_texto5 = fuente_descripciones.render('Esquiva los obstaculos, hazte con el control de la nave y logra aterrizar!', True, BLANCO)
-            pantalla.blit(linea_texto5, [32, ALTO_TEXTO_TITULOS + fd_linesize * 5])
-            
+            linea_texto5 = fuente_descripciones.render('hazte con el control de la nave y logra aterrizar!', True, BLANCO)
+            pantalla.blit(linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + fd_linesize * 5])
+
+            # Texto por lineas y posicion en pantalla, (footer)
+            linea_footer = fuente_titulo.render('Click derecho para continuar', True, AMARILLO)
+            # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
+            ancho_linea_footer = linea_footer.get_rect().width
+            # Calculo del posicionamiento de linea_texto1
+            alineacion_izquierda = (LARGO - ancho_linea_footer -10)
+            # Presentacion del texto en pantalla
+            pantalla.blit(linea_footer, [alineacion_izquierda, ANCHO - 50])
+                        
             
         if pagina_de_instrucciones == 2:
             # Instrucciones de dibujo, página 2
