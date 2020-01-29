@@ -30,7 +30,7 @@ def main():
     # Titulo de la barra de la aplicacion
     pygame.display.set_caption('The Quest Juego pyGame')
 
-    # Fuente para el texto que aparecerá en pantalla (tamaño 30)
+    # Fuente para el texto que aparecerá en pantalla (tamaño 30 y 22)
     fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_TITULOS)
     fuente_descripciones = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_DESCRIPCIONES)
     
@@ -124,7 +124,7 @@ def main():
         for evento in pygame.event.get():  # El usuario hace algo
             if evento.type == pygame.QUIT:  # Si el usuario hace click en cerrar
                 salir = True
-        # Limpia la pantalla y establece su color de fondo
+        # Limpia la pantalla y coloca el fondo
         pantalla.blit(fondo_pantalla, (0, 0))
 
     # Para salir correctamente de la aplicacion y cierre todos los procesos
