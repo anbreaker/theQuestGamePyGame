@@ -116,7 +116,7 @@ def main():
 
         # Limitamos a 20 fotogramas por segundo.
         # reloj.tick(20)
-        # Avancemos y actualicemos la pantalla con lo que hemos dibujado.
+        # Actualizamos la pantalla con lo que hemos dibujado.
         pygame.display.flip()
 
     # Bucle Principal del Programa -----------
