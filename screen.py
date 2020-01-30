@@ -59,7 +59,7 @@ def main():
                     # Cambio del flag para dejar de mostarar pantallas de instrucciones
                     mostrar_instrucciones = False
 
-        # Limpia la pantalla y establece su color de fondo
+        # Limpia la pantalla y establece el fondo
         pantalla.blit(fondo_pantalla, (0, 0))
 
         if pagina_de_instrucciones == 1:

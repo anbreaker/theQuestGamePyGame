@@ -1,9 +1,8 @@
 import pygame
 from pygame.locals import *
+import sys
 
 # Variables de uso global
-LARGO = 700
-ANCHO = 500
 
 # Definimos algunos colores
 VERDE = (30, 186, 22)
@@ -14,13 +13,14 @@ AMARILLO = (216, 229, 24)
 # Fotogramas por segundo
 FPS = 60
 
+
 class Juego:
     clock = pygame.time.Clock()
     
-    def__init__(self,LARGO,ANCHO):
+    def __init__(self):
         # Inicialización de la superficie de dibujo (display surface)
         # Establecemos el largo y ancho de la pantalla.
-        self.dimensiones = [LARGO, ANCHO]
+        self.dimensiones = [700, 500]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
         
         # Titulo de la barra de la aplicacion
@@ -28,3 +28,34 @@ class Juego:
         
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/background.png').convert()
+
+    def game_over(self):
+        pygame.quit()
+        
+        
+    def manejar_eventos(self):
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                self.game_over()
+    
+    def main_loop(self):
+        while True:
+            tiempo_transcurrido = self.clock.tick(FPS)
+            
+            # Llamamos al broker de eventos
+            self.manejar_eventos()
+            
+            # Limpia la pantalla y establece el fondo
+            self.pantalla.blit(self.fondo_pantalla, (0,0))
+            
+            # Actualizamos la pantalla con lo dibujado.
+            pygame.display.flip()
+            
+
+if __name__ ==  '__main__':
+    pygame.init()
+    juego = Juego()
+    juego.main_loop()
+    
+    # https://plataforma.keepcoding.io/courses/714386/lectures/13745010
+    # MINUTO 2.29   
