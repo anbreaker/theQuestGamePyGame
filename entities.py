@@ -8,9 +8,10 @@ FPS = 60
 
 
 class Rocket(pygame.sprite.Sprite):
-    pict_rocket = 'ball.png'
+    pict_rocket = 'rocket.png'
     w_pict_rocket = 68
     h_pict_rocket = 40
+    velocidad = 10
 
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):
         self.x = x
@@ -27,4 +28,15 @@ class Rocket(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         
+    def subir(self):
+        self.rect.y = max(0, self.rect.y - self.velocidad)
+        print(f'Subir -> {self.rect.y}')
+        # if self.rect.y >= 0:
+            # self.rect.y = 0
+        
+    def bajar(self):    
+        print(f'Bajar -> {self.rect.y}')
+        self.rect.y = min(self.rect.y + self.velocidad, 460)
+        # if self.rect.y >= 0:
+            # self.rect.y = 0
 

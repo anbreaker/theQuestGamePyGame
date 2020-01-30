@@ -44,11 +44,27 @@ class Juego:
         
         
     def manejar_eventos(self):
+        # Manejador de eventos, un daemon o broker a la espera llamado desde bucle principal
         for evento in pygame.event.get():
+            # Se pulsa Salir
             if evento.type == pygame.QUIT:
                 self.game_over()
-            if evento.type == MOUSEBUTTONDOWN:
-                self.game_over()
+            
+            # Control de movimientos player
+            if evento.type == KEYDOWN:
+                if evento.key == K_UP:
+                    self.player.subir()
+                if evento.key == K_DOWN:
+                    self.player.bajar()
+                    
+        # Control de pulsacion de teclas sostenida
+        tecla_sostenida = pygame.key.get_pressed()
+        
+        if tecla_sostenida[K_UP]:
+            self.player.subir()
+        if tecla_sostenida[K_DOWN]:
+            self.player.bajar()
+                    
                 
     
     def main_loop(self):
@@ -77,4 +93,4 @@ if __name__ ==  '__main__':
     juego.main_loop()
     
     # https://plataforma.keepcoding.io/courses/714386/lectures/13745010
-    # MINUTO 2.45
+    # MINUTO 2.53
