@@ -1,6 +1,6 @@
 import pygame 
 from pygame.locals import *
-import sys
+import sys, os
 
 from entities import *
 
@@ -31,6 +31,8 @@ class Juego:
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/background.png').convert()
         
+        # Entidades del juego, jugadores, obstaculos, enemigos.......................
+        
         # Creamos la instancia del jugador
         self.player = Rocket()
         
@@ -38,16 +40,19 @@ class Juego:
         self.allSprintes = pygame.sprite.Group()
         # Agregamos al grupo al jugador
         self.allSprintes.add(self.player)
+        
 
     def game_over(self):
         pygame.quit()
+        # No Olvidar pasar 0 en sys.exit(0), sin el parametro -> "Exception has occurred: SystemExit"
+        sys.exit(0)
         
         
     def manejar_eventos(self):
         # Manejador de eventos, un daemon o broker a la espera llamado desde bucle principal
         for evento in pygame.event.get():
-            # Se pulsa Salir
-            if evento.type == pygame.QUIT:
+            # Sí, pulsa Salir
+            if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
                 self.game_over()
             
             # Control de movimientos player
@@ -93,4 +98,4 @@ if __name__ ==  '__main__':
     juego.main_loop()
     
     # https://plataforma.keepcoding.io/courses/714386/lectures/13745010
-    # MINUTO 2.53
+    # MINUTO 3.08
