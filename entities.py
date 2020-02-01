@@ -112,11 +112,11 @@ class Asteroides(pygame.sprite.Sprite):
                 
             self.image = self.frames[self.index]
         
-            self.rect.x += self.velocidad
-            if self.rect.x > 800:
-                self.rect.x = -160
+            self.rect.x -= self.velocidad
+            if self.rect.x == -120:
+                self.rect.x = 760                
                 # Incremetamos velociadd por cada llegada al final por ver...
-                self.velocidad += 1        
+                # self.velocidad += 1        
                 
     def crear_asteroides(self):
         self.asteroideGroup.empty()

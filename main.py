@@ -1,7 +1,7 @@
 import pygame 
 from pygame.locals import *
 import sys, os
-
+from random import choice, randint
 from entities import *
 
 # Variables de uso global
@@ -37,21 +37,26 @@ class Juego:
         # Creamos la instancia del jugador
         self.nave = Rocket()
         
-        # Creamos la instancia de los Asteroides
-        self.asteroides = Asteroides(128,128)
-        
         # Creacion de grupos de Sprite
         self.naveGroup = pygame.sprite.Group()
         self.asteroideGroup = pygame.sprite.Group()
         self.allSprites = pygame.sprite.Group()
-        
+                
         # Agregamos al grupo al jugador
         self.naveGroup.add(self.nave)
-        self.asteroideGroup.add(self.asteroides)
+        
+        # Llamo la funcion
+        self.crear_asteroides()
         
         self.allSprites.add(self.nave)
-        self.allSprites.add(self.asteroides)
         
+    def crear_asteroides(self):
+        # Creamos la instancia de los Asteroides
+        self.asteroides = []
+        for i in range(4):
+            self.asteroides.append(Asteroides(700, randint(0,372)))
+            self.asteroideGroup.add(self.asteroides[i])
+            self.allSprites.add(self.asteroides[i])
 
     def game_over(self):
         pygame.quit()
