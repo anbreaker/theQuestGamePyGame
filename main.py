@@ -3,6 +3,7 @@ from pygame.locals import *
 import sys, os
 from random import choice, randint
 from entities import *
+from rocket import *
 
 # Variables de uso global
 
