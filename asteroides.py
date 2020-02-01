@@ -80,13 +80,3 @@ class Asteroides(pygame.sprite.Sprite):
                 # Incremetamos velociadd por cada llegada al final por ver...
                 # self.velocidad += 1        
                 
-    def crear_asteroides(self):
-        self.asteroideGroup.empty()
-        self.allSprites.empty()
-        
-        for imagen in self.frames:
-            imagen = Asteroides(i*50,128)
-            self.asteroideGroup.add(imagen)
-        
-        self.allSprites.add(self.nave)
-        self.allSprites.add(self.asteroides)

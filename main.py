@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import sys, os
 from random import choice, randint
-from entities import *
+from asteroides import *
 from rocket import *
 
 # Variables de uso global
@@ -51,7 +51,11 @@ class Juego:
         
         self.allSprites.add(self.nave)
         
+        
+    # Preguntar como mierda poner esto en la clae asteroides!!!!!!!!    
     def crear_asteroides(self):
+        self.asteroideGroup.empty()
+        self.allSprites.empty()
         # Creamos la instancia de los Asteroides
         self.asteroides = []
         for i in range(4):
@@ -127,7 +131,3 @@ if __name__ ==  '__main__':
     pygame.init()
     juego = Juego()
     juego.main_loop()
-
-    
-    # https://plataforma.keepcoding.io/courses/714386/lectures/13745010
-    # MINUTO 3.08
