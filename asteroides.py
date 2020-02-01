@@ -1,4 +1,5 @@
 import pygame
+from random import choice, randint
 
 # Variables de uso global
 LARGO = 700
@@ -11,8 +12,8 @@ class Asteroides(pygame.sprite.Sprite):
 
     # Constructor de la clase
     def __init__(self,x,y):
-        self.w = 128
-        self.h = 128
+        self.w = 64
+        self.h = 64
         self.velocidad = 5        
 
         # Inicializamos el Sprite, (ver pygame.doc)
@@ -44,7 +45,7 @@ class Asteroides(pygame.sprite.Sprite):
         
     # Recortamos los asteroides y los guardamos en una lista
     def load_frames(self):
-        self.sprite_sheet = pygame.image.load('resources/images/asteroides.png').convert_alpha()
+        self.sprite_sheet = pygame.image.load('resources/images/asteroidesMitad.png').convert_alpha()
 
         for fila in range(8):
             y = fila * self.h
@@ -75,8 +76,9 @@ class Asteroides(pygame.sprite.Sprite):
             self.image = self.frames[self.index]
         
             self.rect.x -= self.velocidad
-            if self.rect.x == -120:
-                self.rect.x = 760                
+            
+            # if self.rect.x == 0:
+                # self.rect.x = 650
+                # self.rect.y = 100
                 # Incremetamos velociadd por cada llegada al final por ver...
                 # self.velocidad += 1        
-                

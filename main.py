@@ -4,6 +4,7 @@ import sys, os
 from random import choice, randint
 from asteroides import *
 from rocket import *
+import time
 
 # Variables de uso global
 
@@ -55,14 +56,15 @@ class Juego:
     # Preguntar como mierda poner esto en la clae asteroides!!!!!!!!    
     def crear_asteroides(self):
         self.asteroideGroup.empty()
-        self.allSprites.empty()
         # Creamos la instancia de los Asteroides
-        self.asteroides = []
-        for i in range(4):
-            self.asteroides.append(Asteroides(700, randint(0,372)))
-            self.asteroideGroup.add(self.asteroides[i])
-            self.allSprites.add(self.asteroides[i])
-
+        self.lista_asteroides = []
+        for i in range(randint(1,11)):
+            self.lista_asteroides.append(Asteroides(randint(700,1200), randint(0,372)))
+            
+        self.asteroideGroup.add(self.lista_asteroides) 
+        self.allSprites.add(self.lista_asteroides)
+            
+            
     def game_over(self):
         pygame.quit()
         # No Olvidar pasar 0 en sys.exit(0), sin el parametro -> "Exception has occurred: SystemExit"
@@ -93,6 +95,8 @@ class Juego:
 
 
     def render(self, dt):
+        # Limpia la pantalla y establece el fondo
+        self.pantalla.blit(self.fondo_pantalla, (0,0))
         # Actualizamos todos los sprite del grupo
         # Hacemos la llamada del metodo update de Sprite
         self.allSprites.update(dt)
@@ -100,32 +104,26 @@ class Juego:
         self.allSprites.draw(self.pantalla)
         
         # Pintar los asteroides
-        
+        self.asteroideGroup.update(dt)
 
         # Actualizamos la pantalla con lo dibujado.
-        # self.pantalla.flip()                
+        pygame.display.flip()               
     
     def main_loop(self):
+        contador = 0
         while True:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
             
             # Llamamos al broker de eventos
             self.manejar_eventos()
+
+            if contador == 500:
+                self.crear_asteroides()
+                contador = 0
+            contador += 1
             
-            # Limpia la pantalla y establece el fondo
-            self.pantalla.blit(self.fondo_pantalla, (0,0))
-            
-            # Actualizamos y pintamos los grupos de Sprite para mostrarlos en pantalla
-            self.allSprites.update(dt)
-            self.allSprites.draw(self.pantalla)
-            
-            # Funcion para pintar la pantalla
             self.render(dt)
-            
-            # Actualizamos la pantalla con lo dibujado.
-            pygame.display.flip()
-            
 
 if __name__ ==  '__main__':
     pygame.init()
