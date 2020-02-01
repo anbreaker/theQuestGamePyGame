@@ -45,3 +45,10 @@ class Rocket(pygame.sprite.Sprite):
         # if self.rect.y >= 0:
             # self.rect.y = 0
 
+class Asteroides(pygame.sprite.Sprite):
+    
+    
+    
+    # Constructor de la clase
+    def __init__(self):
+        pass
