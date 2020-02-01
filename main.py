@@ -29,17 +29,22 @@ class Juego:
         pygame.display.set_caption('The Quest Juego pyGame')
         
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
-        self.fondo_pantalla = pygame.image.load('resources/background.png').convert()
+        self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         
         # Entidades del juego, jugadores, obstaculos, enemigos.......................
         
         # Creamos la instancia del jugador
         self.player = Rocket()
         
+        # Creamos la instancia de los Asteroides
+        self.asteroides = Asteroides()
+        
+        
         # Creacion de grupo de Sprite
-        self.allSprintes = pygame.sprite.Group()
+        self.allSprites = pygame.sprite.Group()
         # Agregamos al grupo al jugador
-        self.allSprintes.add(self.player)
+        self.allSprites.add(self.player)
+        self.allSprites.add(self.asteroides)
         
 
     def game_over(self):
@@ -70,7 +75,22 @@ class Juego:
         if tecla_sostenida[K_DOWN]:
             self.player.bajar()
                     
-                
+
+
+    def render(self, dt):
+        self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+
+        # Actualizamos todos los sprite del grupo
+        # Hacemos la llamada del metodo update de Sprite
+        self.allSprites.update(dt)
+        # Pintamos los Sprite del grupo actualizados
+        self.allSprites.draw(self.pantalla)
+        
+        # Pintar los asteroides
+        
+
+        # Actualizamos la pantalla con lo dibujado.
+        # self.pantalla.flip()                
     
     def main_loop(self):
         while True:
@@ -84,9 +104,11 @@ class Juego:
             self.pantalla.blit(self.fondo_pantalla, (0,0))
             
             # Actualizamos y pintamos los grupos de Sprite para mostrarlos en pantalla
-            self.allSprintes.update(dt)
-            self.allSprintes.draw(self.pantalla)
+            self.allSprites.update(dt)
+            self.allSprites.draw(self.pantalla)
             
+            # Funcion para pintar la pantalla
+            self.render(dt)
             
             # Actualizamos la pantalla con lo dibujado.
             pygame.display.flip()
