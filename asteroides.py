@@ -43,7 +43,6 @@ class Asteroides(pygame.sprite.Sprite):
         self.tiempo_acutal = 0
 
     # Recortamos los asteroides y los guardamos en una lista
-
     def load_frames(self):
         self.sprite_sheet = pygame.image.load('resources/images/asteroidesMitad.png').convert_alpha()
 

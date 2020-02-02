@@ -61,12 +61,13 @@ class Juego:
         self.lista_asteroides = []
         for i in range(randint(1, 11)):
             # Creamos la instancia de Asteroides
-            self.asteroides = Asteroides(randint(700, 800), randint(0, 436))
+            self.asteroides = Asteroides(randint(636, 840), randint(0, 436))
             self.lista_asteroides.append(self.asteroides)
 
         self.asteroideGroup.add(self.lista_asteroides)
         self.allSprites.add(self.lista_asteroides)
         print(f'Numero Asteroides en pantalla -> {len(self.lista_asteroides)}')
+
 
     def game_over(self):
         pygame.quit()
@@ -98,14 +99,15 @@ class Juego:
     def render(self, dt):
         # Limpia la pantalla y establece el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
+
+        # Actualizar los asteroides
+        self.asteroideGroup.update(dt)
+
         # Actualizamos todos los sprite del grupo
         # Hacemos la llamada del metodo update de Sprite
         self.allSprites.update(dt)
-        # Pintamos los Sprite del grupo actualizados
+        # Pintamos todos los Sprite del grupo general actualizados
         self.allSprites.draw(self.pantalla)
-
-        # Pintar los asteroides
-        self.asteroideGroup.update(dt)
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
@@ -119,11 +121,14 @@ class Juego:
             # Llamamos al broker de eventos
             self.manejar_eventos()
 
-            if contador == 500:
+            if contador == 500:  #Tiempo con el que no me ralentiza el juego... Preguntar!!
                 self.crear_asteroides()
                 contador = 0
             contador += 1
+            
+            self.nave.test_colisiones(self.asteroideGroup)
 
+            # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
 
 

@@ -43,3 +43,9 @@ class Rocket(pygame.sprite.Sprite):
         # print(f'Bajar -> {self.rect.y}')
         # if self.rect.y >= 0:
         # self.rect.y = 0
+        
+    def test_colisiones(self, grupo_asteroides):
+        # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), no borra el grupo (False)
+        candidatos_a_colision = pygame.sprite.spritecollide(self, grupo_asteroides, False)
+        if len(candidatos_a_colision) > 0:
+            print(f'Colision-> {candidatos_a_colision}')
