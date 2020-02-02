@@ -11,14 +11,14 @@ FPS = 60
 class Asteroides(pygame.sprite.Sprite):
 
     # Constructor de la clase
-    def __init__(self,x,y):
+    def __init__(self, x, y):
         self.w = 64
         self.h = 64
-        self.velocidad = 5        
+        self.velocidad = 5
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
-        
+
         self.image = pygame.Surface((self.w, self.h), pygame.SRCALPHA, 32)
         # Inicializacion de la imagen de los asteroides (es un rectangulo)
         # Convertimos la imagen en un rectangulo con x,y,w,h, -> devuelve (0,0,68,40)
@@ -29,21 +29,21 @@ class Asteroides(pygame.sprite.Sprite):
         # Tamaño del "rectangulo" player, (ancho, alto)
         # self.w_pict_asteroides = self.rect.w
         # self.h_pict_asteroides = self.rect.h
-        
+
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
-        self.frames = [] # Lista con los asteroides
+        self.frames = []  # Lista con los asteroides
         self.index = 0
         self.num_imagenes = 0
         self.tiempo_animacion = FPS
-        
+
         self.load_frames()
-        
+
         # Cargamos la imagen
         self.tiempo_acutal = 0
-        
-        
+
     # Recortamos los asteroides y los guardamos en una lista
+
     def load_frames(self):
         self.sprite_sheet = pygame.image.load('resources/images/asteroidesMitad.png').convert_alpha()
 
@@ -53,32 +53,34 @@ class Asteroides(pygame.sprite.Sprite):
                 x = columna * self.w
 
                 image = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
-                image.blit(self.sprite_sheet, (0,0), (x, y, self.w, self.h))
+                image.blit(self.sprite_sheet, (0, 0), (x, y, self.w, self.h))
                 self.frames.append(image)
 
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
-            
+
+        # print(f'NumImagenes-> {self.num_imagenes}')
+
     # Sobreescribimos el metodo update para las animaciones
     def update(self, dt):
         # Para las animaciones utilizamos lo que nos devuelve el clock
         self.tiempo_acutal += dt
-        
+
         # Para acelerar o disminuir las animaciones.
         if self.tiempo_acutal > self.tiempo_animacion:
             # Actualizar tiempo para empezar a contar otro item
             self.tiempo_acutal = 0
             self.index += 1
-            
+
             if self.index >= self.num_imagenes:
                 self.index = 0
-                
+
             self.image = self.frames[self.index]
-        
+
             self.rect.x -= self.velocidad
-            
+
             # if self.rect.x == 0:
-                # self.rect.x = 650
-                # self.rect.y = 100
-                # Incremetamos velociadd por cada llegada al final por ver...
-                # self.velocidad += 1        
+            # self.rect.x = 650
+            # self.rect.y = 100
+            # Incremetamos velociadd por cada llegada al final por ver...
+            # self.velocidad += 1
