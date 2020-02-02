@@ -120,7 +120,7 @@ class Juego:
             
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0:
-                print(f'NumVidas es 0->{self.nave.vidas}')
+                print(f'NumVidas == 0 -> {self.nave.vidas}')
                 self.game_over()
 
             # Llamamos al broker de eventos
@@ -131,7 +131,9 @@ class Juego:
                 contador = 0
             contador += 1
             
-            self.nave.test_colisiones_rocket(self.asteroideGroup)
+            # No borra
+            # self.nave.test_colisiones_rocket(self.asteroideGroup)
+            # Borra al elemento colisionado (saca del grupo)
             self.nave.test_colisiones_asteroides(self.asteroideGroup)
 
             # Llamada a la funcion de repintado de pantalla.

@@ -45,8 +45,9 @@ class Rocket(pygame.sprite.Sprite):
         # if self.rect.y >= 0:
         # self.rect.y = 0
         
+        
     def test_colisiones_rocket(self, grupo_asteroides):
-        # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), no borra el grupo (False)
+        # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), no saca el item del grupo (False)
         candidatos_a_colision = pygame.sprite.spritecollide(self, grupo_asteroides, False)
         if len(candidatos_a_colision) > 0:
             print(f'Colision-> {candidatos_a_colision}')
@@ -54,8 +55,9 @@ class Rocket(pygame.sprite.Sprite):
             # self.vidas -= 1
             
     def test_colisiones_asteroides (self, grupo):
-        # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), borra al item del grupo (True)
+        # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), saca al item del grupo (True)
         candidatos_a_colision =pygame.sprite.spritecollide(self, grupo, True)
         if len(candidatos_a_colision) > 0:
-            print(f'NumVidas->{self.vidas}')
+            print(f'Vidas Totales->{self.vidas}')
             self.vidas -= 1
+            print(f'Numero Vidas quedan->{self.vidas}')
