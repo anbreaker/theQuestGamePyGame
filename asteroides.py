@@ -19,7 +19,7 @@ class Asteroides(pygame.sprite.Sprite):
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface((self.w, self.h), pygame.SRCALPHA, 32)
+        self.image = pygame.Surface((self.w, self.h), pygame.SRCALPHA, 32) 
         # Inicializacion de la imagen de los asteroides (es un rectangulo)
         # Convertimos la imagen en un rectangulo con x,y,w,h, -> devuelve (0,0,68,40)
         self.rect = self.image.get_rect()

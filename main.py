@@ -117,6 +117,11 @@ class Juego:
         while True:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
+            
+            # Control de salida de partida por desgaste de vidas
+            if self.nave.vidas == 0:
+                print(f'NumVidas es 0->{self.nave.vidas}')
+                self.game_over()
 
             # Llamamos al broker de eventos
             self.manejar_eventos()
@@ -126,7 +131,8 @@ class Juego:
                 contador = 0
             contador += 1
             
-            self.nave.test_colisiones(self.asteroideGroup)
+            self.nave.test_colisiones_rocket(self.asteroideGroup)
+            self.nave.test_colisiones_asteroides(self.asteroideGroup)
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
@@ -136,3 +142,6 @@ if __name__ == '__main__':
     pygame.init()
     juego = Juego()
     juego.main_loop()
+    
+    # link: "https://plataforma.keepcoding.io/courses/714386/lectures/13765431"
+    # min:  1.26
