@@ -21,6 +21,8 @@ FPS = 60
 
 class Juego:
     clock = pygame.time.Clock()
+    # Incializamos la puntuacion a 0
+    puntuacion = 50
 
     def __init__(self):
         # Inicialización de la superficie de dibujo (display surface)
@@ -28,12 +30,16 @@ class Juego:
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
-
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame')
-
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        # Inicializacion de las fuentes de texto
+        self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
+        # Render del texto de marcador_puntos (un surface del texto)
+        self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
+        # Render del texto de marcador_vidas (un surface del texto)
+        self.marcador_vidas = self.font.render('-', True, VERDE)
 
         # Entidades del juego, jugadores, obstaculos..., .......................
 
@@ -99,6 +105,16 @@ class Juego:
     def render(self, dt):
         # Limpia la pantalla y establece el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
+        
+        # Render del texto (un surface del texto)
+        self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
+        # Pintamos el marcador_puntos
+        self.pantalla.blit(self.marcador_puntos, (650,5))
+        
+        # Render del texto (un surface del texto)
+        self.marcador_vidas = self.font.render(str(self.puntuacion), True, VERDE)
+        # Pintamos el marcador_vidas
+        self.pantalla.blit(self.marcador_vidas, (15,5))
 
         # Actualizar los asteroides
         self.asteroideGroup.update(dt)
@@ -134,7 +150,10 @@ class Juego:
             # No borra
             # self.nave.test_colisiones_rocket(self.asteroideGroup)
             # Borra al elemento colisionado (saca del grupo)
-            self.nave.test_colisiones_asteroides(self.asteroideGroup)
+            puntos = self.nave.test_colisiones_asteroides(self.asteroideGroup)
+            if self.puntuacion > 0:
+                self.puntuacion -= puntos * 10
+                print(f'Puntuacon -> {self.puntuacion}')
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
@@ -146,4 +165,4 @@ if __name__ == '__main__':
     juego.main_loop()
     
     # link: "https://plataforma.keepcoding.io/courses/714386/lectures/13765431"
-    # min:  1.26
+    # min:  2.26
