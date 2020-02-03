@@ -59,7 +59,7 @@ class Rocket(pygame.sprite.Sprite):
         candidatos_a_colision =pygame.sprite.spritecollide(self, grupo, True)
         numero_candidatos = len(candidatos_a_colision)
         if numero_candidatos > 0:
-            print(f'Vidas Totales->{self.vidas}')
+            print(f'Vidas Totales-> {self.vidas}')
             self.vidas -= 1
-            print(f'Numero Vidas quedan->{self.vidas}')
+            print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos

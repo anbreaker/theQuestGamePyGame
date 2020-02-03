@@ -44,7 +44,7 @@ class Asteroides(pygame.sprite.Sprite):
 
     # Recortamos los asteroides y los guardamos en una lista
     def load_frames(self):
-        self.sprite_sheet = pygame.image.load('resources/images/asteroidesMitad.png').convert_alpha()
+        self.sprite_sheet = pygame.image.load('resources/images/asteroides_64.png').convert_alpha()
 
         for fila in range(8):
             y = fila * self.h
@@ -58,7 +58,6 @@ class Asteroides(pygame.sprite.Sprite):
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
 
-        # print(f'NumImagenes-> {self.num_imagenes}')
 
     # Sobreescribimos el metodo update para las animaciones
     def update(self, dt):
@@ -74,12 +73,12 @@ class Asteroides(pygame.sprite.Sprite):
             if self.index >= self.num_imagenes:
                 self.index = 0
 
+            
             self.image = self.frames[self.index]
 
-            self.rect.x -= self.velocidad
+            self.rect.x += self.velocidad
+            
+            if self.rect.x <= - self.w:
+                self.kill() # elimina la instancia de cualquier grupo 
+                del self # destruye la instancia del objeto de memoria (es decir borra la instancia del asteroide
 
-            # if self.rect.x == 0:
-            # self.rect.x = 650
-            # self.rect.y = 100
-            # Incremetamos velociadd por cada llegada al final por ver...
-            # self.velocidad += 1

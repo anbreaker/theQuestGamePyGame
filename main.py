@@ -48,31 +48,34 @@ class Juego:
 
         # Creacion de grupos de Sprite
         self.naveGroup = pygame.sprite.Group()
-        self.asteroideGroup = pygame.sprite.Group()
+        # Crear grupoAsteroides como pygame.sprite.Group()
+        self.grupo_asteroides = pygame.sprite.Group()
         self.allSprites = pygame.sprite.Group()
-
         # Agregamos al grupo al jugador
         self.naveGroup.add(self.nave)
 
-        # Llamo la funcion
-        self.crear_asteroides()
+        self.num_max_asteroides = 5
+        self.tiempo_creacion_ultimo_Objet = FPS * 40
+        self.tiempo_creacion_nuevo_Objet = FPS // 4
+        self.tiempo_acutal = 0
+
 
         self.allSprites.add(self.nave)
 
-    # Preguntar como mierda poner esto en la clae asteroides!!!!!!!!
 
-    def crear_asteroides(self):
-        # Vaciamos la lista de asteroides
-        self.asteroideGroup.empty()
-        self.lista_asteroides = []
-        for i in range(randint(1, 11)):
+    def crear_asteroides(self,dt):
+
+        self.tiempo_creacion_ultimo_Objet += dt
+        if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
             # Creamos la instancia de Asteroides
-            self.asteroides = Asteroides(randint(636, 840), randint(0, 436))
-            self.lista_asteroides.append(self.asteroides)
+            nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436))
+            
+            nuevo_asteroide.velocidad = (randint(-8, -2))
+            
+            self.grupo_asteroides.add(nuevo_asteroide)
+            self.tiempo_creacion_ultimo_Objet = 0
+        # print(f'Numero Asteroides en pantalla -> {len(nuevo_asteroide)}')
 
-        self.asteroideGroup.add(self.lista_asteroides)
-        self.allSprites.add(self.lista_asteroides)
-        print(f'Numero Asteroides en pantalla -> {len(self.lista_asteroides)}')
 
 
     def game_over(self):
@@ -117,12 +120,13 @@ class Juego:
         self.pantalla.blit(self.marcador_vidas, (15,5))
 
         # Actualizar los asteroides
-        self.asteroideGroup.update(dt)
+        self.grupo_asteroides.update(dt)
 
         # Actualizamos todos los sprite del grupo
         # Hacemos la llamada del metodo update de Sprite
         self.allSprites.update(dt)
         # Pintamos todos los Sprite del grupo general actualizados
+        self.grupo_asteroides.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
 
         # Actualizamos la pantalla con lo dibujado.
@@ -133,6 +137,7 @@ class Juego:
         while True:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
+            print('Valor de dt-> ', dt)
             
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0:
@@ -142,15 +147,22 @@ class Juego:
             # Llamamos al broker de eventos
             self.manejar_eventos()
 
-            if contador == 500:  #Tiempo con el que no me ralentiza el juego... Preguntar!!
-                self.crear_asteroides()
-                contador = 0
-            contador += 1
+            # if contador == 500:  #Tiempo con el que no me ralentiza el juego... Preguntar!!
+            #     self.crear_asteroides()
+            #     contador = 0
+            # contador += 1
+            
+            objetos_en_pantalla = len(self.grupo_asteroides)
+            if objetos_en_pantalla < self.num_max_asteroides:
+                self.crear_asteroides(dt)
+                print(f'Asteroides en pantalla-> {objetos_en_pantalla}')
+            
+            
             
             # No borra
-            # self.nave.test_colisiones_rocket(self.asteroideGroup)
+            # self.nave.test_colisiones_rocket(self.grupo_asteroides)
             # Borra al elemento colisionado (saca del grupo)
-            puntos = self.nave.test_colisiones_asteroides(self.asteroideGroup)
+            puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides)
             if self.puntuacion > 0:
                 self.puntuacion -= puntos * 10
                 print(f'Puntuacon -> {self.puntuacion}')
