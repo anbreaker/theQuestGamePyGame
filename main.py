@@ -68,9 +68,10 @@ class Juego:
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
             # Creamos la instancia de Asteroides
-            nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436))
+            dimesion_asteroide = randint(512,1024)
+            nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
             
-            nuevo_asteroide.velocidad = (randint(-8, -2))
+            nuevo_asteroide.velocidad = (randint(2, 8))
             
             self.grupo_asteroides.add(nuevo_asteroide)
             self.tiempo_creacion_ultimo_Objet = 0

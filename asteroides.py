@@ -11,9 +11,9 @@ FPS = 60
 class Asteroides(pygame.sprite.Sprite):
 
     # Constructor de la clase
-    def __init__(self, x, y):
-        self.w = 64
-        self.h = 64
+    def __init__(self, x, y,dimesion):
+        self.w = dimesion / 8
+        self.h = dimesion / 8
         self.velocidad = 5
 
         # Inicializamos el Sprite, (ver pygame.doc)
@@ -37,23 +37,25 @@ class Asteroides(pygame.sprite.Sprite):
         self.num_imagenes = 0
         self.tiempo_animacion = FPS
 
-        self.load_frames()
+        self.load_frames(dimesion)
 
         # Cargamos la imagen
         self.tiempo_acutal = 0
 
     # Recortamos los asteroides y los guardamos en una lista
-    def load_frames(self):
-        self.sprite_sheet = pygame.image.load('resources/images/asteroides_64.png').convert_alpha()
-
+    def load_frames(self,dimension):
+        self.sprite_sheet = pygame.transform.scale((pygame.image.load('resources/images/asteroides_128.png').convert_alpha()),(dimension,dimension))
+        
         for fila in range(8):
             y = fila * self.h
             for columna in range(8):
                 x = columna * self.w
 
-                image = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
-                image.blit(self.sprite_sheet, (0, 0), (x, y, self.w, self.h))
-                self.frames.append(image)
+                frame_asteroide = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
+                # frame_asteroide_reescalado = pygame.transform.scale((frame_asteroide),(dimension,dimension))
+                frame_asteroide.blit(self.sprite_sheet, (0, 0), (x, y, self.w, self.h))
+                
+                self.frames.append(frame_asteroide)
 
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
@@ -76,7 +78,7 @@ class Asteroides(pygame.sprite.Sprite):
             
             self.image = self.frames[self.index]
 
-            self.rect.x += self.velocidad
+            self.rect.x -= self.velocidad
             
             if self.rect.x <= - self.w:
                 self.kill() # elimina la instancia de cualquier grupo 
