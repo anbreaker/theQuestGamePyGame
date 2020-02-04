@@ -23,6 +23,8 @@ class Juego:
     clock = pygame.time.Clock()
     # Incializamos la puntuacion a 0
     puntuacion = 50
+    # Inicializamos el cronometro a 0
+    cronometro = 0
 
     def __init__(self):
         # Inicialización de la superficie de dibujo (display surface)
@@ -36,13 +38,15 @@ class Juego:
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         # Inicializacion de las fuentes de texto
         self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
+
         # Render del texto de marcador_puntos (un surface del texto)
         self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
         # Render del texto de marcador_vidas (un surface del texto)
         self.marcador_vidas = self.font.render('-', True, VERDE)
+        # Render del texto de marcador_cronometro (un surface del texto)
+        self.marcador_cronometro = self.font.render(str(self.cronometro), True, VERDE)
 
         # Entidades del juego, jugadores, obstaculos..., .......................
-
         # Creamos la instancia del jugador
         self.nave = Rocket()
 
@@ -54,30 +58,27 @@ class Juego:
         # Agregamos al grupo al jugador
         self.naveGroup.add(self.nave)
 
-        self.num_max_asteroides = 5
-        self.tiempo_creacion_ultimo_Objet = FPS * 40
+        self.num_max_asteroides = 7
+        self.tiempo_creacion_ultimo_Objet = FPS * 10
         self.tiempo_creacion_nuevo_Objet = FPS // 4
         self.tiempo_acutal = 0
 
-
         self.allSprites.add(self.nave)
 
-
-    def crear_asteroides(self,dt):
+    def crear_asteroides(self, dt):
 
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
+            # Generacion random de tamaños por asteroide.
+            dimesion_asteroide = randint(256, 1024)
             # Creamos la instancia de Asteroides
-            dimesion_asteroide = randint(512,1024)
             nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
-            
-            nuevo_asteroide.velocidad = (randint(2, 8))
-            
+            # Generamos velocidad random para cada nuevo objeto asteroide
+            nuevo_asteroide.velocidad = (randint(5, 15))
+            # Agregamos al grupo de asteroides
             self.grupo_asteroides.add(nuevo_asteroide)
+            # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
             self.tiempo_creacion_ultimo_Objet = 0
-        # print(f'Numero Asteroides en pantalla -> {len(nuevo_asteroide)}')
-
-
 
     def game_over(self):
         pygame.quit()
@@ -109,16 +110,21 @@ class Juego:
     def render(self, dt):
         # Limpia la pantalla y establece el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
-        
-        # Render del texto (un surface del texto)
+
+        # Render del texto marcador_puntos (un surface del texto)
         self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
         # Pintamos el marcador_puntos
-        self.pantalla.blit(self.marcador_puntos, (650,5))
-        
-        # Render del texto (un surface del texto)
+        self.pantalla.blit(self.marcador_puntos, (650, 5))
+
+        # Render del texto marcador_vidas (un surface del texto)
         self.marcador_vidas = self.font.render(str(self.puntuacion), True, VERDE)
         # Pintamos el marcador_vidas
         self.pantalla.blit(self.marcador_vidas, (15,5))
+        
+        # Render del texto marcador_vidas (un surface del texto)
+        self.marcador_cronometro = self.font.render(str(self.cronometro), True, AMARILLO)
+        # Pintamos el marcador_vidas
+        self.pantalla.blit(self.marcador_cronometro, (630,450))
 
         # Actualizar los asteroides
         self.grupo_asteroides.update(dt)
@@ -130,6 +136,13 @@ class Juego:
         self.grupo_asteroides.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
 
+        # print(f'Tiempo-> {pygame.time.get_ticks()//1000}')
+        segundos = (pygame.time.get_ticks() // 1000)
+        
+        if self.cronometro == segundos:
+            self.cronometro += 1
+            print(segundos)
+        
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
 
@@ -138,35 +151,27 @@ class Juego:
         while True:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
-            print('Valor de dt-> ', dt)
-            
+
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0:
-                print(f'NumVidas == 0 -> {self.nave.vidas}')
+                # print(f'NumVidas == 0 -> {self.nave.vidas}')
                 self.game_over()
 
             # Llamamos al broker de eventos
             self.manejar_eventos()
 
-            # if contador == 500:  #Tiempo con el que no me ralentiza el juego... Preguntar!!
-            #     self.crear_asteroides()
-            #     contador = 0
-            # contador += 1
-            
             objetos_en_pantalla = len(self.grupo_asteroides)
             if objetos_en_pantalla < self.num_max_asteroides:
                 self.crear_asteroides(dt)
-                print(f'Asteroides en pantalla-> {objetos_en_pantalla}')
-            
-            
-            
+                # print(f'Asteroides en pantalla-> {objetos_en_pantalla}')
+
             # No borra
             # self.nave.test_colisiones_rocket(self.grupo_asteroides)
             # Borra al elemento colisionado (saca del grupo)
             puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides)
             if self.puntuacion > 0:
                 self.puntuacion -= puntos * 10
-                print(f'Puntuacon -> {self.puntuacion}')
+                # print(f'Puntuacon -> {self.puntuacion}')
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
@@ -176,6 +181,6 @@ if __name__ == '__main__':
     pygame.init()
     juego = Juego()
     juego.main_loop()
-    
+
     # link: "https://plataforma.keepcoding.io/courses/714386/lectures/13765431"
     # min:  2.26
