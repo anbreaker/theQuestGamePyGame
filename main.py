@@ -66,7 +66,6 @@ class Juego:
         self.allSprites.add(self.nave)
 
     def crear_asteroides(self, dt):
-
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
             # Generacion random de tamaños por asteroide.
@@ -80,7 +79,7 @@ class Juego:
             # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
             self.tiempo_creacion_ultimo_Objet = 0
 
-    def game_over(self):
+    def salir_del_juego(self):
         pygame.quit()
         # No Olvidar pasar 0 en sys.exit(0), sin el parametro -> "Exception has occurred: SystemExit"
         sys.exit(0)
@@ -90,7 +89,7 @@ class Juego:
         for evento in pygame.event.get():
             # Sí, pulsa Salir
             if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
-                self.game_over()
+                self.salir_del_juego()
 
             # Control de movimientos nave
             if evento.type == KEYDOWN:
@@ -121,9 +120,9 @@ class Juego:
         # Pintamos el marcador_vidas
         self.pantalla.blit(self.marcador_vidas, (15,5))
         
-        # Render del texto marcador_vidas (un surface del texto)
+        # Render del texto marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(str(self.cronometro), True, AMARILLO)
-        # Pintamos el marcador_vidas
+        # Pintamos el marcador_cronometro
         self.pantalla.blit(self.marcador_cronometro, (630,450))
 
         # Actualizar los asteroides
@@ -157,7 +156,7 @@ class Juego:
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
-                self.game_over()
+                self.salir_del_juego()
 
             # Llamamos al broker de eventos
             self.manejar_eventos()
