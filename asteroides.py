@@ -12,6 +12,7 @@ class Asteroides(pygame.sprite.Sprite):
 
     # Constructor de la clase
     def __init__(self, x, y,dimesion):
+        # La dimension la paso al instanciar el objeto y la divido por el num de imagenes de la composicion.
         self.w = dimesion / 8
         self.h = dimesion / 8
         self.velocidad = 5
@@ -75,7 +76,6 @@ class Asteroides(pygame.sprite.Sprite):
             if self.index >= self.num_imagenes:
                 self.index = 0
 
-            
             self.image = self.frames[self.index]
 
             self.rect.x -= self.velocidad
@@ -83,4 +83,3 @@ class Asteroides(pygame.sprite.Sprite):
             if self.rect.x <= - self.w:
                 self.kill() # elimina la instancia de cualquier grupo 
                 del self # destruye la instancia del objeto de memoria (es decir borra la instancia del asteroide
-

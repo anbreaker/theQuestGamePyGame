@@ -22,9 +22,11 @@ FPS = 60
 class Juego:
     clock = pygame.time.Clock()
     # Incializamos la puntuacion a 0
-    puntuacion = 50
+    puntuacion = 0
     # Inicializamos el cronometro a 0
     cronometro = 0
+    # Numero nivel
+    nivel = 0
 
     def __init__(self):
         # Inicialización de la superficie de dibujo (display surface)
@@ -41,8 +43,8 @@ class Juego:
 
         # Render del texto de marcador_puntos (un surface del texto)
         self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
-        # Render del texto de marcador_vidas (un surface del texto)
-        self.marcador_vidas = self.font.render('-', True, VERDE)
+        # Render del texto de marcador_nivel (un surface del texto)
+        self.marcador_nivel = self.font.render('-', True, VERDE)
         # Render del texto de marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(str(self.cronometro), True, VERDE)
 
@@ -58,6 +60,7 @@ class Juego:
         # Agregamos al grupo al jugador
         self.naveGroup.add(self.nave)
 
+        self.num_asteroides_creados = 0
         self.num_max_asteroides = 7
         self.tiempo_creacion_ultimo_Objet = FPS * 10
         self.tiempo_creacion_nuevo_Objet = FPS // 4
@@ -68,6 +71,7 @@ class Juego:
     def crear_asteroides(self, dt):
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
+            
             # Generacion random de tamaños por asteroide.
             dimesion_asteroide = randint(256, 1024)
             # Creamos la instancia de Asteroides
@@ -115,10 +119,10 @@ class Juego:
         # Pintamos el marcador_puntos
         self.pantalla.blit(self.marcador_puntos, (490, 5))
 
-        # Render del texto marcador_vidas (un surface del texto)
-        self.marcador_vidas = self.font.render(f'{str(self.nave.vidas)} <3Vidas', True, VERDE)
-        # Pintamos el marcador_vidas
-        self.pantalla.blit(self.marcador_vidas, (15,5))
+        # Render del texto marcador_nivel (un surface del texto)
+        self.marcador_nivel = self.font.render(f'Nivel {str(self.nivel)}', True, VERDE)
+        # Pintamos el marcador_nivel
+        self.pantalla.blit(self.marcador_nivel, (15,5))
         
         # Render del texto marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
@@ -145,7 +149,22 @@ class Juego:
         self.segundos = (pygame.time.get_ticks() // 1000)
         if self.cronometro == self.segundos:
             self.cronometro += 1
-            print(self.segundos)
+            # print(f'{self.segundos}\'s')
+        self.subir_nivel()
+
+    def subir_nivel(self):
+        
+        if self.segundos % 10 == 0:
+            self.nivel += 1
+            print(f'Numero nivel-> {self.nivel}, {self.segundos}\'s')
+
+    def contador_puntos(self):
+        # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
+        # la voy a basar en la cantidad de tiempo en pantalla x el numero de asteroides creados.
+        
+        # self.puntuacion =
+        
+        pass
 
     def main_loop(self):
         contador = 0
