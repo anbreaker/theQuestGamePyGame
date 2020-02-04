@@ -18,6 +18,12 @@ AMARILLO = (216, 229, 24)
 # Fotogramas por segundo
 FPS = 60
 
+# Variables para el menu
+MOSTRAR_HISTORIA = 1
+COMO_JUGAR = 2
+INICIAR_JUEGO = 3
+SALIR = 0
+
 
 class Juego:
     clock = pygame.time.Clock()
@@ -29,6 +35,16 @@ class Juego:
     nivel = 0
 
     def __init__(self):
+        '''
+        # Inicio del menu del juego:
+        self.dic_menu = {MOSTRAR_HISTORIA: {'text': 'Mostrar historia del juego The Quest', 'key': K_1, 'method': self.mostar_historia},
+                         COMO_JUGAR: {'text': 'Como jugar a The Quest', 'key': K_2, 'method': self.como_jugar},
+                         INICIAR_JUEGO: {'text': 'Inicio partida', 'key': K_3, 'method': self.inicio_partida},
+                         SALIR: {'text': 'Salir', 'key': K_0, 'method': None}
+        }
+        '''
+        
+        
         # Inicialización de la superficie de dibujo (display surface)
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
