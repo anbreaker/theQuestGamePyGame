@@ -111,17 +111,17 @@ class Juego:
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
         # Render del texto marcador_puntos (un surface del texto)
-        self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
+        self.marcador_puntos = self.font.render(f'Puntuacion: {str(self.puntuacion)}', True, VERDE)
         # Pintamos el marcador_puntos
-        self.pantalla.blit(self.marcador_puntos, (650, 5))
+        self.pantalla.blit(self.marcador_puntos, (490, 5))
 
         # Render del texto marcador_vidas (un surface del texto)
-        self.marcador_vidas = self.font.render(str(self.puntuacion), True, VERDE)
+        self.marcador_vidas = self.font.render(f'{str(self.nave.vidas)} <3Vidas', True, VERDE)
         # Pintamos el marcador_vidas
         self.pantalla.blit(self.marcador_vidas, (15,5))
         
         # Render del texto marcador_cronometro (un surface del texto)
-        self.marcador_cronometro = self.font.render(str(self.cronometro), True, AMARILLO)
+        self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
         # Pintamos el marcador_cronometro
         self.pantalla.blit(self.marcador_cronometro, (630,450))
 
