@@ -135,16 +135,18 @@ class Juego:
         # Pintamos todos los Sprite del grupo general actualizados
         self.grupo_asteroides.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
-
-        # print(f'Tiempo-> {pygame.time.get_ticks()//1000}')
-        segundos = (pygame.time.get_ticks() // 1000)
         
-        if self.cronometro == segundos:
-            self.cronometro += 1
-            print(segundos)
+        self.temporizador()
         
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
+        
+    def temporizador(self):
+        # print(f'segundos-> {pygame.time.get_ticks()//1000}')
+        self.segundos = (pygame.time.get_ticks() // 1000)
+        if self.cronometro == self.segundos:
+            self.cronometro += 1
+            print(self.segundos)
 
     def main_loop(self):
         contador = 0
