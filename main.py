@@ -114,19 +114,14 @@ class Juego:
         # Limpia la pantalla y establece el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
-        # Render del texto marcador_puntos (un surface del texto)
+        # Render del textos marcadores puntos (un surface del texto)
         self.marcador_puntos = self.font.render(f'Puntuacion: {str(self.puntuacion)}', True, VERDE)
-        # Pintamos el marcador_puntos
-        self.pantalla.blit(self.marcador_puntos, (490, 5))
-
-        # Render del texto marcador_nivel (un surface del texto)
         self.marcador_nivel = self.font.render(f'Nivel {str(self.nivel)}', True, VERDE)
-        # Pintamos el marcador_nivel
-        self.pantalla.blit(self.marcador_nivel, (15,5))
-        
-        # Render del texto marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
-        # Pintamos el marcador_cronometro
+
+        # Pintamos marcadores
+        self.pantalla.blit(self.marcador_puntos, (490, 5))
+        self.pantalla.blit(self.marcador_nivel, (15,5))
         self.pantalla.blit(self.marcador_cronometro, (630,450))
 
         # Actualizar los asteroides
@@ -143,6 +138,9 @@ class Juego:
         
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
+        
+        # Agrego un delay
+        pygame.time.delay(10)
         
     def temporizador(self):
         # print(f'segundos-> {pygame.time.get_ticks()//1000}')
