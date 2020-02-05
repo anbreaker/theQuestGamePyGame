@@ -25,6 +25,13 @@ COMO_JUGAR = 2
 INICIAR_JUEGO = 3
 SALIR = 0
 
+opciones = [
+    ("Jugar", mostrar_historia),
+    ("Opciones", mostrar_opciones),
+    ("Creditos", creditos),
+    ("Salir", salir_del_programa)
+]
+
 
 class Juego:
     clock = pygame.time.Clock()
@@ -32,19 +39,10 @@ class Juego:
     puntuacion = 0
     # Inicializamos el cronometro a 0
     cronometro = 0
-    # Numero nivel
+    # Numero nivel -1, al entrar pasa a 0 y cada 10s +1
     nivel = -1
 
     def __init__(self):
-        '''
-        # Inicio del menu del juego:
-        self.dic_menu = {MOSTRAR_HISTORIA: {'text': 'Mostrar historia del juego The Quest', 'key': K_1, 'method': self.mostar_historia},
-                         COMO_JUGAR: {'text': 'Como jugar a The Quest', 'key': K_2, 'method': self.como_jugar},
-                         INICIAR_JUEGO: {'text': 'Inicio partida', 'key': K_3, 'method': self.inicio_partida},
-                         SALIR: {'text': 'Salir', 'key': K_0, 'method': None}
-        }
-        '''
-
 
         # Inicialización de la superficie de dibujo (display surface)
         self.display = pygame.display
@@ -161,13 +159,16 @@ class Juego:
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
         
+        # Agrego un delay
+        pygame.time.delay(10)
+        
     def temporizador(self):
         # print(f'segundos-> {pygame.time.get_ticks()//1000}')
         self.segundos = (pygame.time.get_ticks() // 1000)
         if self.cronometro == self.segundos:
             self.cronometro += 1
             # print(f'{self.segundos}\'s')
-            if self.segundos % 11 == 0:
+            if self.segundos % 10 == 0:
                 # Para incrementar la dificultad del juego utilizare esta variable
                 self.nivel += 1
 
