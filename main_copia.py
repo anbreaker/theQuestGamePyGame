@@ -15,6 +15,7 @@ VERDE = (30, 186, 22)
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
 AMARILLO = (216, 229, 24)
+NARANJA = (255, 124, 67)
 
 # Fotogramas por segundo
 FPS = 60
@@ -29,7 +30,7 @@ opciones = [
     ("Jugar", mostrar_historia),
     ("Opciones", mostrar_opciones),
     ("Creditos", creditos),
-    ("Salir", salir_del_programa)
+    ("Salir", salir_del_juego)
 ]
 
 
@@ -56,11 +57,9 @@ class Juego:
         # Inicializacion de las fuentes de texto
         self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
 
-        # Render del texto de marcador_puntos (un surface del texto)
+        # Render de textos de marcadores (un surface del texto)
         self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
-        # Render del texto de marcador_nivel (un surface del texto)
         self.marcador_nivel = self.font.render('-', True, VERDE)
-        # Render del texto de marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(str(self.cronometro), True, VERDE)
 
         # Entidades del juego, jugadores, obstaculos..., .......................
@@ -129,19 +128,14 @@ class Juego:
         # Limpia la pantalla y establece el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
-        # Render del texto marcador_puntos (un surface del texto)
+        # Render del textos marcadores puntos (un surface del texto)
         self.marcador_puntos = self.font.render(f'Puntuacion: {str(self.puntuacion)}', True, VERDE)
-        # Pintamos el marcador_puntos
-        self.pantalla.blit(self.marcador_puntos, (490, 5))
-
-        # Render del texto marcador_nivel (un surface del texto)
         self.marcador_nivel = self.font.render(f'Nivel {str(self.nivel)}', True, VERDE)
-        # Pintamos el marcador_nivel
-        self.pantalla.blit(self.marcador_nivel, (15,5))
-        
-        # Render del texto marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
-        # Pintamos el marcador_cronometro
+
+        # Pintamos marcadores
+        self.pantalla.blit(self.marcador_puntos, (490, 5))
+        self.pantalla.blit(self.marcador_nivel, (15,5))
         self.pantalla.blit(self.marcador_cronometro, (630,450))
 
         # Actualizar los asteroides
@@ -177,7 +171,6 @@ class Juego:
         # la voy a basar en la cantidad de tiempo en pantalla x el numero de asteroides creados.
         
         # self.puntuacion =
-        
         pass
 
     def main_loop(self):
@@ -210,7 +203,7 @@ class Juego:
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
 
-
+ 
 if __name__ == '__main__':
     pygame.init()
     juego = Juego()

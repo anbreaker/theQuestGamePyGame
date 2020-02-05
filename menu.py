@@ -48,8 +48,8 @@ class Menu():
         total = self.total
         indice = 0
         altura_de_opcion = 40
-        pos_texto_pantalla_x = 225
-        pos_texto_pantalla_y = 135
+        pos_texto_pantalla_x = 205
+        pos_texto_pantalla_y = 125
         
         for (titulo, funcion) in self.opciones:
             if indice == self.seleccionado:
@@ -64,37 +64,41 @@ class Menu():
 
 
 def mostrar_historia():
-    print (" Función que muestra un nuevo juego.")
+    print ('Función que muestra un nuevo juego.')
 
-def mostrar_opciones():
-    print (" Función que muestra otro menú de opciones.")
+def mostrar_como_jugar():
+    print ('Función que muestra otro menú de opciones.')
 
 def creditos():
-    print (" Función que muestra los creditos del programa.")
+    print ('Función que muestra los creditos del programa.')
 
-def salir_del_programa():
-    print (" Gracias por utilizar este programa.")
+def juego():
+    print ('Juego...')
+
+def salir_del_juego():
+    print ('Gracias por jugar a The Quest.')
     sys.exit(0)
 
 
 if __name__ == '__main__':
     
-    salir = False
+    salir_del_menu = False
     opciones = [
-        ("Jugar", mostrar_historia),
-        ("Opciones", mostrar_opciones),
-        ("Creditos", creditos),
-        ("Salir", salir_del_programa)
+        ('Mostrar Historia del juego', mostrar_historia),
+        ('Como jugar', mostrar_como_jugar),
+        ('Creditos', creditos),
+        ('Jugar a The Quest', juego),
+        ('Salir', salir_del_juego)
     ]
 
     pygame.font.init()
     pantalla = pygame.display.set_mode((700, 500))
-    fondo_pantalla = pygame.image.load("resources/images/background.png").convert()
+    fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
     # Titulo de la barra de la aplicacion
     pygame.display.set_caption('The Quest Juego pyGame')
     menu = Menu(opciones)
 
-    while not salir:
+    while not salir_del_menu:
 
         for evento in pygame.event.get():
             if evento.type == QUIT:
