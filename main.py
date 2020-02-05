@@ -41,11 +41,9 @@ class Juego:
         # Inicializacion de las fuentes de texto
         self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
 
-        # Render del texto de marcador_puntos (un surface del texto)
+        # Render de textos de marcadores (un surface del texto)
         self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
-        # Render del texto de marcador_nivel (un surface del texto)
         self.marcador_nivel = self.font.render('-', True, VERDE)
-        # Render del texto de marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(str(self.cronometro), True, VERDE)
 
         # Entidades del juego, jugadores, obstaculos..., .......................
