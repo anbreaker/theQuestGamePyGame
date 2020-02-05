@@ -150,13 +150,9 @@ class Juego:
         if self.cronometro == self.segundos:
             self.cronometro += 1
             # print(f'{self.segundos}\'s')
-        self.subir_nivel()
-
-    def subir_nivel(self):
-        
-        if self.segundos % 10 == 0:
-            self.nivel += 1
-            print(f'Numero nivel-> {self.nivel}, {self.segundos}\'s')
+            if self.segundos % 11 == 0:
+                # Para incrementar la dificultad del juego utilizare esta variable
+                self.nivel += 1
 
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
