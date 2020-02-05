@@ -17,11 +17,11 @@ class Menu():
     # Constructor de la clase Menu
     def __init__(self):
         self.opciones = [
-            ('Mostrar Historia del juego', mostrar_historia),
-            ('Como jugar', mostrar_como_jugar),
-            ('Jugar a The Quest', juego),
-            ('Acerca de:', acerca_de),
-            ('Salir', salir_del_juego)
+            ('· Mostrar Historia del juego', mostrar_historia),
+            ('· Como jugar', mostrar_como_jugar),
+            ('· Jugar a The Quest', juego),
+            ('· Acerca de:', acerca_de),
+            ('· Salir', salir_del_juego)
         ]
         self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
         self.seleccionado = 0
@@ -60,7 +60,7 @@ class Menu():
         total = self.total
         indice = 0
         altura_de_opcion = 40
-        pos_texto_pantalla_x = 205
+        pos_texto_pantalla_x = 105
         pos_texto_pantalla_y = 125
 
         for (titulo, funcion) in self.opciones:
@@ -77,25 +77,24 @@ class Menu():
 
 def mostrar_historia():
     print('Función que muestra un nuevo juego.')
-    juego = Juego()
-    juego.main_loop()
+
 
 def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
 
 def juego():
-    print('Juego...')
-    return 3
+    print('Inicio del Juego...')
+    # Instancia de Juego.
+    juego = Juego()
+    juego.main_loop()
 
 def acerca_de():
     print('Función que muestra acerca_de.')
-    return 4
 
 def salir_del_juego():
     print('Gracias por jugar a The Quest.')
     pygame.quit()
     sys.exit(0)
-    return 5
 
 
 if __name__ == '__main__':

@@ -151,7 +151,7 @@ class Juego:
         pygame.time.delay(10)
         
     def temporizador(self):
-        print(f'segundos-> {pygame.time.get_ticks()//1000}')
+        # print(f'segundos-> {pygame.time.get_ticks()//1000}')
         self.segundos = (pygame.time.get_ticks() // 1000)
         if self.cronometro == self.segundos:
             self.cronometro += 1
@@ -159,6 +159,7 @@ class Juego:
             if self.segundos % 10 == 0:
                 # Para incrementar la dificultad del juego utilizare esta variable
                 self.nivel += 1
+                print(self.nivel)
 
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
