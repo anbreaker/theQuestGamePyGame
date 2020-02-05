@@ -30,7 +30,6 @@ class Menu():
 
     def opcion_elegida(self):
         # Altera el valor de 'self.seleccionado' con las flechas up/down
-
         tecla_pulsada = pygame.key.get_pressed()
 
         if not self.mantiene_pulsado:
@@ -39,10 +38,9 @@ class Menu():
             elif tecla_pulsada[K_DOWN]:
                 self.seleccionado += 1
             elif tecla_pulsada[K_RETURN]:
-
-                # Invoca a la función asociada a la opción.
-                titulo, funcion = self.opciones[self.seleccionado]
-                print("Selecciona la opción '%s'." % (titulo))
+                # Llamamos a la función asociada a las opciones.
+                linea_menu, funcion = self.opciones[self.seleccionado]
+                print(f'Opción seleccionada del menu-> {linea_menu}')
                 funcion()
 
         # procura que el cursor esté entre las opciones permitidas
@@ -63,13 +61,13 @@ class Menu():
         pos_texto_pantalla_x = 105
         pos_texto_pantalla_y = 125
 
-        for (titulo, funcion) in self.opciones:
+        for (linea_menu, funcion) in self.opciones:
             if indice == self.seleccionado:
                 color = NARANJA
             else:
                 color = AMARILLO
 
-            texto_pantalla = self.font.render(titulo, 1, color)
+            texto_pantalla = self.font.render(linea_menu, 1, color)
             posicion_pantalla = (
                 pos_texto_pantalla_x, pos_texto_pantalla_y + altura_de_opcion * indice)
             indice += 1
@@ -77,7 +75,6 @@ class Menu():
 
 def mostrar_historia():
     print('Función que muestra un nuevo juego.')
-
 
 def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
