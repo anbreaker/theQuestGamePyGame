@@ -27,14 +27,19 @@ COMO_JUGAR = 2
 INICIAR_JUEGO = 3
 SALIR = 0
 
+# Eventos personalizados (por cada nuevo evento una bandera)
+SUMA_SEGUNDO = pygame.USEREVENT
+SUBIR_NIVEL = pygame.USEREVENT + 1
+
 class Juego:
     clock = pygame.time.Clock()
     # Incializamos la puntuacion a 0
     puntuacion = 0
     # Inicializamos el cronometro a 0
     cronometro = 0
-    # Numero nivel -1, al entrar pasa a 0 y cada 10s +1
-    nivel = -1
+    # Numero nivel / dificultad
+    nivel = 0
+    
 
     def __init__(self):
 
@@ -43,8 +48,14 @@ class Juego:
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
+
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame')
+        # Inserta evento personalizado en la cola de eventos
+        pygame.time.set_timer(SUMA_SEGUNDO, 1000)
+        # Utilizamos para capturar cada cuanto tiempo aumentamos el nivel
+        pygame.time.set_timer(SUBIR_NIVEL, 3000)
+        
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         # Inicializacion de las fuentes de texto
@@ -102,6 +113,12 @@ class Juego:
             # Sí, pulsa Salir
             if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
                 self.salir_del_juego()
+            if evento.type == SUMA_SEGUNDO:
+                self.cronometro += 1
+                print(f'Cronometro: {self.cronometro}')
+            if evento.type == SUBIR_NIVEL:
+                self.nivel += 1
+                    
 
             # Control de movimientos nave
             if evento.type == KEYDOWN:
@@ -142,25 +159,12 @@ class Juego:
         self.grupo_asteroides.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
         
-        self.temporizador()
-        
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
         
         # Agrego un delay
         pygame.time.delay(10)
         
-    def temporizador(self):        
-        self.segundos = (pygame.time.get_ticks() // 1000)
-        # print(f'segundos-> {pygame.time.get_ticks()//1000}')
-        # print('C:', self.cronometro, 'segundos:', self.segundos)-------No cumple Condicion...-----------------
-        if self.cronometro == self.segundos:
-            self.cronometro += 1
-            print(f'{self.segundos}\'s')
-            if self.segundos % 3 == 0:
-                # Para incrementar la dificultad del juego utilizare esta variable
-                self.nivel += 1
-                print(self.nivel)
 
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
