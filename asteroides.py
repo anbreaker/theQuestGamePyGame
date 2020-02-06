@@ -38,9 +38,9 @@ class Asteroides(pygame.sprite.Sprite):
         self.num_imagenes = 0
         self.tiempo_animacion = FPS
 
+        # Cargamos la imagen
         self.load_frames(dimesion)
 
-        # Cargamos la imagen
         self.tiempo_acutal = 0
 
     # Recortamos los asteroides y los guardamos en una lista
@@ -66,11 +66,12 @@ class Asteroides(pygame.sprite.Sprite):
     def update(self, dt):
         # Para las animaciones utilizamos lo que nos devuelve el clock
         self.tiempo_acutal += dt
-
+        # print(f'tiempo_acutal -> {self.tiempo_acutal}')
         # Para acelerar o disminuir las animaciones.
         if self.tiempo_acutal > self.tiempo_animacion:
             # Actualizar tiempo para empezar a contar otro item
             self.tiempo_acutal = 0
+            
             self.index += 1
 
             if self.index >= self.num_imagenes:

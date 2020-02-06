@@ -167,7 +167,7 @@ class Juego:
         if self.cronometro == self.segundos:
             self.cronometro += 1
             # print(f'{self.segundos}\'s')
-            if self.segundos % 11 == 0:
+            if self.segundos % 3 == 0:
                 # Para incrementar la dificultad del juego utilizare esta variable
                 self.nivel += 1
 

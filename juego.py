@@ -150,13 +150,14 @@ class Juego:
         # Agrego un delay
         pygame.time.delay(10)
         
-    def temporizador(self):
-        # print(f'segundos-> {pygame.time.get_ticks()//1000}')
+    def temporizador(self):        
         self.segundos = (pygame.time.get_ticks() // 1000)
+        # print(f'segundos-> {pygame.time.get_ticks()//1000}')
+        # print('C:', self.cronometro, 'segundos:', self.segundos)-------No cumple Condicion...-----------------
         if self.cronometro == self.segundos:
             self.cronometro += 1
-            # print(f'{self.segundos}\'s')
-            if self.segundos % 10 == 0:
+            print(f'{self.segundos}\'s')
+            if self.segundos % 3 == 0:
                 # Para incrementar la dificultad del juego utilizare esta variable
                 self.nivel += 1
                 print(self.nivel)
@@ -173,7 +174,6 @@ class Juego:
         while True:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
-
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
