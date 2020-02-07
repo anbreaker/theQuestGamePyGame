@@ -15,6 +15,7 @@ VERDE = (30, 186, 22)
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
 AMARILLO = (216, 229, 24)
+NARANJA = (255, 124, 67)
 
 # Fotogramas por segundo
 FPS = 60
@@ -25,6 +26,9 @@ COMO_JUGAR = 2
 INICIAR_JUEGO = 3
 SALIR = 0
 
+# Eventos personalizados (por cada nuevo evento una bandera)
+SUMA_SEGUNDO = pygame.USEREVENT
+SUBIR_NIVEL = pygame.USEREVENT + 1
 
 class Juego:
     clock = pygame.time.Clock()
@@ -32,42 +36,39 @@ class Juego:
     puntuacion = 0
     # Inicializamos el cronometro a 0
     cronometro = 0
-    # Numero nivel
-    nivel = -1
+    # Numero nivel / dificultad
+    nivel = 1
+    
 
     def __init__(self):
-        '''
-        # Inicio del menu del juego:
-        self.dic_menu = {MOSTRAR_HISTORIA: {'text': 'Mostrar historia del juego The Quest', 'key': K_1, 'method': self.mostar_historia},
-                         COMO_JUGAR: {'text': 'Como jugar a The Quest', 'key': K_2, 'method': self.como_jugar},
-                         INICIAR_JUEGO: {'text': 'Inicio partida', 'key': K_3, 'method': self.inicio_partida},
-                         SALIR: {'text': 'Salir', 'key': K_0, 'method': None}
-        }
-        '''
-
 
         # Inicialización de la superficie de dibujo (display surface)
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
+
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame')
+        # Inserta evento personalizado en la cola de eventos
+        pygame.time.set_timer(SUMA_SEGUNDO, 1000)
+        # Utilizamos para capturar cada cuanto tiempo aumentamos el nivel
+        pygame.time.set_timer(SUBIR_NIVEL, 3000)
+        
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         # Inicializacion de las fuentes de texto
         self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
 
-        # Render del texto de marcador_puntos (un surface del texto)
+        # Render de textos de marcadores (un surface del texto)
         self.marcador_puntos = self.font.render(str(self.puntuacion), True, VERDE)
-        # Render del texto de marcador_nivel (un surface del texto)
         self.marcador_nivel = self.font.render('-', True, VERDE)
-        # Render del texto de marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(str(self.cronometro), True, VERDE)
 
         # Entidades del juego, jugadores, obstaculos..., .......................
         # Creamos la instancia del jugador
         self.nave = Rocket()
+        # self.menu = Menu(opciones)
 
         # Creacion de grupos de Sprite
         self.naveGroup = pygame.sprite.Group()
@@ -78,7 +79,7 @@ class Juego:
         self.naveGroup.add(self.nave)
 
         self.num_asteroides_creados = 0
-        self.num_max_asteroides = 7
+        self.num_max_asteroides = 12
         self.tiempo_creacion_ultimo_Objet = FPS * 10
         self.tiempo_creacion_nuevo_Objet = FPS // 4
         self.tiempo_acutal = 0
@@ -89,16 +90,18 @@ class Juego:
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
             
-            # Generacion random de tamaños por asteroide.
-            dimesion_asteroide = randint(256, 1024)
-            # Creamos la instancia de Asteroides
-            nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
-            # Generamos velocidad random para cada nuevo objeto asteroide
-            nuevo_asteroide.velocidad = (randint(5, 15))
-            # Agregamos al grupo de asteroides
-            self.grupo_asteroides.add(nuevo_asteroide)
-            # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
-            self.tiempo_creacion_ultimo_Objet = 0
+            if self.nivel >= 1:
+                # Generacion random de tamaños por asteroide.
+                # dimesion_asteroide = randint(256, 1024)
+                dimesion_asteroide = randint(256, 1024)
+                # Creamos la instancia de Asteroides
+                nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
+                # Generamos velocidad random para cada nuevo objeto asteroide
+                nuevo_asteroide.velocidad = (randint(5, 15))
+                # Agregamos al grupo de asteroides
+                self.grupo_asteroides.add(nuevo_asteroide)
+                # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
+                self.tiempo_creacion_ultimo_Objet = 0
 
     def salir_del_juego(self):
         pygame.quit()
@@ -111,6 +114,11 @@ class Juego:
             # Sí, pulsa Salir
             if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
                 self.salir_del_juego()
+            if evento.type == SUMA_SEGUNDO:
+                self.cronometro += 1
+                print(f'Cronometro: {self.cronometro}')
+            if evento.type == SUBIR_NIVEL:
+                self.nivel += 1
 
             # Control de movimientos nave
             if evento.type == KEYDOWN:
@@ -131,19 +139,14 @@ class Juego:
         # Limpia la pantalla y establece el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
-        # Render del texto marcador_puntos (un surface del texto)
+        # Render del textos marcadores puntos (un surface del texto)
         self.marcador_puntos = self.font.render(f'Puntuacion: {str(self.puntuacion)}', True, VERDE)
-        # Pintamos el marcador_puntos
-        self.pantalla.blit(self.marcador_puntos, (490, 5))
-
-        # Render del texto marcador_nivel (un surface del texto)
         self.marcador_nivel = self.font.render(f'Nivel {str(self.nivel)}', True, VERDE)
-        # Pintamos el marcador_nivel
-        self.pantalla.blit(self.marcador_nivel, (15,5))
-        
-        # Render del texto marcador_cronometro (un surface del texto)
         self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
-        # Pintamos el marcador_cronometro
+
+        # Pintamos marcadores
+        self.pantalla.blit(self.marcador_puntos, (490, 5))
+        self.pantalla.blit(self.marcador_nivel, (15,5))
         self.pantalla.blit(self.marcador_cronometro, (630,450))
 
         # Actualizar los asteroides
@@ -156,27 +159,17 @@ class Juego:
         self.grupo_asteroides.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
         
-        self.temporizador()
-        
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
         
-    def temporizador(self):
-        # print(f'segundos-> {pygame.time.get_ticks()//1000}')
-        self.segundos = (pygame.time.get_ticks() // 1000)
-        if self.cronometro == self.segundos:
-            self.cronometro += 1
-            # print(f'{self.segundos}\'s')
-            if self.segundos % 3 == 0:
-                # Para incrementar la dificultad del juego utilizare esta variable
-                self.nivel += 1
+        # Agrego un delay
+        pygame.time.delay(10)
 
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
         # la voy a basar en la cantidad de tiempo en pantalla x el numero de asteroides creados.
         
         # self.puntuacion =
-        
         pass
 
     def main_loop(self):
@@ -184,7 +177,6 @@ class Juego:
         while True:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
-
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
@@ -209,9 +201,8 @@ class Juego:
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
 
-
+# Main de pruebas rapido
 if __name__ == '__main__':
     pygame.init()
     juego = Juego()
     juego.main_loop()
-

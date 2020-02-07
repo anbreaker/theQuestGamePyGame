@@ -5,7 +5,7 @@ import os
 from random import choice, randint
 from asteroides import *
 from rocket import *
-from juego import *
+from juego_niveles import *
 import time
 
 AMARILLO = (216, 229, 24)
