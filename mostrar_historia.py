@@ -89,6 +89,7 @@ class Historia():
         pygame.quit()
 
 
+# Main de pruebas rapido
 if __name__ == '__main__':
     # Inicialización de Pygame
     pygame.init()
