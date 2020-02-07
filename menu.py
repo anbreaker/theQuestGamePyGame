@@ -16,10 +16,16 @@ NARANJA = (255, 124, 67)
 class Menu():
     # Constructor de la clase Menu
     def __init__(self):
+        pygame.font.init()
+        self.pantalla = pygame.display.set_mode((700, 500))
+        self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        # Titulo de la barra de la aplicacion
+        pygame.display.set_caption('The Quest Juego pyGame')
+
         self.opciones = [
             ('· Mostrar Historia del juego', mostrar_historia),
             ('· Como jugar', mostrar_como_jugar),
-            ('· Jugar a The Quest', juego),
+            ('· Jugar a The Quest', iniciar_juego),
             ('· Acerca de:', acerca_de),
             ('· Salir', salir_del_juego)
         ]
@@ -73,20 +79,47 @@ class Menu():
             indice += 1
             pantalla.blit(texto_pantalla, posicion_pantalla)
 
+    def render_menu(self):
+
+        pantalla = pygame.display.set_mode((700, 500))
+        fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        # Titulo de la barra de la aplicacion
+        pygame.display.set_caption('The Quest Juego pyGame')
+
+    def main_loop_menu(self):
+        salir_del_menu = False
+        while not salir_del_menu:
+
+            for evento in pygame.event.get():
+                if evento.type == QUIT:
+                    salir = True
+
+            self.pantalla.blit(self.fondo_pantalla, (0, 0))
+            self.opcion_elegida()
+            self.mostrar_sms(self.pantalla)
+
+            pygame.display.flip()
+            pygame.time.delay(10)
+
+
 def mostrar_historia():
     print('Función que muestra un nuevo juego.')
+
 
 def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
 
-def juego():
+
+def iniciar_juego():
     print('Inicio del Juego...')
     # Instancia de Juego.
     juego = Juego()
     juego.main_loop()
 
+
 def acerca_de():
     print('Función que muestra acerca_de.')
+
 
 def salir_del_juego():
     print('Gracias por jugar a The Quest.')
@@ -95,26 +128,5 @@ def salir_del_juego():
 
 
 if __name__ == '__main__':
-
-    salir_del_menu = False
-
-    pygame.font.init()
-    pantalla = pygame.display.set_mode((700, 500))
-    fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
-    # Titulo de la barra de la aplicacion
-    pygame.display.set_caption('The Quest Juego pyGame')
-    
     menu = Menu()
-
-    while not salir_del_menu:
-
-        for evento in pygame.event.get():
-            if evento.type == QUIT:
-                salir = True
-
-        pantalla.blit(fondo_pantalla, (0, 0))
-        menu.opcion_elegida()
-        menu.mostrar_sms(pantalla)
-
-        pygame.display.flip()
-        pygame.time.delay(10)
+    menu.main_loop_menu()
