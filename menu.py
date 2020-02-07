@@ -6,7 +6,6 @@ from random import choice, randint
 from asteroides import *
 from rocket import *
 from juego import *
-from menu import *
 import time
 
 AMARILLO = (216, 229, 24)
@@ -33,6 +32,10 @@ class Menu():
         self.seleccionado = 0
         self.total = len(self.opciones)
         self.mantiene_pulsado = False
+        
+        # Instancia de Juego.
+        self.juego = Juego() 
+           
 
     def opcion_elegida(self):
         # Altera el valor de 'self.seleccionado' con las flechas up/down
@@ -110,10 +113,8 @@ def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
 
 
-def iniciar_juego():
+def iniciar_juego(juego):
     print('Inicio del Juego...')
-    # Instancia de Juego.
-    juego = Juego()
     juego.main_loop()
 
 
@@ -127,6 +128,6 @@ def salir_del_juego():
     sys.exit(0)
 
 
-if __name__ == '__main__':
-    menu = Menu()
-    menu.main_loop_menu()
+# if __name__ == '__main__':
+#     menu = Menu()
+#     menu.main_loop_menu()
