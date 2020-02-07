@@ -6,6 +6,7 @@ from random import choice, randint
 from asteroides import *
 from rocket import *
 from juego_niveles import *
+from mostrar_info import *
 import time
 
 AMARILLO = (216, 229, 24)
@@ -107,6 +108,9 @@ class Menu():
 
 def mostrar_historia():
     print('Función que muestra un nuevo juego.')
+    historia = Historia()
+    historia.mostrar_historia()
+    
 
 
 def mostrar_como_jugar():
