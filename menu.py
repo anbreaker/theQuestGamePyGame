@@ -130,6 +130,7 @@ def salir_del_juego():
     sys.exit(0)
 
 
+# Main de pruebas rapido
 # if __name__ == '__main__':
 #     menu = Menu()
 #     menu.main_loop_menu()

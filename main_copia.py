@@ -215,5 +215,3 @@ if __name__ == '__main__':
     juego = Juego()
     juego.main_loop()
 
-    # link: "https://plataforma.keepcoding.io/courses/714386/lectures/13765431"
-    # min:  2.26

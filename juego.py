@@ -79,7 +79,7 @@ class Juego:
         self.naveGroup.add(self.nave)
 
         self.num_asteroides_creados = 0
-        self.num_max_asteroides = 7
+        self.num_max_asteroides = 15
         self.tiempo_creacion_ultimo_Objet = FPS * 10
         self.tiempo_creacion_nuevo_Objet = FPS // 4
         self.tiempo_acutal = 0
@@ -200,3 +200,9 @@ class Juego:
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
+
+# Main de pruebas rapido
+if __name__ == '__main__':
+    pygame.init()
+    juego = Juego()
+    juego.main_loop()
