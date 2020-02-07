@@ -31,6 +31,9 @@ class Historia():
 
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame')
+        
+        # Limpia la pantalla y coloca el fondo
+        self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
         # Fuente para el texto que aparecerá en pantalla (tamaño 30 y 22)
         self.fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_TITULOS)
@@ -70,20 +73,19 @@ class Historia():
 
         # Limitamos a 20 fotogramas por segundo.
         # reloj.tick(20)
-        # Actualizamos la pantalla con lo que hemos dibujado.
-        pygame.display.flip()
 
+        # Actualizamos la pantalla con lo dibujado.
+        pygame.display.flip()                
+
+        self.main_loop_mostrar_info()
+    
+    def main_loop_mostrar_info(self):
         # Bucle Principal del Programa y condicion de salida del bucle
         self.salir = False
         while not self.salir:
             for evento in pygame.event.get():  # El usuario hace algo
                 if evento.type == pygame.QUIT:  # Si el usuario hace click en cerrar
                     self.salir = True
-                    
-        # Limpia la pantalla y coloca el fondo
-        self.pantalla.blit(self.fondo_pantalla, (0, 0))
-        # Actualizamos la pantalla con lo dibujado.
-        pygame.display.flip()                
 
         # Para salir correctamente de la aplicacion y cierre todos los procesos
         pygame.quit()

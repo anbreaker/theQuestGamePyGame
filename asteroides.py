@@ -81,6 +81,6 @@ class Asteroides(pygame.sprite.Sprite):
 
             self.rect.x -= self.velocidad
             
-            if self.rect.x <= - self.w:
-                self.kill() # elimina la instancia de cualquier grupo 
+            if self.rect.x <= - self.w: # Al salir del ancho de pantalla
+                self.kill() # Remueve la instancia de cualquier grupo (los saca del grupo)
                 del self # destruye la instancia del objeto de memoria (es decir borra la instancia del asteroide
