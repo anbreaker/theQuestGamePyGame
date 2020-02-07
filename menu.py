@@ -113,8 +113,10 @@ def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
 
 
-def iniciar_juego(juego):
+def iniciar_juego():
     print('Inicio del Juego...')
+    # Instancia de Juego.
+    juego = Juego() 
     juego.main_loop()
 
 
