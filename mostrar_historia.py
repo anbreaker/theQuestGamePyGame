@@ -24,7 +24,7 @@ class Historia():
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
-        self.pantalla = pygame.display.set_mode(self.dimensiones)
+        self.pantalla = pygame.display.set_mode((700,500))
 
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
@@ -38,17 +38,9 @@ class Historia():
         
         # Devuelve la altura en píxeles para distancia "ideal" entre líneas de texto con la fuente.
         self.fd_linesize = self.fuente_descripciones.get_linesize()
-        
-        # Iteramos hasta que el usuario haga click sobre el botón de salida.
-        # Condicion de salida del bucle principal
-        self.salir = False
 
         # Gestionamos como de rápido actualiza la pantalla
         self.reloj = pygame.time.Clock()
-
-        self.mostrar_instrucciones = True  # Bandera para condicion
-        self.pagina_de_instrucciones = 1   # Bandera
-
 
         # Introduccion al juego:
         # Texto por lineas y posicion en pantalla
@@ -81,14 +73,17 @@ class Historia():
         # Actualizamos la pantalla con lo que hemos dibujado.
         pygame.display.flip()
 
-        # Bucle Principal del Programa -----------
-        salir = False
-        while not salir:
+        # Bucle Principal del Programa y condicion de salida del bucle
+        self.salir = False
+        while not self.salir:
             for evento in pygame.event.get():  # El usuario hace algo
                 if evento.type == pygame.QUIT:  # Si el usuario hace click en cerrar
-                    salir = True
-            # Limpia la pantalla y coloca el fondo
-            self.pantalla.blit(self.fondo_pantalla, (0, 0))
+                    self.salir = True
+                    
+        # Limpia la pantalla y coloca el fondo
+        self.pantalla.blit(self.fondo_pantalla, (0, 0))
+        # Actualizamos la pantalla con lo dibujado.
+        pygame.display.flip()                
 
         # Para salir correctamente de la aplicacion y cierre todos los procesos
         pygame.quit()
