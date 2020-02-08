@@ -14,6 +14,7 @@ VERDE = (30, 186, 22)
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
 AMARILLO = (216, 229, 24)
+NARANJA = (245, 150, 34)
 
 # Fotogramas por segundo
 FPS = 60
@@ -68,9 +69,9 @@ class Historia():
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
-        # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
+        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
-        # Calculo del posicionamiento de linea_texto1
+        # Calculo del posicionamiento de ancho_linea_footer
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
@@ -107,9 +108,9 @@ class Historia():
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
-        # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
+        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
-        # Calculo del posicionamiento de linea_texto1
+        # Calculo del posicionamiento de ancho_linea_footer
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
@@ -124,31 +125,46 @@ class Historia():
         
     def acerca_de(self):
 
-        # Introduccion al juego:
-        # Texto por lineas y posicion en pantalla
-        self.linea_texto1 = self.fuente_titulo.render('Proyecto fin Bootcamp, Aprender a programar desde cero:', True, VERDE)
-        self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
-
-        self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba (↑) o abajo (↓) del teclado', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
+        # Texto por lineas y posicion en pantalla, (Titulo)
+        self.linea_titulo1 = self.fuente_titulo.render('Proyecto fin Bootcamp,', True, NARANJA)
+        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
+        self.ancho_linea_titulo1 = self.linea_titulo1.get_rect().width
+        # Calculo del posicionamiento de ancho_linea_footer
+        self.alineacion_centrada = (LARGO / 2 - (self.ancho_linea_titulo1 /2))
+        # Presentacion del texto en pantalla
+        self.pantalla.blit(self.linea_titulo1, [self.alineacion_centrada, 70])
         
-        self.linea_texto3 = self.fuente_descripciones.render('para desplazar la nave y esquivar asteroides!.', True, BLANCO)
-        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
-
-        self.linea_texto5 = self.fuente_descripciones.render('Aguanta todo lo posible, controla el tiempo y el nivel', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
         
-        self.linea_texto5 = self.fuente_descripciones.render('de dificultad con los marcadores.', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
-      
-        self.linea_texto5 = self.fuente_descripciones.render('Hazte con el control de la nave durante el tiempo necesario y aterriza!', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
+        # Texto por lineas y posicion en pantalla, (Titulo)
+        self.linea_titulo2 = self.fuente_titulo.render('Aprender a programar desde cero', True, NARANJA)
+        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
+        self.ancho_linea_titulo2 = self.linea_titulo2.get_rect().width
+        # Calculo del posicionamiento de ancho_linea_footer
+        self.alineacion_centrada = (LARGO / 2 - (self.ancho_linea_titulo2 /2))
+        # Presentacion del texto en pantalla
+        self.pantalla.blit(self.linea_titulo2, [self.alineacion_centrada, self.fd_linesize * 4])
+        
+        
+        self.linea_texto1 = self.fuente_descripciones.render('Autor del juego: Francisco Javier Antúnez Durán', True, BLANCO)
+        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
+        
+        self.linea_texto1 = self.fuente_descripciones.render('Tecnologia empleada, Python 3.7 libreria pyGame 1.9.3', True, BLANCO)
+        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
+       
+        self.linea_texto1 = self.fuente_descripciones.render('Fecha: 23-02-2020', True, BLANCO)
+        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
+
+        self.linea_texto1 = self.fuente_descripciones.render('Tutor del proyecto: Ramón Maldonado', True, BLANCO)
+        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
+
+
+
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
-        # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
+        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
-        # Calculo del posicionamiento de linea_texto1
+        # Calculo del posicionamiento de ancho_linea_footer
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
@@ -184,6 +200,6 @@ if __name__ == '__main__':
     pygame.init()
     historia = Historia()
     # historia.mostrar_historia()
-    historia.como_jugar()
+    historia.acerca_de()
     # menu = Menu()
     # menu.main_loop_menu()
