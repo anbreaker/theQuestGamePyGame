@@ -1,4 +1,5 @@
 import pygame
+from juego_niveles import *
 
 # Variables de uso global
 ANCHO = 500
@@ -83,6 +84,8 @@ class Historia():
         # Bucle Principal del Programa y condicion de salida del bucle
         self.salir = False
         while not self.salir:
+            juego = Juego()
+            juego.manejar_eventos()
             for evento in pygame.event.get():  # El usuario hace algo
                 if evento.type == pygame.QUIT:  # Si el usuario hace click en cerrar
                     self.salir = True
