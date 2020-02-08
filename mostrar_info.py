@@ -19,8 +19,9 @@ AMARILLO = (216, 229, 24)
 FPS = 60
 
 class Historia():
-    
-    def mostrar_historia(self):
+    # Constructor de la clase Menu
+    def __init__(self):
+        pygame.font.init()
         # Inicialización de la superficie de dibujo (display surface)
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
@@ -45,6 +46,8 @@ class Historia():
 
         # Gestionamos como de rápido actualiza la pantalla
         self.reloj = pygame.time.Clock()
+
+    def mostrar_historia(self):
 
         # Introduccion al juego:
         # Texto por lineas y posicion en pantalla
@@ -79,16 +82,51 @@ class Historia():
         pygame.display.flip()                
 
         self.main_loop_mostrar_info()
-    
+
+    def como_jugar(self):
+
+        # Introduccion al juego:
+        # Texto por lineas y posicion en pantalla
+        self.linea_texto1 = self.fuente_descripciones.render('Dinamica del juego, que hacer:', True, BLANCO)
+        self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
+
+        self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba y abajo del cursor del teclado', True, BLANCO)
+        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 2])
+        
+        self.linea_texto3 = self.fuente_descripciones.render('para desplazar la nave.', True, BLANCO)
+        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
+        
+        self.linea_texto4 = self.fuente_descripciones.render('con la vida humana para colonizarlo. Esquiva los obstaculos,', True, BLANCO)
+        self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
+
+        self.linea_texto5 = self.fuente_descripciones.render('hazte con el control de la nave y logra aterrizar!', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
+
+        # Texto por lineas y posicion en pantalla, (footer)
+        self.linea_footer = self.fuente_titulo.render('Texto pulsa "tecla" para volver atras', True, AMARILLO)
+        # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
+        self.ancho_linea_footer = self.linea_footer.get_rect().width
+        # Calculo del posicionamiento de linea_texto1
+        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
+        # Presentacion del texto en pantalla
+        self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
+
+        # Limitamos a 20 fotogramas por segundo.
+        # reloj.tick(20)
+
+        # Actualizamos la pantalla con lo dibujado.
+        pygame.display.flip()                
+
+        self.main_loop_mostrar_info()
+
     def main_loop_mostrar_info(self):
         # Bucle Principal del Programa y condicion de salida del bucle
-        self.salir = False
-        while not self.salir:
-            juego = Juego()
-            juego.manejar_eventos()
+        while True:
             for evento in pygame.event.get():  # El usuario hace algo
-                if evento.type == pygame.QUIT:  # Si el usuario hace click en cerrar
-                    self.salir = True
+                # Si el usuario hace click en cerrar
+                if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                    juego = Juego()
+                    juego.salir_del_juego()
 
         # Para salir correctamente de la aplicacion y cierre todos los procesos
         pygame.quit()
@@ -99,4 +137,7 @@ if __name__ == '__main__':
     # Inicialización de Pygame
     pygame.init()
     historia = Historia()
-    historia.mostrar_historia()
+    # historia.mostrar_historia()
+    historia.como_jugar()
+    # menu = Menu()
+    # menu.main_loop_menu(

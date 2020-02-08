@@ -91,12 +91,11 @@ class Menu():
         pygame.display.set_caption('The Quest Juego pyGame')
 
     def main_loop_menu(self):
-        salir_del_menu = False
-        while not salir_del_menu:
-
+        while True:
             for evento in pygame.event.get():
-                if evento.type == QUIT:
-                    salir = True
+                if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                    print(f'tecla-> {evento.key}')
+                    salir_del_juego()
 
             self.pantalla.blit(self.fondo_pantalla, (0, 0))
             self.opcion_elegida()
@@ -115,8 +114,9 @@ def mostrar_historia():
 
 def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
-
-
+    historia = Historia()
+    historia.como_jugar()
+    
 def iniciar_juego():
     print('Inicio del Juego...')
     # Instancia de Juego.
