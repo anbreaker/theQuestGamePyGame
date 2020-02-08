@@ -90,17 +90,20 @@ class Historia():
         self.linea_texto1 = self.fuente_descripciones.render('Dinamica del juego, que hacer:', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
-        self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba y abajo del cursor del teclado', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 2])
+        self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba (↑) o abajo (↓) del teclado', True, BLANCO)
+        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
         
-        self.linea_texto3 = self.fuente_descripciones.render('para desplazar la nave.', True, BLANCO)
-        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
-        
-        self.linea_texto4 = self.fuente_descripciones.render('con la vida humana para colonizarlo. Esquiva los obstaculos,', True, BLANCO)
-        self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
+        self.linea_texto3 = self.fuente_descripciones.render('para desplazar la nave y esquivar asteroides!.', True, BLANCO)
+        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
 
-        self.linea_texto5 = self.fuente_descripciones.render('hazte con el control de la nave y logra aterrizar!', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
+        self.linea_texto5 = self.fuente_descripciones.render('Aguanta todo lo posible, controla el tiempo y el nivel', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
+        
+        self.linea_texto5 = self.fuente_descripciones.render('de dificultad con los marcadores.', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
+      
+        self.linea_texto5 = self.fuente_descripciones.render('Hazte con el control de la nave durante el tiempo necesario y aterriza!', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Texto pulsa "tecla" para volver atras', True, AMARILLO)
@@ -140,4 +143,4 @@ if __name__ == '__main__':
     # historia.mostrar_historia()
     historia.como_jugar()
     # menu = Menu()
-    # menu.main_loop_menu(
+    # menu.main_loop_menu()
