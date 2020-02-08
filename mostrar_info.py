@@ -134,7 +134,6 @@ class Historia():
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_titulo1, [self.alineacion_centrada, 70])
         
-        
         # Texto por lineas y posicion en pantalla, (Titulo)
         self.linea_titulo2 = self.fuente_titulo.render('Aprender a programar desde cero', True, NARANJA)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -143,7 +142,6 @@ class Historia():
         self.alineacion_centrada = (LARGO / 2 - (self.ancho_linea_titulo2 /2))
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_titulo2, [self.alineacion_centrada, self.fd_linesize * 4])
-        
         
         self.linea_texto1 = self.fuente_descripciones.render('Autor del juego: Francisco Javier Antúnez Durán', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
@@ -157,9 +155,6 @@ class Historia():
         self.linea_texto1 = self.fuente_descripciones.render('Tutor del proyecto: Ramón Maldonado', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
 
-
-
-
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -168,9 +163,6 @@ class Historia():
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
-
-        # Limitamos a 20 fotogramas por segundo.
-        # reloj.tick(20)
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()                
