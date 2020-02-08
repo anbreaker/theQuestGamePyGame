@@ -114,7 +114,7 @@ class Juego:
                 self.salir_del_juego()
             if evento.type == SUMA_SEGUNDO:
                 self.cronometro += 1
-                print(f'Cronometro: {self.cronometro}')
+                # print(f'Cronometro: {self.cronometro}')
             if evento.type == SUBIR_NIVEL:
                 self.nivel += 1
                     

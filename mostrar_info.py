@@ -67,7 +67,7 @@ class Historia():
         self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
 
         # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_titulo.render('Click derecho para continuar', True, AMARILLO)
+        self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
         # Calculo del posicionamiento de linea_texto1
@@ -87,7 +87,7 @@ class Historia():
 
         # Introduccion al juego:
         # Texto por lineas y posicion en pantalla
-        self.linea_texto1 = self.fuente_descripciones.render('Dinamica del juego, que hacer:', True, BLANCO)
+        self.linea_texto1 = self.fuente_titulo.render('Dinamica del juego, que hacer:', True, VERDE)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
         self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba (↑) o abajo (↓) del teclado', True, BLANCO)
@@ -106,7 +106,46 @@ class Historia():
         self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
 
         # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_titulo.render('Texto pulsa "tecla" para volver atras', True, AMARILLO)
+        self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
+        # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
+        self.ancho_linea_footer = self.linea_footer.get_rect().width
+        # Calculo del posicionamiento de linea_texto1
+        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
+        # Presentacion del texto en pantalla
+        self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
+
+        # Limitamos a 20 fotogramas por segundo.
+        # reloj.tick(20)
+
+        # Actualizamos la pantalla con lo dibujado.
+        pygame.display.flip()                
+
+        self.main_loop_mostrar_info()
+        
+    def acerca_de(self):
+
+        # Introduccion al juego:
+        # Texto por lineas y posicion en pantalla
+        self.linea_texto1 = self.fuente_titulo.render('Proyecto fin Bootcamp, Aprender a programar desde cero:', True, VERDE)
+        self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
+
+        self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba (↑) o abajo (↓) del teclado', True, BLANCO)
+        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
+        
+        self.linea_texto3 = self.fuente_descripciones.render('para desplazar la nave y esquivar asteroides!.', True, BLANCO)
+        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
+
+        self.linea_texto5 = self.fuente_descripciones.render('Aguanta todo lo posible, controla el tiempo y el nivel', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
+        
+        self.linea_texto5 = self.fuente_descripciones.render('de dificultad con los marcadores.', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
+      
+        self.linea_texto5 = self.fuente_descripciones.render('Hazte con el control de la nave durante el tiempo necesario y aterriza!', True, BLANCO)
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
+
+        # Texto por lineas y posicion en pantalla, (footer)
+        self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para centrar el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
         # Calculo del posicionamiento de linea_texto1
@@ -127,9 +166,13 @@ class Historia():
         while True:
             for evento in pygame.event.get():  # El usuario hace algo
                 # Si el usuario hace click en cerrar
-                if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                if evento.type == pygame.QUIT:
                     juego = Juego()
                     juego.salir_del_juego()
+                if evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                    menu = Menu()
+                    menu.main_loop_menu()
+                    
 
         # Para salir correctamente de la aplicacion y cierre todos los procesos
         pygame.quit()

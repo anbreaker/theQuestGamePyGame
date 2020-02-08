@@ -2,12 +2,8 @@ import pygame
 from pygame.locals import *
 import sys
 import os
-from random import choice, randint
-from asteroides import *
-from rocket import *
-from juego_niveles import *
 from mostrar_info import *
-import time
+
 
 AMARILLO = (216, 229, 24)
 NARANJA = (255, 124, 67)
@@ -109,7 +105,6 @@ def mostrar_historia():
     print('Función que muestra un nuevo juego.')
     historia = Historia()
     historia.mostrar_historia()
-    
 
 
 def mostrar_como_jugar():
@@ -126,6 +121,8 @@ def iniciar_juego():
 
 def acerca_de():
     print('Función que muestra acerca_de.')
+    historia = Historia()
+    historia.acerca_de()
 
 
 def salir_del_juego():
@@ -135,6 +132,6 @@ def salir_del_juego():
 
 
 # Main de pruebas rapido
-# if __name__ == '__main__':
-#     menu = Menu()
-#     menu.main_loop_menu()
+if __name__ == '__main__':
+    menu = Menu()
+    menu.main_loop_menu()

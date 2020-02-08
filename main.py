@@ -3,7 +3,6 @@ from pygame.locals import *
 import sys
 import os
 from menu import *
-import time
 
 
 if __name__ == '__main__':
