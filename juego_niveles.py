@@ -52,7 +52,7 @@ class Juego:
         # Inserta evento personalizado en la cola de eventos
         pygame.time.set_timer(SUMA_SEGUNDO, 1000)
         # Utilizamos para capturar cada cuanto tiempo aumentamos el nivel
-        pygame.time.set_timer(SUBIR_NIVEL, 3000)
+        pygame.time.set_timer(SUBIR_NIVEL, 1000 * 3)
         
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
@@ -78,29 +78,38 @@ class Juego:
         self.naveGroup.add(self.nave)
 
         self.num_asteroides_creados = 0
-        self.num_max_asteroides = 12
+        self.num_max_asteroides = 5
         self.tiempo_creacion_ultimo_Objet = FPS * 10
         self.tiempo_creacion_nuevo_Objet = FPS // 4
-        self.tiempo_acutal = 0
+        # self.tiempo_actual = 0
 
         self.allSprites.add(self.nave)
+
+    def configurar_obstaculos(self, velocidad, dimesion_asteroide):
+        # Creamos la instancia de Asteroides
+        nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
+        # Generamos velocidad random para cada nuevo objeto asteroide
+        nuevo_asteroide.velocidad = velocidad
+        # Agregamos al grupo de asteroides
+        self.grupo_asteroides.add(nuevo_asteroide)
+        # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
+        self.tiempo_creacion_ultimo_Objet = 0
 
     def crear_asteroides(self, dt):
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
-            
-            if self.nivel >= 1:
-                # Generacion random de tamaños por asteroide.
-                # dimesion_asteroide = randint(256, 1024)
-                dimesion_asteroide = randint(256, 1024)
-                # Creamos la instancia de Asteroides
-                nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
-                # Generamos velocidad random para cada nuevo objeto asteroide
-                nuevo_asteroide.velocidad = (randint(5, 15))
-                # Agregamos al grupo de asteroides
-                self.grupo_asteroides.add(nuevo_asteroide)
-                # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
-                self.tiempo_creacion_ultimo_Objet = 0
+            if self.nivel >= 1 and self.nivel <= 5:
+                self.configurar_obstaculos(randint(10,15),randint(128, 512))
+            if self.nivel > 5 and self.nivel <= 10:
+                self.num_max_asteroides = 8
+                self.configurar_obstaculos(randint(8,12),randint(512, 768))
+            if self.nivel > 10 and self.nivel <= 15:
+                self.num_max_asteroides = 12
+                self.configurar_obstaculos(randint(6,8),randint(512, 768))
+            if self.nivel > 15:
+                self.num_max_asteroides = 12
+                self.configurar_obstaculos(randint(4,7),randint(512, 1024))
+                
 
     def salir_del_juego(self):
         pygame.quit()

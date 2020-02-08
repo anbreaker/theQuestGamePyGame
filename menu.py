@@ -90,7 +90,7 @@ class Menu():
         while True:
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
-                    print(f'tecla-> {evento.key}')
+                    # print(f'tecla-> {evento.key}')
                     salir_del_juego()
 
             self.pantalla.blit(self.fondo_pantalla, (0, 0))
