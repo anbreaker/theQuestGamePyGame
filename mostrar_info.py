@@ -1,6 +1,5 @@
 import pygame
 from juego_niveles import *
-from menu import *
 
 # Variables de uso global
 ANCHO = 500
