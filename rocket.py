@@ -2,6 +2,7 @@ import pygame
 
 # Variables de uso global
 ANCHO = 500
+FPS = 60
 
 
 class Rocket(pygame.sprite.Sprite):
@@ -17,6 +18,7 @@ class Rocket(pygame.sprite.Sprite):
         self.y = y
         # Tamaño animacion nave
         self.w = 80
+        self.h = 80
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
@@ -34,6 +36,17 @@ class Rocket(pygame.sprite.Sprite):
         
         # Sonidos para el rocket
         self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
+        
+        # Preparacion de los frames
+        # Alamacenamos los frames en una lista
+        self.frames = []
+        self.index = 0
+        self.num_imagenes = 0
+        self.tiempo_animacion = FPS // 4
+
+        # Cargamos la imagen
+        self.load_frames()
+        self.tiempo_acutal = 0
 
     def subir(self):
         # Utilizando la funcion (max/min) posicionamos limites del player
@@ -66,45 +79,37 @@ class Rocket(pygame.sprite.Sprite):
             # print(f'Vidas Totales-> {self.vidas}')
             self.sonido_vida_menos.play()            
             self.vidas -= 1
+            self.update(dt)
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos
 
-    # Recortamos los asteroides y los guardamos en una lista
     def load_frames(self):
-        self.sprite_sheet = pygame.transform.scale((pygame.image.load('resources/images/rocket_explosion.png').convert_alpha()),(dimension,dimension))
-        
-        for fila in range(8):
-            x = fila * self.w
+        sprite_sheet = pygame.image.load('resources/images/nave_explosion.png').convert_alpha()
 
-            frame_nave = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
-            # frame_asteroide_reescalado = pygame.transform.scale((frame_asteroide),(dimension,dimension))
-            frame_nave.blit(self.sprite_sheet, (0, 0), (x, y, self.w, self.h))
-            self.frames.append(frame_nave)
+        for fila in range(4):
+            y = fila * self.h
+            for columna in range(4):
+                x = columna * self.w
+                image = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
+                image.blit(sprite_sheet, (0,0), (x, y, self.w, self.h))
+                self.frames.append(image)
 
         self.num_imagenes = len(self.frames)
-        print(self.num_imagenes)
         self.image = self.frames[self.index]
-
-
+        
+        
     # Sobreescribimos el metodo update para las animaciones
     def update(self, dt):
         # Para las animaciones utilizamos lo que nos devuelve el clock
         self.tiempo_acutal += dt
-        # print(f'tiempo_acutal -> {self.tiempo_acutal}')
+        
         # Para acelerar o disminuir las animaciones.
         if self.tiempo_acutal > self.tiempo_animacion:
             # Actualizar tiempo para empezar a contar otro item
             self.tiempo_acutal = 0
-            
             self.index += 1
-
+            
             if self.index >= self.num_imagenes:
                 self.index = 0
-
+                
             self.image = self.frames[self.index]
-
-            self.rect.x -= self.velocidad
-            
-            if self.rect.x <= - self.w: # Al salir del ancho de pantalla
-                self.kill() # Remueve la instancia de cualquier grupo (los saca del grupo)
-                del self # destruye la instancia del objeto de memoria (es decir borra la instancia del asteroide

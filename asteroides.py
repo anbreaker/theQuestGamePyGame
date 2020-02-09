@@ -40,7 +40,6 @@ class Asteroides(pygame.sprite.Sprite):
 
         # Cargamos la imagen
         self.load_frames(dimesion)
-
         self.tiempo_acutal = 0
 
     # Recortamos los asteroides y los guardamos en una lista
