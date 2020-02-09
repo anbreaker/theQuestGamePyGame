@@ -206,6 +206,7 @@ class Juego:
             if self.nave.vidas == 0:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
                 self.salir_del_juego()
+                print('ver si funciona ->', self.nave.load_frames())
 
             # Llamamos al broker de eventos
             self.manejar_eventos()
