@@ -81,10 +81,11 @@ class Juego:
         self.num_max_asteroides = 5
         self.tiempo_creacion_ultimo_Objet = FPS * 10
         self.tiempo_creacion_nuevo_Objet = FPS // 4
-        # self.tiempo_actual = 0
+        self.tiempo_actual = 0
 
         self.allSprites.add(self.nave)
 
+    # Configuracion de los asteroides
     def configurar_obstaculos(self, velocidad, dimesion_asteroide):
         # Creamos la instancia de Asteroides
         nuevo_asteroide = Asteroides(randint(636, 840), randint(0, 436),dimesion_asteroide)
@@ -92,9 +93,12 @@ class Juego:
         nuevo_asteroide.velocidad = velocidad
         # Agregamos al grupo de asteroides
         self.grupo_asteroides.add(nuevo_asteroide)
+        # Contador num_asteroides_creados 
+        self.num_asteroides_creados += 1
         # Actualizamos la bandera de tiempo para volver a contar el tiempo para la creacion de objetos...
         self.tiempo_creacion_ultimo_Objet = 0
 
+    # Creacion de obstaculos, (asteroides), segun nivel de partida.
     def crear_asteroides(self, dt):
         self.tiempo_creacion_ultimo_Objet += dt
         if self.tiempo_creacion_ultimo_Objet >= self.tiempo_creacion_nuevo_Objet:
@@ -109,7 +113,19 @@ class Juego:
             if self.nivel > 15:
                 self.num_max_asteroides = 12
                 self.configurar_obstaculos(randint(4,7),randint(512, 1024))
-                
+            # Contar puntos partida
+            self.contador_puntos()
+
+    def contador_puntos(self):
+        # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
+        # la voy a basar en la cantidad de tiempo en pantalla + el numero de asteroides creados.
+        # El juego iniciara con 10 vidas para tratar de aterrizar, cada vida menos son 10 puntos
+        vidas_inicio_partida = 10
+        if vidas_inicio_partida < self.nave.vidas:
+            self.puntuacion = self.cronometro + self.num_asteroides_creados - (self.nave.vidas - vidas_inicio_partida) * 10
+        else:
+            self.puntuacion = self.cronometro + self.num_asteroides_creados
+        # print(self.puntuacion)
 
     def salir_del_juego(self):
         pygame.quit()
@@ -150,11 +166,13 @@ class Juego:
         # Render del textos marcadores puntos (un surface del texto)
         self.marcador_puntos = self.font.render(f'Puntuacion: {str(self.puntuacion)}', True, VERDE)
         self.marcador_nivel = self.font.render(f'Nivel {str(self.nivel)}', True, VERDE)
+        self.marcador_vidas = self.font.render(f'Vidas {str(self.nave.vidas)}', True, VERDE)
         self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
 
         # Pintamos marcadores
         self.pantalla.blit(self.marcador_puntos, (490, 5))
         self.pantalla.blit(self.marcador_nivel, (15,5))
+        self.pantalla.blit(self.marcador_vidas, (15, 450))
         self.pantalla.blit(self.marcador_cronometro, (630,450))
 
         # Actualizar los asteroides
@@ -172,13 +190,6 @@ class Juego:
         
         # Agrego un delay
         pygame.time.delay(10)
-
-    def contador_puntos(self):
-        # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
-        # la voy a basar en la cantidad de tiempo en pantalla x el numero de asteroides creados.
-        
-        # self.puntuacion =
-        pass
 
     def main_loop(self):
         contador = 0
