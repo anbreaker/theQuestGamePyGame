@@ -79,7 +79,10 @@ class Rocket(pygame.sprite.Sprite):
             # print(f'Vidas Totales-> {self.vidas}')
             self.sonido_vida_menos.play()            
             self.vidas -= 1
-            self.update(dt)
+
+            # Donde me gustaria llamar a update(dt).
+            # self.update(dt)
+
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos
 
