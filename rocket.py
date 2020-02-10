@@ -1,4 +1,6 @@
 import pygame
+import sys
+from ranking import *
 
 # Variables de uso global
 ANCHO = 500
@@ -81,8 +83,12 @@ class Rocket(pygame.sprite.Sprite):
             self.vidas -= 1
 
             # Donde me gustaria llamar a update(dt).
-        if self.vidas == 0:
+        if self.vidas == 9:
             self.update2(dt)
+            ranking = Ranking()
+            ranking.mostrar_ranking()
+            pygame.quit()
+            sys.exit(0)
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos
 

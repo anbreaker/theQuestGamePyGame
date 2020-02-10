@@ -1,6 +1,4 @@
 .vscode/
 venv/
 __pycache__/
-zprobando.py
-classScreen.py
-prueba1.py
+ranking.db
