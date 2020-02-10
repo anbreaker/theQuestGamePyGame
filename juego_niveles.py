@@ -48,10 +48,10 @@ class Juego:
         self.pantalla = pygame.display.set_mode(self.dimensiones)
         
         # Carga de archivo de audio
-        pygame.mixer.music.load('resources/music/FASTER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3')
+        # pygame.mixer.music.load('resources/music/FASTER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3')
         
         # Para reproducir, con parametro de repeticion.
-        pygame.mixer.music.play(5,0)
+        # pygame.mixer.music.play(5,0)
 
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame')
@@ -218,13 +218,17 @@ class Juego:
             # No borra
             # self.nave.test_colisiones_rocket(self.grupo_asteroides)
             # Borra al elemento colisionado (saca del grupo)
-            puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides)
+            puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt)
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
 
+
+
+'''
 # Main de pruebas rapido
 if __name__ == '__main__':
     pygame.init()
     juego = Juego()
     juego.main_loop()
+'''

@@ -1,5 +1,6 @@
 import pygame
 from juego_niveles import *
+from menu import *
 
 # Variables de uso global
 ANCHO = 500
@@ -171,21 +172,18 @@ class Historia():
 
     def main_loop_mostrar_info(self):
         # Bucle Principal del Programa y condicion de salida del bucle
-        while True:
+        salir_while = True
+        while salir_while:
             for evento in pygame.event.get():  # El usuario hace algo
                 # Si el usuario hace click en cerrar
                 if evento.type == pygame.QUIT:
                     juego = Juego()
                     juego.salir_del_juego()
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
-                    menu = Menu()
-                    menu.main_loop_menu()
-                    
-
-        # Para salir correctamente de la aplicacion y cierre todos los procesos
-        pygame.quit()
+                    salir_while = False
 
 
+'''
 # Main de pruebas rapido
 if __name__ == '__main__':
     # Inicialización de Pygame
@@ -195,3 +193,4 @@ if __name__ == '__main__':
     historia.acerca_de()
     # menu = Menu()
     # menu.main_loop_menu()
+'''

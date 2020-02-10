@@ -31,7 +31,7 @@ class Menu():
         self.mantiene_pulsado = False
         
         # Instancia de Juego.
-        self.juego = Juego() 
+       # self.juego = Juego() 
            
 
     def opcion_elegida(self):
@@ -74,8 +74,7 @@ class Menu():
                 color = AMARILLO
 
             texto_pantalla = self.font.render(linea_menu, 1, color)
-            posicion_pantalla = (
-                pos_texto_pantalla_x, pos_texto_pantalla_y + altura_de_opcion * indice)
+            posicion_pantalla = (pos_texto_pantalla_x, pos_texto_pantalla_y + altura_de_opcion * indice)
             indice += 1
             pantalla.blit(texto_pantalla, posicion_pantalla)
 
@@ -130,8 +129,9 @@ def salir_del_juego():
     pygame.quit()
     sys.exit(0)
 
-
+'''
 # Main de pruebas rapido
 if __name__ == '__main__':
     menu = Menu()
     menu.main_loop_menu()
+'''
