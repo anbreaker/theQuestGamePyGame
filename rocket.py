@@ -83,7 +83,7 @@ class Rocket(pygame.sprite.Sprite):
             self.vidas -= 1
 
             # Donde me gustaria llamar a update(dt).
-        if self.vidas == 0:
+        if self.vidas == 9:
             self.update2(dt)
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos
