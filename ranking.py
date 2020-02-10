@@ -12,7 +12,7 @@ class Ranking():
         c.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
     
     def data_entry(self,c,conn):
-        c.execute("INSERT INTO ranking (user, point) VALUES('probando',6)")
+        c.execute("INSERT INTO ranking (user, point) VALUES('SJA',650)")
         conn.commit()
         c.close()
         conn.close()
