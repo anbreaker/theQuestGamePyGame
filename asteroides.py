@@ -27,9 +27,6 @@ class Asteroides(pygame.sprite.Sprite):
         # Coordenadas de entrada para posicionamiento -> Pos(x,y)
         self.rect.x = x
         self.rect.y = y
-        # Tamaño del "rectangulo" player, (ancho, alto)
-        # self.w_pict_asteroides = self.rect.w
-        # self.h_pict_asteroides = self.rect.h
 
         # Preparacion de los frames
         # Alamacenamos los frames en una lista

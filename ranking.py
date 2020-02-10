@@ -4,7 +4,9 @@ import sqlite3
 
 class Ranking():
     # Constructor de la clase Menu
-         
+    # Para implementar las llamadas a la BBDD
+    # ranking = Ranking()
+    # ranking.mostrar_ranking()
     
     def create_table(self,c):
         c.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")

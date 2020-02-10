@@ -37,7 +37,7 @@ class Rocket(pygame.sprite.Sprite):
         self.h_pict_rocket = self.rect.h
         
         # Sonidos para el rocket
-        # self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
+        self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
         
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
@@ -79,16 +79,12 @@ class Rocket(pygame.sprite.Sprite):
         numero_candidatos = len(candidatos_a_colision)
         if numero_candidatos > 0:
             # print(f'Vidas Totales-> {self.vidas}')
-            # self.sonido_vida_menos.play()            
+            self.sonido_vida_menos.play()            
             self.vidas -= 1
 
             # Donde me gustaria llamar a update(dt).
-        if self.vidas == 9:
+        if self.vidas == 0:
             self.update2(dt)
-            ranking = Ranking()
-            ranking.mostrar_ranking()
-            pygame.quit()
-            sys.exit(0)
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos
 
