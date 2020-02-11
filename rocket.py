@@ -83,7 +83,8 @@ class Rocket(pygame.sprite.Sprite):
             self.vidas -= 1
 
             # Donde me gustaria llamar a update(dt).
-        if self.vidas == 9:
+        if self.vidas == 0:
+            # Llamada a metodo sobreescrito para animacin explosion..
             self.update2(dt)
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos

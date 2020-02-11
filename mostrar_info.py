@@ -172,15 +172,15 @@ class Historia():
 
     def main_loop_mostrar_info(self):
         # Bucle Principal del Programa y condicion de salida del bucle
-        salir_while = True
-        while salir_while:
+        dentro_while = True
+        while dentro_while:
             for evento in pygame.event.get():  # El usuario hace algo
                 # Si el usuario hace click en cerrar
                 if evento.type == pygame.QUIT:
                     juego = Juego()
                     juego.salir_del_juego()
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
-                    salir_while = False
+                    dentro_while = False
 
 
 '''

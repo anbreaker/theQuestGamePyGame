@@ -37,6 +37,9 @@ class Juego:
     cronometro = 0
     # Numero nivel / dificultad
     nivel = 1
+    # Condicion de salida bucle principal
+    dentro_while = True
+    
 
 
     def __init__(self):
@@ -142,8 +145,10 @@ class Juego:
         # Manejador de eventos, un daemon o broker a la espera llamado desde bucle principal
         for evento in pygame.event.get():
             # Sí, pulsa Salir
-            if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
+            if evento.type == pygame.QUIT:
                 self.salir_del_juego()
+            if evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                self.dentro_while = False
             if evento.type == SUMA_SEGUNDO:
                 self.cronometro += 1
                 # print(f'Cronometro: {self.cronometro}')
@@ -199,7 +204,7 @@ class Juego:
 
     def main_loop(self):
         contador = 0
-        while True:
+        while self.dentro_while:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
             # Control de salida de partida por desgaste de vidas
