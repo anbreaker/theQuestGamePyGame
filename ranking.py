@@ -14,13 +14,13 @@ NEGRO = (0, 0, 0)
 AMARILLO = (216, 229, 24)
 NARANJA = (245, 150, 34)
 
+
 class Ranking():
-    # Constructor de la clase Menu
     # Para implementar las llamadas a la BBDD
     # ranking = Ranking()
     # ranking.mostrar_ranking()
-
-
+    # Constructor de la clase Ranking
+    
     # Constructor de la clase Ranking
     def __init__(self):
         pygame.font.init()
@@ -48,8 +48,7 @@ class Ranking():
 
         # Gestionamos como de rápido actualiza la pantalla
         self.reloj = pygame.time.Clock()
-        
-    
+
     def mostrar_ranking(self):
         # Texto por lineas y posicion en pantalla
         self.linea_texto1 = self.fuente_descripciones.render('Ranking puntuaciones The Quest:', True, BLANCO)
@@ -83,11 +82,7 @@ class Ranking():
         pygame.display.flip()
         
         self.main_loop_ranking()
-
-
-
-
-
+        
     def main_loop_ranking(self):
         # Bucle Principal del Programa y condicion de salida del bucle
         dentro_while = True
@@ -98,9 +93,9 @@ class Ranking():
                     juego = Juego()
                     juego.salir_del_juego()
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
-                    dentro_while = False        
+                    dentro_while = False
 
-    '''
+'''
     1.- Control de errores
     Cuando hagáis accesos a la base de datos deberéis controlar el error en acceso 
     a datos (por ejemplo inserciones con clave duplicada) o bloqueo de la base de 
@@ -117,22 +112,21 @@ class Ranking():
     lblError.config(text='Errorn en acceso a base de datos: {}'.format(e)) 
     #algo así en tkinter siempre que lblError sea una label que muestra los errores o usando messagebox
     print('Error en acceso a base de datos: {}'.format(e))
-    #algo así en pygame. A no ser que queráis mostrarlo en la propia pantalla del juego    
+    #algo así en pygame. A no ser que queráis mostrarlo en la propia pantalla del juego
+'''
 
-    def create_table(self,c):
-        c.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
-    
-    def data_entry(self,c,conn):
-        c.execute("INSERT INTO ranking (user, point) VALUES('SJA',650)")
-        conn.commit()
-        c.close()
-        conn.close()
+def create_table(self,c):
+    c.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
 
-    def mostrar_ranking(self):
-        
-        conn = sqlite3.connect('ranking.db')
-        c = conn.cursor()
-        
-        self.create_table(c)
-        self.data_entry(c,conn)
-'''        
+def data_entry(self,c,conn):
+    c.execute("INSERT INTO ranking (user, point) VALUES('SJA',650)")
+    conn.commit()
+    c.close()
+    conn.close()
+
+def mostrar_ranking(self):
+    conn = sqlite3.connect('ranking.db')
+    c = conn.cursor()
+
+    self.create_table(c)
+    self.data_entry(c,conn)

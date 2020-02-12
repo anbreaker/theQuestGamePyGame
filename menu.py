@@ -105,7 +105,6 @@ def mostrar_historia():
     historia = Historia()
     historia.mostrar_historia()
 
-
 def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
     historia = Historia()
@@ -116,19 +115,17 @@ def iniciar_juego():
     # Instancia de Juego.
     juego = Juego() 
     juego.main_loop()
-    
+
 def ranking_juego():
     print('Muestra ranking del juego...')
     # Instancia de Juego.
     ranking = Ranking() 
     ranking.mostrar_ranking()
 
-
 def acerca_de():
     print('Función que muestra acerca_de.')
     historia = Historia()
     historia.acerca_de()
-
 
 def salir_del_juego():
     print('Gracias por jugar a The Quest.')
