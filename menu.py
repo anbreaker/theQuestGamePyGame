@@ -16,12 +16,13 @@ class Menu():
         self.pantalla = pygame.display.set_mode((700, 500))
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         # Titulo de la barra de la aplicacion
-        pygame.display.set_caption('The Quest Juego pyGame')
+        pygame.display.set_caption('The Quest Juego pyGame -Menu-')
 
         self.opciones = [
             ('· Mostrar Historia del juego', mostrar_historia),
             ('· Como jugar', mostrar_como_jugar),
             ('· Jugar a The Quest', iniciar_juego),
+            ('· Ranking Jugadores:', ranking_juego),
             ('· Acerca de:', acerca_de),
             ('· Salir', salir_del_juego)
         ]
@@ -89,7 +90,6 @@ class Menu():
         while True:
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
-                    print(f'tecla-> {evento.key}')
                     salir_del_juego()
 
             self.pantalla.blit(self.fondo_pantalla, (0, 0))
@@ -116,6 +116,12 @@ def iniciar_juego():
     # Instancia de Juego.
     juego = Juego() 
     juego.main_loop()
+    
+def ranking_juego():
+    print('Muestra ranking del juego...')
+    # Instancia de Juego.
+    ranking = Ranking() 
+    ranking.mostrar_ranking()
 
 
 def acerca_de():

@@ -34,7 +34,7 @@ class Historia():
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
 
         # Titulo de la barra de la aplicacion
-        pygame.display.set_caption('The Quest Juego pyGame')
+        pygame.display.set_caption('The Quest Juego pyGame -Información-')
         
         # Limpia la pantalla y coloca el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))

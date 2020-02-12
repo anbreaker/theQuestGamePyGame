@@ -57,7 +57,7 @@ class Juego:
         pygame.mixer.music.play(5,0)
 
         # Titulo de la barra de la aplicacion
-        pygame.display.set_caption('The Quest Juego pyGame')
+        pygame.display.set_caption('The Quest Juego pyGame -Jugando-')
         # Inserta evento personalizado en la cola de eventos
         pygame.time.set_timer(SUMA_SEGUNDO, 1000)
         # Utilizamos para capturar cada cuanto tiempo aumentamos el nivel
@@ -148,6 +148,9 @@ class Juego:
             if evento.type == pygame.QUIT:
                 self.salir_del_juego()
             if evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                # Para Musica
+                pygame.mixer.music.stop()
+                # Vuelta a Menu.
                 self.dentro_while = False
             if evento.type == SUMA_SEGUNDO:
                 self.cronometro += 1
