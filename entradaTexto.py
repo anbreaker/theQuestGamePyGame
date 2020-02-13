@@ -8,8 +8,13 @@ class Entrada():
 
     def __init__(self):
         pygame.font.init()
+        self.pantalla = pygame.display.set_mode((700, 500))
+        self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        # Titulo de la barra de la aplicacion
+        pygame.display.set_caption('The Quest Juego pyGame -Hall of Fame-')
+                
         self.caracteres = ['']
-        self.fuente = pygame.font.Font(None, 38)
+        self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
         self.distancia = 28
         self.pos_x = 300
         self.pos_y = 200
@@ -31,22 +36,24 @@ class Entrada():
                             self.caracteres[self.lineas] = self.caracteres[self.lineas][0:-1]
                             if self.max_caracteres > 0:
                                 self.max_caracteres -= 1
-                                print(f'Max_car -> {self.max_caracteres}')
+                                # print(f'Max_car -> {self.max_caracteres}')
                     else:
                         if self.max_caracteres < 3:
                             self.caracteres[self.lineas] = str(self.caracteres[self.lineas] + accion.unicode)
-                            print(f'Max_car -> {self.max_caracteres}')
+                            # print(f'Max_car -> {self.max_caracteres}')
                             self.max_caracteres += 1
 
     def mensaje(self, superficie):
-        superficie.fill((0, 0, 0))
+        # superficie.fill((0, 0, 0))
+        self.pantalla.blit(self.fondo_pantalla, (0, 0))
         for self.lineas in range(len(self.caracteres)):
-            nick = self.fuente.render(self.caracteres[self.lineas], True, VERDE)
+            nick = self.font.render(self.caracteres[self.lineas], True, VERDE)
             superficie.blit(nick, (self.pos_x, self.pos_y + self.distancia))
 
 
 def entrada_texto():
     pantalla = pygame.display.set_mode((700, 500))
+    fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
     pygame.display.set_caption('Escribir en pygame')
     salir = False
 
