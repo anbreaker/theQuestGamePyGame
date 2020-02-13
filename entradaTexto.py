@@ -14,16 +14,29 @@ class Entrada():
         self.pos_x = 300
         self.pos_y = 200
         self.max_caracteres = 0
+                        
     def teclas(self, evento):
-        
-        for accion in evento:
-            if accion.type == KEYDOWN:                
-                if accion.key == K_ESCAPE:
-                    sys.exit(0)
-                else:
-                    if self.max_caracteres < 3:
-                        self.caracteres[0] = str(self.caracteres[0] + accion.unicode)
-                        self.max_caracteres += 1
+            for accion in evento:
+                if accion.type == KEYDOWN:
+                    if accion.key == K_RETURN:
+                        self.caracteres.append('')
+                        self.lineas += 1
+                    elif accion.key == K_ESCAPE:
+                        sys.exit(0)
+                    elif accion.key == K_BACKSPACE:
+                        if self.caracteres[self.lineas] == '' and self.lineas > 0:
+                            self.caracteres = self.caracteres[0:-1]
+                            self.lineas -= 1
+                        else:
+                            self.caracteres[self.lineas] = self.caracteres[self.lineas][0:-1]
+                            if self.max_caracteres > 0:
+                                self.max_caracteres -= 1
+                                print(f'Max_car -> {self.max_caracteres}')
+                    else:
+                        if self.max_caracteres < 3:
+                            self.caracteres[self.lineas] = str(self.caracteres[self.lineas] + accion.unicode)
+                            print(f'Max_car -> {self.max_caracteres}')
+                            self.max_caracteres += 1
 
     def mensaje(self, superficie):
         superficie.fill((0, 0, 0))
