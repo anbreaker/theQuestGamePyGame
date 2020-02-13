@@ -79,7 +79,7 @@ class Rocket(pygame.sprite.Sprite):
         numero_candidatos = len(candidatos_a_colision)
         if numero_candidatos > 0:
             # print(f'Vidas Totales-> {self.vidas}')
-            self.sonido_vida_menos.play()            
+            # self.sonido_vida_menos.play()            
             self.vidas -= 1
 
             # Donde me gustaria llamar a update(dt).
