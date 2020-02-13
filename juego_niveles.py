@@ -54,7 +54,7 @@ class Juego:
         pygame.mixer.music.load('resources/music/FASTER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3')
         
         # Para reproducir, con parametro de repeticion.
-        pygame.mixer.music.play(5,0)
+        # pygame.mixer.music.play(5,0)
 
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame -Jugando-')
@@ -76,6 +76,7 @@ class Juego:
         # Entidades del juego, jugadores, obstaculos..., .......................
         # Creamos la instancia del jugador
         self.nave = Rocket()
+        self.planeta = Rocket()
         # self.menu = Menu(opciones)
 
         # Creacion de grupos de Sprite
@@ -136,6 +137,10 @@ class Juego:
             self.puntuacion = self.cronometro + self.num_asteroides_creados
         # print(self.puntuacion)
 
+    def aterriza_nave(self):
+        if self.cronometro == 15:
+            pass
+
     def salir_del_juego(self):
         pygame.quit()
         # No Olvidar pasar 0 en sys.exit(0), sin el parametro -> "Exception has occurred: SystemExit"
@@ -151,6 +156,8 @@ class Juego:
                 # Para Musica
                 pygame.mixer.music.stop()
                 # Vuelta a Menu.
+                # Para reproducir, con parametro de repeticion.
+                # pygame.mixer.music.play(5,0)
                 self.dentro_while = False
             if evento.type == SUMA_SEGUNDO:
                 self.cronometro += 1

@@ -17,6 +17,12 @@ class Menu():
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame -Menu-')
+        
+        # Carga de archivo de audio
+        pygame.mixer.music.load('resources/music/FASTER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3')
+        
+        # Para reproducir, con parametro de repeticion.
+        # pygame.mixer.music.play(5,0)
 
         self.opciones = [
             ('· Mostrar Historia del juego', mostrar_historia),
@@ -32,10 +38,10 @@ class Menu():
         self.mantiene_pulsado = False
         
         # Instancia de Juego.
-       # self.juego = Juego() 
+        # self.juego = Juego() 
            
 
-    def opcion_elegida(self):
+    def opcion_elegida(self):        
         # Altera el valor de 'self.seleccionado' con las flechas up/down
         tecla_pulsada = pygame.key.get_pressed()
 
@@ -80,7 +86,6 @@ class Menu():
             pantalla.blit(texto_pantalla, posicion_pantalla)
 
     def render_menu(self):
-
         pantalla = pygame.display.set_mode((700, 500))
         fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         # Titulo de la barra de la aplicacion
@@ -90,6 +95,8 @@ class Menu():
         while True:
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT or evento.type == KEYDOWN and evento.key == K_ESCAPE:
+                    # Para Musica
+                    pygame.mixer.music.stop()
                     salir_del_juego()
 
             self.pantalla.blit(self.fondo_pantalla, (0, 0))

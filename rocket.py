@@ -37,7 +37,7 @@ class Rocket(pygame.sprite.Sprite):
         self.h_pict_rocket = self.rect.h
         
         # Sonidos para el rocket
-        self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
+        # self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
         
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
