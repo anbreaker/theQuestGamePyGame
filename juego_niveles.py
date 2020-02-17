@@ -218,7 +218,7 @@ class Juego:
             # tiempo_transcurrido
             dt = self.clock.tick(FPS)
             # Control de salida de partida por desgaste de vidas
-            if self.nave.vidas == 0:
+            if self.nave.vidas == 0 and not self.nave.nave_explotando:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')                
                 self.salir_del_juego()
 
@@ -233,7 +233,8 @@ class Juego:
             # No borra
             # self.nave.test_colisiones_rocket(self.grupo_asteroides)
             # Borra al elemento colisionado (saca del grupo)
-            puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt)
+            if self.nave.nave_explotando == False:
+                puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt)
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)

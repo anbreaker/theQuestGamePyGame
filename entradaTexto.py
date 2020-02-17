@@ -19,7 +19,7 @@ class Entrada():
         self.pos_x = 300
         self.pos_y = 200
         self.max_caracteres = 0
-                        
+
     def teclas(self, evento):
             for accion in evento:
                 if accion.type == KEYDOWN:

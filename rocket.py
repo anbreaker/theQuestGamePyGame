@@ -19,14 +19,16 @@ class Rocket(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         # Tamaño animacion nave
-        self.w = 80
+        self.w = 100
         self.h = 80
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
 
+        self.nave_explotando = False
         # Inicializacion de la imagen del player (es un rectangulo)
-        self.image = pygame.image.load(f'resources/images/{self.pict_rocket}').convert_alpha()
+        self.image_nave = pygame.image.load(f'resources/images/{self.pict_rocket}').convert_alpha()
+        self.image = self.image_nave
         # Convertimos la imagen en un rectangulo con x,y,w,h, -> devuelve (0,0,68,40)
         self.rect = self.image.get_rect()
         # Coordenadas de entrada para posicionamiento -> Pos(x,y)
@@ -44,7 +46,7 @@ class Rocket(pygame.sprite.Sprite):
         self.frames = []
         self.index = 0
         self.num_imagenes = 0
-        self.tiempo_animacion = FPS // 4
+        self.tiempo_animacion = FPS * 2
 
         # Cargamos la imagen
         self.load_frames()
@@ -79,13 +81,14 @@ class Rocket(pygame.sprite.Sprite):
         numero_candidatos = len(candidatos_a_colision)
         if numero_candidatos > 0:
             # print(f'Vidas Totales-> {self.vidas}')
-            # self.sonido_vida_menos.play()            
+            # self.sonido_vida_menos.play()
             self.vidas -= 1
 
             # Donde me gustaria llamar a update(dt).
-        if self.vidas == 0:
-            # Llamada a metodo sobreescrito para animacin explosion..
-            self.update2(dt)
+        if self.vidas == 8:
+            # Llamada a metodo sobreescrito para animacin explosion.
+            self.update(dt)
+            self.nave_explotando = True
             # print(f'Numero Vidas quedan-> {self.vidas}')
         return numero_candidatos
 
@@ -105,17 +108,21 @@ class Rocket(pygame.sprite.Sprite):
 
 
     # Sobreescribimos el metodo update para las animaciones
-    def update2(self, dt):
-        # Para las animaciones utilizamos lo que nos devuelve el clock
-        self.tiempo_acutal += dt
-        
-        # Para acelerar o disminuir las animaciones.
-        if self.tiempo_acutal > self.tiempo_animacion:
-            # Actualizar tiempo para empezar a contar otro item
-            self.tiempo_acutal = 0
-            self.index += 1
+    def update(self, dt):
+        if self.nave_explotando:
+            # Para las animaciones utilizamos lo que nos devuelve el clock
+            self.tiempo_acutal += dt
             
-            if self.index >= self.num_imagenes:
-                self.index = 0
+            # Para acelerar o disminuir las animaciones.
+            if self.tiempo_acutal > self.tiempo_animacion:
+                # Actualizar tiempo para empezar a contar otro item
+                self.tiempo_acutal = 0
+                self.index += 1
                 
-            self.image = self.frames[self.index]
+                if self.index >= self.num_imagenes:
+                    self.index -= 1
+                    self.nave_explotando = False
+                    
+                self.image = self.frames[self.index]
+        else:
+            self.image = self.image_nave
