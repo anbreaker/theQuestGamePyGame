@@ -50,7 +50,7 @@ class Ranking():
         # Gestionamos como de rápido actualiza la pantalla
         self.reloj = pygame.time.Clock()
 
-    def mostrar_ranking_textos_pantalla(self, puntos):
+    def mostrar_ranking_textos_pantalla(self):
         # Texto por lineas y posicion en pantalla
         self.linea_texto1 = self.fuente_descripciones.render('Ranking puntuaciones The Quest:', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
@@ -91,8 +91,8 @@ class Ranking():
             for evento in pygame.event.get():  # El usuario hace algo
                 # Si el usuario hace click en cerrar
                 if evento.type == pygame.QUIT:
-                    juego = Juego()
-                    juego.salir_del_juego()
+                    pygame.quit()
+                    sys.exit(0)
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
                     dentro_while = False
 

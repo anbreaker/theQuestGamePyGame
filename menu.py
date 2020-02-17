@@ -127,7 +127,7 @@ def ranking_juego():
     print('Muestra ranking del juego...')
     # Instancia de Juego.
     ranking = Ranking() 
-    ranking.mostrar_ranking()
+    ranking.mostrar_ranking_textos_pantalla()
 
 def acerca_de():
     print('Función que muestra acerca_de.')
