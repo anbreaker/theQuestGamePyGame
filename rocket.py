@@ -12,7 +12,7 @@ class Rocket(pygame.sprite.Sprite):
     w_pict_rocket = 68
     h_pict_rocket = 40
     velocidad = 10
-    vidas = 10
+    vidas = 1
 
     # Constructor de la clase
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):
@@ -75,7 +75,7 @@ class Rocket(pygame.sprite.Sprite):
             # print(f'NumVidas->{self.vidas}')
             # self.vidas -= 1
 
-    def test_colisiones_asteroides(self, grupo, dt):
+    def test_colisiones_asteroides(self, grupo, dt, puntos):
         # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), saca al item del grupo (True)
         candidatos_a_colision = pygame.sprite.spritecollide(self, grupo, True)
         numero_candidatos = len(candidatos_a_colision)
@@ -84,12 +84,13 @@ class Rocket(pygame.sprite.Sprite):
             # self.sonido_vida_menos.play()
             self.vidas -= 1
 
-            # Donde me gustaria llamar a update(dt).
-        if self.vidas == 8:
+        if self.vidas == 0:
             # Llamada a metodo sobreescrito para animacin explosion.
             self.update(dt)
             self.nave_explotando = True
             # print(f'Numero Vidas quedan-> {self.vidas}')
+            ranking = Ranking()
+            ranking.mostrar_ranking(puntos)
         return numero_candidatos
 
     def load_frames(self):

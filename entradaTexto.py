@@ -3,6 +3,7 @@ from pygame.locals import *
 import sys
 
 VERDE = (30, 186, 22)
+salir = False
 
 class Entrada():
 
@@ -32,6 +33,7 @@ class Entrada():
                         if self.caracteres[self.lineas] == '' and self.lineas > 0:
                             self.caracteres = self.caracteres[0:-1]
                             self.lineas -= 1
+
                         else:
                             self.caracteres[self.lineas] = self.caracteres[self.lineas][0:-1]
                             if self.max_caracteres > 0:
@@ -42,6 +44,10 @@ class Entrada():
                             self.caracteres[self.lineas] = str(self.caracteres[self.lineas] + accion.unicode)
                             # print(f'Max_car -> {self.max_caracteres}')
                             self.max_caracteres += 1
+                        if accion.type == KEYDOWN and accion.key == K_SPACE and self.max_caracteres == 3:
+                            return self.caracteres
+                            salir = False
+                        
 
     def mensaje(self, superficie):
         # superficie.fill((0, 0, 0))
@@ -51,25 +57,26 @@ class Entrada():
             superficie.blit(nick, (self.pos_x, self.pos_y + self.distancia))
 
 
-def entrada_texto():
-    pantalla = pygame.display.set_mode((700, 500))
-    fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
-    pygame.display.set_caption('Escribir en pygame')
-    salir = False
+    def entrada_texto(self):
+        pantalla = pygame.display.set_mode((700, 500))
+        fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        pygame.display.set_caption('Escribir en pygame')
+ 
 
-    entrar_texto = Entrada()
+        entrar_texto = Entrada()
 
-    while not salir:
-        eventos = pygame.event.get()
-        for accion in eventos:
-            if accion.type == pygame.QUIT:
-                salir = True
+        while not salir:
+            eventos = pygame.event.get()
+            for accion in eventos:
+                if accion.type == pygame.QUIT:
+                    self.salir = True
 
-        entrar_texto.teclas(eventos)
-        entrar_texto.mensaje(pantalla)
-        pygame.display.update()
+            entrar_texto.teclas(eventos)
+            entrar_texto.mensaje(pantalla)
+            pygame.display.update()
 
-if __name__ == '__main__':
-    pygame.init()
-    entrada_texto()
-    
+
+
+# if __name__ == '__main__':
+#     pygame.init()
+#     entrada_texto()
