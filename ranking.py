@@ -96,53 +96,52 @@ class Ranking():
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
                     dentro_while = False
 
-    def create_table(self, c):
-        c.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
+    def create_table(self, cursor):
+        cursor.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
 
-    def data_entry(self, c, conn, puntos, name):
+    def data_entry(self, cursor, conn, puntos, name):
         try:
-            c.execute("INSERT INTO ranking (user, point) VALUES(?,?)", (name, puntos))
+            cursor.execute("INSERT INTO ranking (user, point) VALUES(?,?)", (name, puntos))
             conn.commit()
         except sqlite3.Error as error_e:
             print(f'Se ha producido el error {error_e}')
             print('En este momento no se puede guardar el record')
 
-    def ranking_jugadores(self, c, cnn, puntos):
+    def ranking_jugadores(self, cursor, conexion, puntos):
         entrada = Entrada()
-        self.create_table(c)
+        self.create_table(cursor)
         query = "SELECT user, point FROM ranking order by point desc"
-        c.execute("SELECT count(*) FROM ranking ")
-        count = c.fetchone()
-        filas = c.execute(query)
+        cursor.execute("SELECT count(*) FROM ranking ")
+        # Para obtener un solo elemento, usamos fetchone():
+        count = cursor.fetchone()
+        filas = cursor.execute(query)
         
         iniciales = entrada.entrada_texto_loop()
     
-        if count[0] > 0:
+        # if count[0] > 0:
+        self.ver_base_datos(cursor)
+        if count[0] is not 0:
             for fila in filas:
                 if count[0] >= 5:
                     if fila[1] < puntos:
                         query = "DELETE FROM ranking WHERE id IN (SELECT id FROM ranking ORDER BY point ASC LIMIT 1)"
-                        c.execute(query)
-                        self.data_entry(c, cnn, puntos, iniciales[0])
+                        cursor.execute(query)
+                        self.data_entry(cursor, conexion, puntos, iniciales[0])
                         break
                 else:
-                    self.data_entry(c, cnn, puntos, iniciales[0])
+                    self.data_entry(cursor, conexion, puntos, iniciales[0])
                     break
         else:
-            self.data_entry(c, cnn, puntos, iniciales[0])
+            self.data_entry(cursor, conexion, puntos, iniciales[0])
             
     def mostrar_ranking(self, puntos):
         conn = sqlite3.connect('ranking.db')
-        c = conn.cursor()
-        self.ranking_jugadores(c, conn, puntos)
-        # self.create_table(c)
-        # self.data_entry(c,conn)
+        cursor = conn.cursor()
+        self.ranking_jugadores(cursor, conn, puntos)
 
 
-    def ver_base_datos(self):
-        c.execute("SELECT * FROM ranking ")
-        ranking = c.fetchone()
-        rankingList = c.execute(query)
-        if ranking[0] > 0:
-            for a in rankingList:
-                print(f'REGISTROS BASE DE DATOS {a}')
+    def ver_base_datos(self, cursor):
+        rankingList = cursor.fetchall()
+        # rankingList = cursor.execute("SELECT * FROM ranking ")
+        for a in rankingList:
+            print(f'REGISTROS BASE DE DATOS {a}')
