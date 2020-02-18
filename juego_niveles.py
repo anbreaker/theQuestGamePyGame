@@ -220,6 +220,9 @@ class Juego:
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0 and not self.nave.nave_explotando:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
+                # self.dentro_while = False
+                # ranking = Ranking()
+                # ranking.mostrar_ranking(puntos)
                 self.salir_del_juego()
 
             # Llamamos al broker de eventos
