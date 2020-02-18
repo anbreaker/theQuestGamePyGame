@@ -25,6 +25,8 @@ class Rocket(pygame.sprite.Sprite):
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
 
+        self.estados_nave = ['nave_volando', 'nave_explotando', 'nave_aterrizando']
+
         self.nave_explotando = False
         # Inicializacion de la imagen del player (es un rectangulo)
         self.image_nave = pygame.image.load(f'resources/images/{self.pict_rocket}').convert_alpha()
@@ -56,16 +58,9 @@ class Rocket(pygame.sprite.Sprite):
         # Utilizando la funcion (max/min) posicionamos limites del player
         self.rect.y = max(0, self.rect.y - self.velocidad)
 
-        # print(f'Subir -> {self.rect.y}')
-        # if self.rect.y >= 0:
-        # self.rect.y = 0
-
     def bajar(self):
         self.rect.y = min(self.rect.y + self.velocidad,ANCHO-self.h_pict_rocket)
 
-        # print(f'Bajar -> {self.rect.y}')
-        # if self.rect.y >= 0:
-        # self.rect.y = 0
 
     def test_colisiones_rocket(self, grupo_asteroides):
         # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), no saca el item del grupo (False)
@@ -89,8 +84,8 @@ class Rocket(pygame.sprite.Sprite):
             self.update(dt)
             self.nave_explotando = True
             # print(f'Numero Vidas quedan-> {self.vidas}')
-            ranking = Ranking()
-            ranking.mostrar_ranking(puntos)
+            # ranking = Ranking()
+            # ranking.mostrar_ranking(puntos)
         return numero_candidatos
 
     def load_frames(self):

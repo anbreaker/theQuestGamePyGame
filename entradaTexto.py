@@ -3,7 +3,6 @@ from pygame.locals import *
 import sys
 
 VERDE = (30, 186, 22)
-salir = False
 
 class Entrada():
 
@@ -28,7 +27,6 @@ class Entrada():
                         self.caracteres.append('')
                         self.lineas += 1
                     elif evento.key == K_ESCAPE:
-                        print(f'escape, salir-> {self.salir}')
                         self.salir = True
                     elif evento.key == K_BACKSPACE:
                         if self.caracteres[self.lineas] == '' and self.lineas > 0:
@@ -45,9 +43,8 @@ class Entrada():
                             # print(f'Max_car -> {self.max_caracteres}')
                             self.max_caracteres += 1
                         if self.max_caracteres == 3 and evento.key == K_SPACE:
-                            print(f'Hola... {self.caracteres}')
+                            print(f'nick... {self.caracteres}')
                             self.salir = True
-                            (f'Salir es-> {self.salir}')
                             return self.caracteres
                         
 
@@ -59,25 +56,27 @@ class Entrada():
             superficie.blit(nick, (self.pos_x, self.pos_y + self.distancia))
 
 
-    def entrada_texto(self):
+    def entrada_texto_loop(self):
         pantalla = pygame.display.set_mode((700, 500))
         fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
         pygame.display.set_caption('Escribir en pygame')
- 
+        salir = True
         entrar_texto = Entrada()
 
-        while not salir:
+        while salir:
             eventos = pygame.event.get()
             for evento in eventos:
                 if evento.type == pygame.QUIT:
                     self.salir = True
 
-            entrar_texto.teclas(eventos)
+            # iniciales sera None siempre y cuando no se haya llegado al final de la introducción de 3 caracteres, 
+            # y los tres caracteres cuando si.
+            iniciales = entrar_texto.teclas(eventos)
+            if iniciales is not None:
+                print(f'Las Iniciales -> {iniciales}')                
+                salir = False
             entrar_texto.mensaje(pantalla)
             pygame.display.update()
+            
+        return iniciales
 
-
-
-# if __name__ == '__main__':
-#     pygame.init()
-#     entrada_texto()

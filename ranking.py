@@ -21,7 +21,7 @@ class Ranking():
     # ranking = Ranking()
     # ranking.mostrar_ranking()
     # Constructor de la clase Ranking
-    
+
     # Constructor de la clase Ranking
     def __init__(self):
         pygame.font.init()
@@ -29,21 +29,21 @@ class Ranking():
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
-        self.pantalla = pygame.display.set_mode((700,500))
+        self.pantalla = pygame.display.set_mode((700, 500))
 
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
 
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame -Ranking-')
-        
+
         # Limpia la pantalla y coloca el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
         # Fuente para el texto que aparecerá en pantalla (tamaño 30 y 22)
         self.fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_TITULOS)
         self.fuente_descripciones = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_DESCRIPCIONES)
-        
+
         # Devuelve la altura en píxeles para distancia "ideal" entre líneas de texto con la fuente.
         self.fd_linesize = self.fuente_descripciones.get_linesize()
 
@@ -57,10 +57,10 @@ class Ranking():
 
         self.linea_texto2 = self.fuente_descripciones.render('JLC - 306', True, BLANCO)
         self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 2])
-        
+
         self.linea_texto3 = self.fuente_descripciones.render('STF - 304', True, BLANCO)
         self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
-        
+
         self.linea_texto4 = self.fuente_descripciones.render('JNP - 290', True, BLANCO)
         self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
 
@@ -72,7 +72,7 @@ class Ranking():
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
         # Calculo del posicionamiento de ancho_linea_footer
-        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
+        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer - 10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
 
@@ -81,9 +81,9 @@ class Ranking():
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
-        
+
         self.main_loop_ranking()
-        
+
     def main_loop_ranking(self):
         # Bucle Principal del Programa y condicion de salida del bucle
         dentro_while = True
@@ -96,50 +96,53 @@ class Ranking():
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
                     dentro_while = False
 
-
-    def create_table(self,c):
+    def create_table(self, c):
         c.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
 
-    def data_entry(self,c,conn,puntos,name):
+    def data_entry(self, c, conn, puntos, name):
         try:
-            c.execute("INSERT INTO ranking (user, point) VALUES(?,?)", (name,puntos))
+            c.execute("INSERT INTO ranking (user, point) VALUES(?,?)", (name, puntos))
             conn.commit()
         except sqlite3.Error as error_e:
             print(f'Se ha producido el error {error_e}')
             print('En este momento no se puede guardar el record')
-        
-    
-    def ranking_jugadores(self, c, cnn, puntos): 
+
+    def ranking_jugadores(self, c, cnn, puntos):
         entrada = Entrada()
         self.create_table(c)
         query = "SELECT user, point FROM ranking order by point desc"
         c.execute("SELECT count(*) FROM ranking ")
-        count = c.fetchone() 
+        count = c.fetchone()
         filas = c.execute(query)
-        # Recordar borrar 
-        iniciales = 'SJA'   
+        
+        iniciales = entrada.entrada_texto_loop()
+    
         if count[0] > 0:
             for fila in filas:
                 if count[0] >= 5:
                     if fila[1] < puntos:
-                        # iniciales = entrada.entrada_texto()
-                        iniciales = 'SJA'                    
                         query = "DELETE FROM ranking WHERE id IN (SELECT id FROM ranking ORDER BY point ASC LIMIT 1)"
                         c.execute(query)
-                        self.data_entry(c,cnn,puntos,iniciales)
+                        self.data_entry(c, cnn, puntos, iniciales[0])
                         break
                 else:
-                    # iniciales = entrada.entrada_texto()
-                    self.data_entry(c,cnn,puntos,iniciales)
+                    self.data_entry(c, cnn, puntos, iniciales[0])
                     break
         else:
-            # iniciales = entrada.entrada_texto()
-            self.data_entry(c,cnn,puntos,iniciales)
+            self.data_entry(c, cnn, puntos, iniciales[0])
             
-
     def mostrar_ranking(self, puntos):
         conn = sqlite3.connect('ranking.db')
         c = conn.cursor()
-        self.ranking_jugadores(c,conn, puntos)
+        self.ranking_jugadores(c, conn, puntos)
         # self.create_table(c)
         # self.data_entry(c,conn)
+
+
+    def ver_base_datos(self):
+        c.execute("SELECT * FROM ranking ")
+        ranking = c.fetchone()
+        rankingList = c.execute(query)
+        if ranking[0] > 0:
+            for a in rankingList:
+                print(f'REGISTROS BASE DE DATOS {a}')
