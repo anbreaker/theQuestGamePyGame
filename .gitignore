@@ -3,3 +3,4 @@ venv/
 __pycache__/
 ranking.db
 entrarTextoPruebas.py
+ranking_c_conn.py

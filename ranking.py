@@ -17,10 +17,6 @@ NARANJA = (245, 150, 34)
 
 
 class Ranking():
-    # Para implementar las llamadas a la BBDD
-    # ranking = Ranking()
-    # ranking.mostrar_ranking()
-    # Constructor de la clase Ranking
 
     # Constructor de la clase Ranking
     def __init__(self):
@@ -49,10 +45,13 @@ class Ranking():
 
         # Gestionamos como de rápido actualiza la pantalla
         self.reloj = pygame.time.Clock()
+        
+        # lista_ranking
+        self.lista_ranking = []
 
-    def mostrar_ranking_textos_pantalla(self):
+    def mostrar_ranking_textos_pantalla(self, lista_ranking):
         # Texto por lineas y posicion en pantalla
-        self.linea_texto1 = self.fuente_descripciones.render('Ranking puntuaciones The Quest:', True, BLANCO)
+        self.linea_texto1 = self.fuente_descripciones.render(f'{lista_ranking[0]}', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
         self.linea_texto2 = self.fuente_descripciones.render('JLC - 306', True, BLANCO)
@@ -76,8 +75,6 @@ class Ranking():
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
 
-        # Limitamos a 20 fotogramas por segundo.
-        # reloj.tick(20)
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
@@ -115,12 +112,12 @@ class Ranking():
         # Para obtener un solo elemento, usamos fetchone():
         count = cursor.fetchone()
         filas = cursor.execute(query)
-        
+
         iniciales = entrada.entrada_texto_loop()
-    
-        # if count[0] > 0:
-        self.ver_base_datos(cursor)
-        if count[0] is not 0:
+
+        # self.ver_base_datos(cursor)
+        
+        if count[0] > 0:
             for fila in filas:
                 if count[0] >= 5:
                     if fila[1] < puntos:
@@ -133,15 +130,18 @@ class Ranking():
                     break
         else:
             self.data_entry(cursor, conexion, puntos, iniciales[0])
-            
-    def mostrar_ranking(self, puntos):
-        conn = sqlite3.connect('ranking.db')
-        cursor = conn.cursor()
-        self.ranking_jugadores(cursor, conn, puntos)
 
+
+    def mostrar_ranking(self, puntos):
+        conexion = sqlite3.connect('ranking.db')
+        cursor = conexion.cursor()
+        self.ranking_jugadores(cursor, conexion, puntos)
 
     def ver_base_datos(self, cursor):
-        rankingList = cursor.fetchall()
-        # rankingList = cursor.execute("SELECT * FROM ranking ")
-        for a in rankingList:
-            print(f'REGISTROS BASE DE DATOS {a}')
+        print('llamada')
+        self.lista_ranking = cursor.fetchall()
+        # lista_ranking = cursor.execute("SELECT * FROM ranking ")
+        for registros in self.lista_ranking:
+            print(f'Registros BBDD-> {registros}')
+        # self.mostrar_ranking_textos_pantalla(self.lista_ranking)
+        return self.lista_ranking
