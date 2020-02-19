@@ -29,4 +29,4 @@ colonizarlo.
 
 :es: Spain [+34 637 128 809](tel:+34637128809)
 
-Made with :code: [anbreaker](https://github.com/anbreaker) 😊
+> :code:Made with ❤️ & :code: [anbreaker](https://github.com/anbreaker) 😊
