@@ -1,6 +1,6 @@
 ![](https://keepcoding.io/es/wp-content/uploads/sites/4/2018/02/KeepCoding-Logo-820x400.png)
 
-# theQuestGamePyGame
+# theQuestGamePyGame 🚀
 
 > Juego escrito en Python 3.7, proyecto final Bootcamp0 de keepcoding.io
 
@@ -29,4 +29,4 @@ colonizarlo.
 
 :es: Spain [+34 637 128 809](tel:+34637128809)
 
-> :code:Made with ❤️ & :code: [anbreaker](https://github.com/anbreaker) 😊
+> :code:Made with ❤️ & :code: [anbreaker](https://github.com/anbreaker) 🚀
