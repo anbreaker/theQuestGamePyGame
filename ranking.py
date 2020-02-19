@@ -91,11 +91,11 @@ class Ranking():
                     dentro_while = False
 
     def create_table(self, cursor):
-        cursor.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
+        self.__cursor__.execute("CREATE TABLE IF NOT EXISTS `ranking` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user` TEXT NOT NULL, `point` INTEGER NOT NULL)")
 
     def data_entry(self, cursor, conn, puntos, name):
         try:
-            cursor.execute("INSERT INTO ranking (user, point) VALUES(?,?)", (name, puntos))
+            self.__cursor__.execute("INSERT INTO ranking (user, point) VALUES(?,?)", (name, puntos))
             conn.commit()
         except sqlite3.Error as error_e:
             print(f'Se ha producido el error {error_e}')
@@ -103,16 +103,16 @@ class Ranking():
 
     def ranking_jugadores(self, cursor, conexion, puntos):
         entrada = Entrada()
-        self.create_table(cursor)
+        self.create_table(self.__cursor__)
         query = "SELECT user, point FROM ranking order by point desc"
-        cursor.execute("SELECT count(*) FROM ranking ")
+        self.__cursor__.execute("SELECT count(*) FROM ranking ")
         # Para obtener un solo elemento, usamos fetchone():
-        count = cursor.fetchone()
-        filas = cursor.execute(query)
+        count = self.__cursor__.fetchone()
+        filas = self.__cursor__.execute(query)
 
         iniciales = entrada.entrada_texto_loop()
 
-        self.ver_base_datos()
+        # self.ver_base_datos()
 
         if count[0] > 0:
             for fila in filas:
@@ -132,8 +132,9 @@ class Ranking():
         self.ranking_jugadores(self.__cursor__, self.conexion, puntos)
 
     def ver_base_datos(self):
+        self.lista_ranking = self.__cursor__.("SELECT count(*) FROM ranking ")
         self.lista_ranking = self.__cursor__.fetchall()
-        print(self.lista_ranking)
+        print('ver_base_datos-->', self.lista_ranking)
         # lista_ranking = cursor.execute("SELECT * FROM ranking ")
         for registros in self.lista_ranking:
             print(f'Registros BBDD-> {registros}')
