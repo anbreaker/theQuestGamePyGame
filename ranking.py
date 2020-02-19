@@ -45,7 +45,7 @@ class Ranking():
 
         # Gestionamos como de rápido actualiza la pantalla
         self.reloj = pygame.time.Clock()
-        
+
         # lista_ranking
         self.lista_ranking = []
 
@@ -74,7 +74,6 @@ class Ranking():
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer - 10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
-
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
@@ -116,7 +115,7 @@ class Ranking():
         iniciales = entrada.entrada_texto_loop()
 
         # self.ver_base_datos(cursor)
-        
+
         if count[0] > 0:
             for fila in filas:
                 if count[0] >= 5:
@@ -130,7 +129,6 @@ class Ranking():
                     break
         else:
             self.data_entry(cursor, conexion, puntos, iniciales[0])
-
 
     def mostrar_ranking(self, puntos):
         conexion = sqlite3.connect('ranking.db')

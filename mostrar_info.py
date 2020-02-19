@@ -35,14 +35,14 @@ class Historia():
 
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame -Información-')
-        
+
         # Limpia la pantalla y coloca el fondo
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
         # Fuente para el texto que aparecerá en pantalla (tamaño 30 y 22)
         self.fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_TITULOS)
         self.fuente_descripciones = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_DESCRIPCIONES)
-        
+
         # Devuelve la altura en píxeles para distancia "ideal" entre líneas de texto con la fuente.
         self.fd_linesize = self.fuente_descripciones.get_linesize()
 
@@ -61,7 +61,7 @@ class Historia():
         
         self.linea_texto3 = self.fuente_descripciones.render('climático. Partiremos a la búsqueda de un planeta compatible ', True, BLANCO)
         self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
-        
+
         self.linea_texto4 = self.fuente_descripciones.render('con la vida humana para colonizarlo. Esquiva los obstaculos,', True, BLANCO)
         self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
 
@@ -100,7 +100,7 @@ class Historia():
 
         self.linea_texto5 = self.fuente_descripciones.render('Aguanta todo lo posible, controla el tiempo y el nivel', True, BLANCO)
         self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
-        
+
         self.linea_texto5 = self.fuente_descripciones.render('de dificultad con los marcadores.', True, BLANCO)
         self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
       
@@ -134,7 +134,7 @@ class Historia():
         self.alineacion_centrada = (LARGO / 2 - (self.ancho_linea_titulo1 /2))
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_titulo1, [self.alineacion_centrada, 70])
-        
+
         # Texto por lineas y posicion en pantalla, (Titulo)
         self.linea_titulo2 = self.fuente_titulo.render('Aprender a programar desde cero', True, NARANJA)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -143,7 +143,7 @@ class Historia():
         self.alineacion_centrada = (LARGO / 2 - (self.ancho_linea_titulo2 /2))
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_titulo2, [self.alineacion_centrada, self.fd_linesize * 4])
-        
+
         self.linea_texto1 = self.fuente_descripciones.render('Autor del juego: Francisco Javier Antúnez Durán', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
         
