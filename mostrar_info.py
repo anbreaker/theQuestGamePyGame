@@ -28,7 +28,7 @@ class Historia():
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
-        self.pantalla = pygame.display.set_mode((700,500))
+        self.pantalla = pygame.display.set_mode(self.dimensiones)
 
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
@@ -57,16 +57,19 @@ class Historia():
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
         self.linea_texto2 = self.fuente_descripciones.render('La búsqueda comienza en un planeta tierra moribundo por el cambio', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 2])
+        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
         
-        self.linea_texto3 = self.fuente_descripciones.render('climático. Partiremos a la búsqueda de un planeta compatible ', True, BLANCO)
-        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
+        self.linea_texto2 = self.fuente_descripciones.render('cambio climático.', True, BLANCO)
+        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
+        
+        self.linea_texto3 = self.fuente_descripciones.render('Partiremos a la búsqueda de un planeta compatible ', True, BLANCO)
+        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
 
         self.linea_texto4 = self.fuente_descripciones.render('con la vida humana para colonizarlo. Esquiva los obstaculos,', True, BLANCO)
-        self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
+        self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
 
         self.linea_texto5 = self.fuente_descripciones.render('hazte con el control de la nave y logra aterrizar!', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
+        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
@@ -77,11 +80,8 @@ class Historia():
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
 
-        # Limitamos a 20 fotogramas por segundo.
-        # reloj.tick(20)
-
         # Actualizamos la pantalla con lo dibujado.
-        pygame.display.flip()                
+        pygame.display.flip()
 
         self.main_loop_mostrar_info()
 
@@ -116,11 +116,8 @@ class Historia():
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
 
-        # Limitamos a 20 fotogramas por segundo.
-        # reloj.tick(20)
-
         # Actualizamos la pantalla con lo dibujado.
-        pygame.display.flip()                
+        pygame.display.flip()
 
         self.main_loop_mostrar_info()
         
@@ -156,6 +153,9 @@ class Historia():
         self.linea_texto1 = self.fuente_descripciones.render('Tutor del proyecto: Ramón Maldonado', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
 
+        self.linea_texto1 = self.fuente_descripciones.render('Bootcamp 0 Keepcoding.io', True, BLANCO)
+        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
+
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -181,16 +181,3 @@ class Historia():
                     juego.salir_del_juego()
                 if evento.type == KEYDOWN and evento.key == K_ESCAPE:
                     dentro_while = False
-
-
-'''
-# Main de pruebas rapido
-if __name__ == '__main__':
-    # Inicialización de Pygame
-    pygame.init()
-    historia = Historia()
-    # historia.mostrar_historia()
-    historia.acerca_de()
-    # menu = Menu()
-    # menu.main_loop_menu()
-'''

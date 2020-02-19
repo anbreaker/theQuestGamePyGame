@@ -139,10 +139,3 @@ def salir_del_juego():
     print('Gracias por jugar a The Quest.')
     pygame.quit()
     sys.exit(0)
-
-'''
-# Main de pruebas rapido
-if __name__ == '__main__':
-    menu = Menu()
-    menu.main_loop_menu()
-'''
