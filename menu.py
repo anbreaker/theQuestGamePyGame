@@ -128,7 +128,8 @@ def ranking_juego():
     # Instancia de Juego.
     ranking = Ranking() 
     # ranking.mostrar_ranking_textos_pantalla()
-    # ranking.ver_base_datos()
+    ver = ranking.ver_base_datos()
+    print('Tratanto ver bbdd--> ', ver)
 
 def acerca_de():
     print('Función que muestra acerca_de.')

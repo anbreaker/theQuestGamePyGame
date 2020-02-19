@@ -20,6 +20,10 @@ class Ranking():
 
     # Constructor de la clase Ranking
     def __init__(self):
+
+        self.conexion = sqlite3.connect('ranking.db')
+        self.__cursor__ = self.conexion.cursor()
+
         pygame.font.init()
         # Inicialización de la superficie de dibujo (display surface)
         self.display = pygame.display
@@ -106,7 +110,7 @@ class Ranking():
 
         iniciales = entrada.entrada_texto_loop()
 
-        # self.ver_base_datos(cursor)
+        self.ver_base_datos()
 
         if count[0] > 0:
             for fila in filas:
@@ -114,22 +118,22 @@ class Ranking():
                     if fila[1] < puntos:
                         query = "DELETE FROM ranking WHERE id IN (SELECT id FROM ranking ORDER BY point ASC LIMIT 1)"
                         cursor.execute(query)
-                        self.data_entry(cursor, conexion, puntos, iniciales[0])
+                        self.data_entry(self.__cursor__, self.conexion, puntos, iniciales[0])
                         break
                 else:
-                    self.data_entry(cursor, conexion, puntos, iniciales[0])
+                    self.data_entry(self.__cursor__, self.conexion, puntos, iniciales[0])
                     break
         else:
-            self.data_entry(cursor, conexion, puntos, iniciales[0])
+            self.data_entry(self.__cursor__, self.conexion, puntos, iniciales[0])
 
     def mostrar_ranking(self, puntos):
-        conexion = sqlite3.connect('ranking.db')
-        cursor = conexion.cursor()
-        self.ranking_jugadores(cursor, conexion, puntos)
+        # conexion = sqlite3.connect('ranking.db')
+        # cursor = conexion.cursor()
+        self.ranking_jugadores(self.__cursor__, self.conexion, puntos)
 
-    def ver_base_datos(self, cursor):
-        print('llamada')
-        self.lista_ranking = cursor.fetchall()
+    def ver_base_datos(self):
+        self.lista_ranking = self.__cursor__.fetchall()
+        print(self.lista_ranking)
         # lista_ranking = cursor.execute("SELECT * FROM ranking ")
         for registros in self.lista_ranking:
             print(f'Registros BBDD-> {registros}')
