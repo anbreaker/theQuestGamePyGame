@@ -132,9 +132,9 @@ class Ranking():
         self.ranking_jugadores(self.__cursor__, self.conexion, puntos)
 
     def ver_base_datos(self):
-        self.lista_ranking = self.__cursor__.("SELECT count(*) FROM ranking ")
+        self.lista_ranking = self.__cursor__.execute("SELECT * FROM ranking ")
         self.lista_ranking = self.__cursor__.fetchall()
-        print('ver_base_datos-->', self.lista_ranking)
+        # print('ver_base_datos-->', self.lista_ranking)
         # lista_ranking = cursor.execute("SELECT * FROM ranking ")
         for registros in self.lista_ranking:
             print(f'Registros BBDD-> {registros}')
