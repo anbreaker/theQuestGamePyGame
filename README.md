@@ -27,6 +27,6 @@ colonizarlo.
 
 * Autor: Francisco Javier Antúnez Durán aka anbreaker
 
-:es: Spain * [+34 637 128 809](tel:+34637128809)
+:es: Spain [+34 637 128 809](tel:+34637128809)
 
-con ❤️ por [anbreaker](https://github.com/anbreaker) 😊
+Made with :code: [anbreaker](https://github.com/anbreaker) 😊
