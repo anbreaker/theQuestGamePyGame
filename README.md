@@ -25,13 +25,13 @@
 
         pip install pygame
 
-    ### Tambien puedes instalar las dependencias del entorno virtual con el siguiente comando:
+    ### Tambien puedes instalar todas las dependencias del proyecto con el siguiente comando:
 
         pip install -r requirements.txt
 
     ### Ejecucion del juego, en la consola con el entorno activado y operativo, navegar hasta la ruta raíz y ejecutar:
 
-        `python main.py`
+        `python3 main.py`
 
 -   Autor: Francisco Javier Antúnez Durán aka anbreaker
 

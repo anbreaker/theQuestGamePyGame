@@ -21,6 +21,8 @@ class Ranking():
     # Constructor de la clase Ranking
     def __init__(self):
 
+        # Necesitamos establecer una conexión y un cursor.
+        # Creamos la base de datos SQLite con Python
         self.conexion = sqlite3.connect('ranking.db')
         self.__cursor__ = self.conexion.cursor()
 
@@ -29,7 +31,7 @@ class Ranking():
         self.display = pygame.display
         # Establecemos el largo y ancho de la pantalla.
         self.dimensiones = [700, 500]
-        self.pantalla = pygame.display.set_mode((700, 500))
+        self.pantalla = pygame.display.set_mode(self.dimensiones)
 
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
         self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
@@ -127,8 +129,6 @@ class Ranking():
             self.data_entry(self.__cursor__, self.conexion, puntos, iniciales[0])
 
     def mostrar_ranking(self, puntos):
-        # conexion = sqlite3.connect('ranking.db')
-        # cursor = conexion.cursor()
         self.ranking_jugadores(self.__cursor__, self.conexion, puntos)
 
     def ver_base_datos(self):

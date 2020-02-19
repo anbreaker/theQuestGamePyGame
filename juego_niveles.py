@@ -138,7 +138,7 @@ class Juego:
         # print(self.puntuacion)
 
     def aterriza_nave(self):
-        if self.cronometro == 15:
+        if self.cronometro == 15 and self.nave.girando == True:
             pass
 
     def salir_del_juego(self):

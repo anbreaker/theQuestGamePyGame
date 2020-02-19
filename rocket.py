@@ -21,6 +21,9 @@ class Rocket(pygame.sprite.Sprite):
         # Tamaño animacion nave
         self.w = 100
         self.h = 80
+        
+        # Girar la nave para aterrizar
+        self.girando = False
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
