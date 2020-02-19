@@ -147,7 +147,7 @@ class Historia():
         self.linea_texto1 = self.fuente_descripciones.render('Autor del juego: Francisco Javier Antúnez Durán', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
         
-        self.linea_texto1 = self.fuente_descripciones.render('Tecnologia empleada, Python 3.7 libreria pyGame 1.9.3', True, BLANCO)
+        self.linea_texto1 = self.fuente_descripciones.render('Tecnologia empleada, Python 3.7 libreria pyGame 1.9.6', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
        
         self.linea_texto1 = self.fuente_descripciones.render('Fecha: 23-02-2020', True, BLANCO)
@@ -166,7 +166,7 @@ class Historia():
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
 
         # Actualizamos la pantalla con lo dibujado.
-        pygame.display.flip()                
+        pygame.display.flip()
 
         self.main_loop_mostrar_info()
 
