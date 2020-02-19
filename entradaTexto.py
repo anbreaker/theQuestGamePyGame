@@ -76,9 +76,9 @@ class Entrada():
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_nick = self.linea_nick.get_rect().width
         # Calculo del posicionamiento de ancho_linea_footer
-        self.alineacion_centrada = (LARGO / 2 - (self.ancho_linea_nick /2))
+        self.alineacion_derecha = (LARGO / 4 - (self.ancho_linea_nick / 4))
         # Presentacion del texto en pantalla
-        self.pantalla.blit(self.linea_nick, [self.alineacion_centrada, 70])
+        self.pantalla.blit(self.linea_nick, [self.alineacion_derecha, 100])
 
         self.linea_footer = self.fuente_titulo.render('Pulsa "Espacio" para guardar y volver al Menú', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h

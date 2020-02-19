@@ -5,13 +5,13 @@ sudo apt install virtualenv
 # Para instalar la version que queramos de python
 virtualenv venv --python=python3.7
 
-# activar el servidor
+# activar el entorno virtual
 source venv/bin/activate
 
 # Desactivar
 deactivate
 
-# Instalar pygame
+# Instalar pygame en el entorno activado
 pip install pygame
 
 # Ver lo instalado
