@@ -57,14 +57,6 @@ class Ranking():
         self.linea_texto2 = self.fuente_descripciones.render('JLC - 306', True, BLANCO)
         self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 2])
 
-        self.linea_texto3 = self.fuente_descripciones.render('STF - 304', True, BLANCO)
-        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
-
-        self.linea_texto4 = self.fuente_descripciones.render('JNP - 290', True, BLANCO)
-        self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
-
-        self.linea_texto5 = self.fuente_descripciones.render('FJA - 281', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)

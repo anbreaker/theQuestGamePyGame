@@ -53,7 +53,7 @@ class Historia():
 
         # Introduccion al juego:
         # Texto por lineas y posicion en pantalla
-        self.linea_texto1 = self.fuente_descripciones.render('Historia del juego:', True, BLANCO)
+        self.linea_texto1 = self.fuente_titulo.render('Historia del juego:', True, VERDE)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
         self.linea_texto2 = self.fuente_descripciones.render('La búsqueda comienza en un planeta tierra moribundo por el cambio', True, BLANCO)
