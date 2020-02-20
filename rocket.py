@@ -12,7 +12,7 @@ class Rocket(pygame.sprite.Sprite):
     w_pict_rocket = 68
     h_pict_rocket = 40
     velocidad = 10
-    vidas = 1
+    vidas = 10
 
     # Constructor de la clase
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):
@@ -27,8 +27,6 @@ class Rocket(pygame.sprite.Sprite):
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
-
-        self.estados_nave = ['nave_volando', 'nave_explotando', 'nave_aterrizando']
 
         self.nave_explotando = False
         # Inicializacion de la imagen del player (es un rectangulo)
@@ -77,7 +75,7 @@ class Rocket(pygame.sprite.Sprite):
         # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), saca al item del grupo (True)
         candidatos_a_colision = pygame.sprite.spritecollide(self, grupo, True)
         numero_candidatos = len(candidatos_a_colision)
-        if numero_candidatos > 0:
+        if numero_candidatos > 0 and self.girando == False:
             # print(f'Vidas Totales-> {self.vidas}')
             # self.sonido_vida_menos.play()
             self.vidas -= 1

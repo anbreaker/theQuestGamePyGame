@@ -138,8 +138,10 @@ class Juego:
         # print(self.puntuacion)
 
     def aterriza_nave(self):
-        if self.cronometro == 15 and self.nave.girando == True:
-            pass
+        if self.cronometro == 3:
+            self.nave.girando = True
+
+            # print(f'aterriza-> {self.nave.girando}')
 
     def salir_del_juego(self):
         pygame.quit()
@@ -167,17 +169,17 @@ class Juego:
 
             # Control de movimientos nave
             if evento.type == KEYDOWN:
-                if evento.key == K_UP:
+                if evento.key == K_UP and self.nave.girando == False:
                     self.nave.subir()
-                if evento.key == K_DOWN:
+                if evento.key == K_DOWN and self.nave.girando == False:
                     self.nave.bajar()
 
         # Control de pulsacion de teclas sostenida
         tecla_sostenida = pygame.key.get_pressed()
 
-        if tecla_sostenida[K_UP]:
+        if tecla_sostenida[K_UP] and self.nave.girando == False:
             self.nave.subir()
-        if tecla_sostenida[K_DOWN]:
+        if tecla_sostenida[K_DOWN] and self.nave.girando == False:
             self.nave.bajar()
 
     def render(self, dt):
@@ -226,6 +228,7 @@ class Juego:
                 # self.salir_del_juego()
             # Llamamos al broker de eventos
             self.manejar_eventos()
+            self.aterriza_nave()
 
             objetos_en_pantalla = len(self.grupo_asteroides)
             if objetos_en_pantalla < self.num_max_asteroides:
@@ -240,3 +243,8 @@ class Juego:
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
+            
+if __name__ == '__main__':
+    pygame.init()
+    menu = Menu()
+    menu.main_loop_menu()
