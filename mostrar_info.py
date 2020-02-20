@@ -71,17 +71,7 @@ class Historia():
         self.linea_texto5 = self.fuente_descripciones.render('hazte con el control de la nave y logra aterrizar!', True, BLANCO)
         self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
 
-        # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
-        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
-        self.ancho_linea_footer = self.linea_footer.get_rect().width
-        # Calculo del posicionamiento de ancho_linea_footer
-        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
-        # Presentacion del texto en pantalla
-        self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
-
-        # Actualizamos la pantalla con lo dibujado.
-        pygame.display.flip()
+        self.footer()
 
         self.main_loop_mostrar_info()
 
@@ -107,17 +97,7 @@ class Historia():
         self.linea_texto5 = self.fuente_descripciones.render('Hazte con el control de la nave durante el tiempo necesario y aterriza!', True, BLANCO)
         self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
 
-        # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
-        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
-        self.ancho_linea_footer = self.linea_footer.get_rect().width
-        # Calculo del posicionamiento de ancho_linea_footer
-        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
-        # Presentacion del texto en pantalla
-        self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
-
-        # Actualizamos la pantalla con lo dibujado.
-        pygame.display.flip()
+        self.footer()
 
         self.main_loop_mostrar_info()
         
@@ -156,6 +136,11 @@ class Historia():
         self.linea_texto1 = self.fuente_descripciones.render('Bootcamp 0 Keepcoding.io', True, BLANCO)
         self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
 
+        self.footer()
+
+        self.main_loop_mostrar_info()
+        
+    def footer(self):
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -164,11 +149,8 @@ class Historia():
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer -10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
-
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
-
-        self.main_loop_mostrar_info()
 
     def main_loop_mostrar_info(self):
         # Bucle Principal del Programa y condicion de salida del bucle

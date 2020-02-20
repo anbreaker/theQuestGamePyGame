@@ -61,18 +61,11 @@ class Ranking():
         self.linea_texto1 = self.fuente_titulo.render('Ranking: Nick  Score', True, NARANJA)
         self.pantalla.blit(self.linea_texto1, [20, (self.fd_linesize + 10)])
 
-        for f in range(5):        
-            self.linea_texto1 = self.fuente_titulo.render(f'{lr[f][1].upper()}    {lr[f][2]}', True, BLANCO)
-            self.pantalla.blit(self.linea_texto1, [250, ALTO_TEXTO_TITULOS + 80 + (self.fd_linesize + 8) * f])
+        for i,fila in enumerate(lr):        
+            self.linea_texto1 = self.fuente_titulo.render(f'{lr[i][1].upper()}    {lr[i][2]}', True, BLANCO)
+            self.pantalla.blit(self.linea_texto1, [250, ALTO_TEXTO_TITULOS + 80 + (self.fd_linesize + 8) * i])
 
-        # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_descripciones.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
-        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
-        self.ancho_linea_footer = self.linea_footer.get_rect().width
-        # Calculo del posicionamiento de ancho_linea_footer
-        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer - 10)
-        # Presentacion del texto en pantalla
-        self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
+        self.most()
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
@@ -140,6 +133,17 @@ class Ranking():
         self.lista_ranking.sort(reverse=True, key=lambda list_rnk: list_rnk[2])
         self.mostrar_ranking_textos_pantalla()
         return self.lista_ranking
+    
+    
+    def most(self):
+        # Texto por lineas y posicion en pantalla, (footer)
+        self.linea_footer = self.fuente_descripciones.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
+        # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
+        self.ancho_linea_footer = self.linea_footer.get_rect().width
+        # Calculo del posicionamiento de ancho_linea_footer
+        self.alineacion_izquierda = (LARGO - self.ancho_linea_footer - 10)
+        # Presentacion del texto en pantalla
+        self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
 
 # Pruebas Rapidas de main
 if __name__ == '__main__':

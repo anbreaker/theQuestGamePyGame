@@ -60,7 +60,7 @@ class Entrada():
                             # print(f'Max_car -> {self.max_caracteres}')
                             self.max_caracteres += 1
                         if self.max_caracteres == 3 and evento.key == K_SPACE:
-                            print(f'nick... {self.caracteres}')
+                            # print(f'nick... {self.caracteres}')
                             self.salir = True
                             return self.caracteres
 
@@ -71,6 +71,10 @@ class Entrada():
             nick = self.font.render(self.caracteres[self.lineas], True, VERDE)
             superficie.blit(nick, (self.pos_x, self.pos_y + self.distancia))
 
+        self.header()
+        self.footer()
+        
+    def header(self):
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_nick = self.fuente_titulo.render('Escribe tu nick de tres caracteres:', True, NARANJA)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -79,7 +83,8 @@ class Entrada():
         self.alineacion_derecha = (LARGO / 4 - (self.ancho_linea_nick / 4))
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_nick, [self.alineacion_derecha, 100])
-
+        
+    def footer(self):
         self.linea_footer = self.fuente_titulo.render('Pulsa "Espacio" para guardar y volver al Menú', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
