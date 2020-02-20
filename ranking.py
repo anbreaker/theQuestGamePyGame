@@ -5,8 +5,8 @@ from juego_niveles import *
 from entradaTexto import *
 
 # Definicion tamaños de textos
-ALTO_TEXTO_TITULOS = 30
-ALTO_TEXTO_DESCRIPCIONES = 22
+ALTO_TEXTO_TITULOS = 45
+ALTO_TEXTO_DESCRIPCIONES = 32
 
 # Definimos algunos colores
 VERDE = (30, 186, 22)
@@ -55,17 +55,18 @@ class Ranking():
         # lista_ranking
         self.lista_ranking = []
 
-    def mostrar_ranking_textos_pantalla(self, lista_ranking):
+    def mostrar_ranking_textos_pantalla(self):
+        lr = self.lista_ranking
         # Texto por lineas y posicion en pantalla
-        self.linea_texto1 = self.fuente_descripciones.render(f'{lista_ranking[0]}', True, BLANCO)
-        self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
+        self.linea_texto1 = self.fuente_titulo.render('Nick         Score', True, NARANJA)
+        self.pantalla.blit(self.linea_texto1, [200, (self.fd_linesize)])
 
-        self.linea_texto2 = self.fuente_descripciones.render('JLC - 306', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 2])
-
+        for f in range(5):        
+            self.linea_texto1 = self.fuente_titulo.render(f'{lr[f][1].upper()}              {lr[f][2]}', True, BLANCO)
+            self.pantalla.blit(self.linea_texto1, [200, ALTO_TEXTO_TITULOS + 55 + (self.fd_linesize + 11) * f])
 
         # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
+        self.linea_footer = self.fuente_descripciones.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
         # Calculo del posicionamiento de ancho_linea_footer
@@ -137,10 +138,10 @@ class Ranking():
         # for registros in self.lista_ranking:
         #     print(f'Registros BBDD-> {registros}')
         self.lista_ranking.sort(reverse=True, key=lambda list_rnk: list_rnk[2])
-        print(self.lista_ranking)
-        # self.mostrar_ranking_textos_pantalla(self.lista_ranking)
+        self.mostrar_ranking_textos_pantalla()
         return self.lista_ranking
-    
+
+# Pruebas Rapidas de main
 if __name__ == '__main__':
     pygame.init()
     
