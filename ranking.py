@@ -1,7 +1,5 @@
 import pygame
 import sqlite3
-from menu import *
-from juego_niveles import *
 from entradaTexto import *
 
 # Definicion tamaños de textos
@@ -65,7 +63,7 @@ class Ranking():
             self.linea_texto1 = self.fuente_titulo.render(f'{lr[i][1].upper()}    {lr[i][2]}', True, BLANCO)
             self.pantalla.blit(self.linea_texto1, [250, ALTO_TEXTO_TITULOS + 80 + (self.fd_linesize + 8) * i])
 
-        self.most()
+        self.footer()
 
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
@@ -106,8 +104,6 @@ class Ranking():
 
         iniciales = entrada.entrada_texto_loop()
 
-        # self.ver_base_datos()
-
         if count[0] > 0:
             for fila in filas:
                 if count[0] >= 5:
@@ -133,9 +129,8 @@ class Ranking():
         self.lista_ranking.sort(reverse=True, key=lambda list_rnk: list_rnk[2])
         self.mostrar_ranking_textos_pantalla()
         return self.lista_ranking
-    
-    
-    def most(self):
+
+    def footer(self):
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_descripciones.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -144,12 +139,3 @@ class Ranking():
         self.alineacion_izquierda = (LARGO - self.ancho_linea_footer - 10)
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_footer, [self.alineacion_izquierda, ANCHO - 50])
-
-# Pruebas Rapidas de main
-if __name__ == '__main__':
-    pygame.init()
-    
-    menu = Menu()
-    menu.main_loop_menu()
-    # ver = Ranking()
-    # ver.ver_base_datos()
