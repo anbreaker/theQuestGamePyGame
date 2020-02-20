@@ -36,10 +36,6 @@ class Menu():
         self.seleccionado = 0
         self.total = len(self.opciones)
         self.mantiene_pulsado = False
-        
-        # Instancia de Juego.
-        # self.juego = Juego() 
-           
 
     def opcion_elegida(self):        
         # Altera el valor de 'self.seleccionado' con las flechas up/down
@@ -109,11 +105,13 @@ class Menu():
 
 def mostrar_historia():
     print('Función que muestra un nuevo juego.')
+    # Instancia de Historia.
     historia = Historia()
     historia.mostrar_historia()
 
 def mostrar_como_jugar():
     print('Función que muestra otro menú de opciones.')
+    # Instancia de Historia.
     historia = Historia()
     historia.como_jugar()
     
@@ -125,13 +123,14 @@ def iniciar_juego():
 
 def ranking_juego():
     print('Muestra ranking del juego...')
-    # Instancia de Juego.
+    # Instancia de Ranking.
     ranking = Ranking() 
     # ranking.mostrar_ranking_textos_pantalla()
     ver = ranking.ver_base_datos()
 
 def acerca_de():
     print('Función que muestra acerca_de.')
+    # Instancia de Historia.
     historia = Historia()
     historia.acerca_de()
 

@@ -134,9 +134,17 @@ class Ranking():
     def ver_base_datos(self):
         self.lista_ranking = self.__cursor__.execute("SELECT * FROM ranking ")
         self.lista_ranking = self.__cursor__.fetchall()
-        # print('ver_base_datos-->', self.lista_ranking)
-        # lista_ranking = cursor.execute("SELECT * FROM ranking ")
-        for registros in self.lista_ranking:
-            print(f'Registros BBDD-> {registros}')
+        # for registros in self.lista_ranking:
+        #     print(f'Registros BBDD-> {registros}')
+        self.lista_ranking.sort(reverse=True, key=lambda list_rnk: list_rnk[2])
+        print(self.lista_ranking)
         # self.mostrar_ranking_textos_pantalla(self.lista_ranking)
         return self.lista_ranking
+    
+if __name__ == '__main__':
+    pygame.init()
+    
+    menu = Menu()
+    menu.main_loop_menu()
+    # ver = Ranking()
+    # ver.ver_base_datos()
