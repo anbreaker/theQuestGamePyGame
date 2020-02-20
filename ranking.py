@@ -5,7 +5,7 @@ from juego_niveles import *
 from entradaTexto import *
 
 # Definicion tamaños de textos
-ALTO_TEXTO_TITULOS = 45
+ALTO_TEXTO_TITULOS = 40
 ALTO_TEXTO_DESCRIPCIONES = 32
 
 # Definimos algunos colores
@@ -43,7 +43,7 @@ class Ranking():
         self.pantalla.blit(self.fondo_pantalla, (0, 0))
 
         # Fuente para el texto que aparecerá en pantalla (tamaño 30 y 22)
-        self.fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_TITULOS)
+        self.fuente_titulo = pygame.font.Font('resources/fonts/JetBrainsMono-Regular.ttf', ALTO_TEXTO_TITULOS)
         self.fuente_descripciones = pygame.font.Font('resources/fonts/alatsi.ttf', ALTO_TEXTO_DESCRIPCIONES)
 
         # Devuelve la altura en píxeles para distancia "ideal" entre líneas de texto con la fuente.
@@ -58,12 +58,12 @@ class Ranking():
     def mostrar_ranking_textos_pantalla(self):
         lr = self.lista_ranking
         # Texto por lineas y posicion en pantalla
-        self.linea_texto1 = self.fuente_titulo.render('Nick         Score', True, NARANJA)
-        self.pantalla.blit(self.linea_texto1, [200, (self.fd_linesize)])
+        self.linea_texto1 = self.fuente_titulo.render('Ranking: Nick  Score', True, NARANJA)
+        self.pantalla.blit(self.linea_texto1, [20, (self.fd_linesize + 10)])
 
         for f in range(5):        
-            self.linea_texto1 = self.fuente_titulo.render(f'{lr[f][1].upper()}              {lr[f][2]}', True, BLANCO)
-            self.pantalla.blit(self.linea_texto1, [200, ALTO_TEXTO_TITULOS + 55 + (self.fd_linesize + 11) * f])
+            self.linea_texto1 = self.fuente_titulo.render(f'{lr[f][1].upper()}    {lr[f][2]}', True, BLANCO)
+            self.pantalla.blit(self.linea_texto1, [250, ALTO_TEXTO_TITULOS + 80 + (self.fd_linesize + 8) * f])
 
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_descripciones.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
