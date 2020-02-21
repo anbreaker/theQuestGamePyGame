@@ -36,9 +36,10 @@
 -   [pyGame](https://www.pygame.org/docs/) - Librería dedicada a juegos de python
 -   [Tutoriales](https://techwithtim.net/tutorials/game-development-with-python/pygame-tutorial/pygame-tutorial-movement/) - Tutoriales y guias para utilizar pyGame
 
-## Desarrollador ⌨️\*
+## Desarrollador ⌨️\
 
-**Autor: Francisco Javier Antúnez Durán** | [GitHub: anbreaker](https://github.com/anbreaker) - [LinkedIn](https://www.linkedin.com/in/francisco-javier-ant%C3%BAnez-dur%C3%A1n-67319a6a/)
-:es: Spain [+34 637 128 809](tel:+34637128809) mail 📧 antunez19@gmail.com
+**Francisco Javier Antúnez Durán** | [GitHub: anbreaker](https://github.com/anbreaker) - [LinkedIn](https://www.linkedin.com/in/francisco-javier-ant%C3%BAnez-dur%C3%A1n-67319a6a/)
+📱[+34 637 128 809](+34637128809) :es: Spain
+📧 antunez19@gmail.com
 
 > Made with :lov3: ❤️ & :code: [anbreaker](https://github.com/anbreaker) 🚀
