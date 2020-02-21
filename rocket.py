@@ -12,7 +12,7 @@ class Rocket(pygame.sprite.Sprite):
     w_pict_rocket = 68
     h_pict_rocket = 40
     velocidad = 10
-    vidas = 10
+    vidas = 3
 
     # Constructor de la clase
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):
@@ -61,7 +61,6 @@ class Rocket(pygame.sprite.Sprite):
 
     def bajar(self):
         self.rect.y = min(self.rect.y + self.velocidad,ANCHO-self.h_pict_rocket)
-
 
     def test_colisiones_rocket(self, grupo_asteroides):
         # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), no saca el item del grupo (False)

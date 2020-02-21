@@ -10,20 +10,14 @@ from menu import *
 # Variables de uso global
 
 # Definimos algunos colores
-VERDE = (30, 186, 22)
-BLANCO = (255, 255, 255)
-NEGRO = (0, 0, 0)
+VERDE = (30, 186, 22)       # Extremadura
+BLANCO = (255, 255, 255)    # Extremadura
+NEGRO = (0, 0, 0)           # Extremadura
 AMARILLO = (216, 229, 24)
 NARANJA = (255, 124, 67)
 
 # Fotogramas por segundo
 FPS = 60
-
-# Variables para el menu
-MOSTRAR_HISTORIA = 1
-COMO_JUGAR = 2
-INICIAR_JUEGO = 3
-SALIR = 0
 
 # Eventos personalizados (por cada nuevo evento una bandera)
 SUMA_SEGUNDO = pygame.USEREVENT
@@ -39,7 +33,7 @@ class Juego:
     nivel = 1
     # Condicion de salida bucle principal
     dentro_while = True
-    
+    # Inicializamos el giro de la nave
     image_nave_180 = 0
     
     def __init__(self):
@@ -77,6 +71,7 @@ class Juego:
         # Creamos la instancia del jugador
         self.nave = Rocket()
         self.planeta = Rocket()
+        self.ranking = Ranking()
         # self.menu = Menu(opciones)
 
         # Creacion de grupos de Sprite
@@ -138,11 +133,26 @@ class Juego:
         # print(self.puntuacion)
 
     def aterriza_nave(self):
-        if self.cronometro == 3:
+        if self.cronometro == 2:
             self.nave.girando = True
-            self.animacion_girar_nave()
+            # self.animacion_girar_nave()
+            
+            if self.nave.rect.y > 230:
+                # self.nave.rect.y -= self.nave.velocidad
+                self.nave.rect.y -= 2
+            if self.nave.rect.y < 230:
+                # self.nave.rect.y += self.nave.velocidad
+                self.nave.rect.y += 2
 
-            print(f'nave.girando-> {self.nave.girando}')
+            if self.nave.rect.x <= 500:   
+                self.nave.rect.x += 2
+                
+            if self.nave.rect.x >= 500:
+                self.animacion_girar_nave()
+                # self.ranking.mostrar_ranking(self.puntuacion)
+                # self.dentro_while = False
+            print(self.nave.rect.x)
+            # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
 
     def salir_del_juego(self):
         pygame.quit()
@@ -162,10 +172,10 @@ class Juego:
                 # Para reproducir, con parametro de repeticion.
                 # pygame.mixer.music.play(5,0)
                 self.dentro_while = False
-            if evento.type == SUMA_SEGUNDO:
+            if evento.type == SUMA_SEGUNDO and self.nave.girando == False:
                 self.cronometro += 1
                 # print(f'Cronometro: {self.cronometro}')
-            if evento.type == SUBIR_NIVEL:
+            if evento.type == SUBIR_NIVEL and self.nave.girando == False:
                 self.nivel += 1
 
             # Control de movimientos nave
@@ -223,22 +233,19 @@ class Juego:
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0 and not self.nave.nave_explotando:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
-                ranking = Ranking()
-                ranking.mostrar_ranking(self.puntuacion)
+                # ranking = Ranking()
+                self.ranking.mostrar_ranking(self.puntuacion)
                 self.dentro_while = False
-                # self.salir_del_juego()
+
             # Llamamos al broker de eventos
             self.manejar_eventos()
             self.aterriza_nave()
 
             objetos_en_pantalla = len(self.grupo_asteroides)
-            if objetos_en_pantalla < self.num_max_asteroides:
+            if objetos_en_pantalla < self.num_max_asteroides and self.nave.girando == False:
                 self.crear_asteroides(dt)
                 # print(f'Asteroides en pantalla-> {objetos_en_pantalla}')
 
-            # No borra
-            # self.nave.test_colisiones_rocket(self.grupo_asteroides)
-            # Borra al elemento colisionado (saca del grupo)
             if self.nave.nave_explotando == False:
                 puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt,self.puntuacion)
 
@@ -247,6 +254,7 @@ class Juego:
 
 
     def animacion_girar_nave(self):
+        self.kill()
         if self.image_nave_180 < 180:
             self.image_nave_180 += 1
             print(f'Valor-> {self.image_nave_180}')            
@@ -256,7 +264,9 @@ class Juego:
         image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
         self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
         pygame.display.update()
-            
+
+
+# Main pruebas rapido
 if __name__ == '__main__':
     pygame.init()
     menu = Menu()
