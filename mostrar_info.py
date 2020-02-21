@@ -21,6 +21,31 @@ NARANJA = (245, 150, 34)
 FPS = 60
 
 class Historia():
+    # Listas con los textos de las distintas pantallas de los menus
+    lista_mostrar_historia = [
+        'La búsqueda comienza en un planeta tierra moribundo por el cambio',
+        'cambio climático.','',
+        'Partiremos a la búsqueda de un planeta compatible',
+        'con la vida humana para colonizarlo. Esquiva los obstaculos,',
+        'hazte con el control de la nave y logra aterrizar!'
+    ]
+
+    lista_como_jugar = [
+        'Utiliza las teclas de control arriba (↑) o abajo (↓) del teclado',
+        'para desplazar la nave y esquivar asteroides!.','',
+        'Aguanta todo lo posible, controla el tiempo y el nivel',
+        'de dificultad con los marcadores.','',
+        'Hazte con el control de la nave durante el tiempo necesario y aterriza!'
+    ]
+
+    lista_acerca_de = [
+        'Autor del juego: Francisco Javier Antúnez Durán',
+        'Tecnologia empleada, Python 3.7 libreria pyGame 1.9.6',
+        'Fecha: 23-02-2020',
+        'Tutor del proyecto: Ramón Maldonado',
+        'Bootcamp 0 Keepcoding.io'
+    ]
+
     # Constructor de la clase Menu
     def __init__(self):
         pygame.font.init()
@@ -50,29 +75,13 @@ class Historia():
         self.reloj = pygame.time.Clock()
 
     def mostrar_historia(self):
-
         # Introduccion al juego:
         # Texto por lineas y posicion en pantalla
         self.linea_texto1 = self.fuente_titulo.render('Historia del juego:', True, VERDE)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
-        self.linea_texto2 = self.fuente_descripciones.render('La búsqueda comienza en un planeta tierra moribundo por el cambio', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
-        
-        self.linea_texto2 = self.fuente_descripciones.render('cambio climático.', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
-        
-        self.linea_texto3 = self.fuente_descripciones.render('Partiremos a la búsqueda de un planeta compatible ', True, BLANCO)
-        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
-
-        self.linea_texto4 = self.fuente_descripciones.render('con la vida humana para colonizarlo. Esquiva los obstaculos,', True, BLANCO)
-        self.pantalla.blit(self.linea_texto4, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
-
-        self.linea_texto5 = self.fuente_descripciones.render('hazte con el control de la nave y logra aterrizar!', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
-
+        self.imprimir_listas(self.lista_mostrar_historia)
         self.footer()
-
         self.main_loop_mostrar_info()
 
     def como_jugar(self):
@@ -82,23 +91,8 @@ class Historia():
         self.linea_texto1 = self.fuente_titulo.render('Dinamica del juego, que hacer:', True, VERDE)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
 
-        self.linea_texto2 = self.fuente_descripciones.render('Utiliza las teclas de control arriba (↑) o abajo (↓) del teclado', True, BLANCO)
-        self.pantalla.blit(self.linea_texto2, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 3])
-        
-        self.linea_texto3 = self.fuente_descripciones.render('para desplazar la nave y esquivar asteroides!.', True, BLANCO)
-        self.pantalla.blit(self.linea_texto3, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 4])
-
-        self.linea_texto5 = self.fuente_descripciones.render('Aguanta todo lo posible, controla el tiempo y el nivel', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
-
-        self.linea_texto5 = self.fuente_descripciones.render('de dificultad con los marcadores.', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
-      
-        self.linea_texto5 = self.fuente_descripciones.render('Hazte con el control de la nave durante el tiempo necesario y aterriza!', True, BLANCO)
-        self.pantalla.blit(self.linea_texto5, [32, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
-
+        self.imprimir_listas(self.lista_como_jugar)
         self.footer()
-
         self.main_loop_mostrar_info()
         
     def acerca_de(self):
@@ -121,25 +115,15 @@ class Historia():
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_titulo2, [self.alineacion_centrada, self.fd_linesize * 4])
 
-        self.linea_texto1 = self.fuente_descripciones.render('Autor del juego: Francisco Javier Antúnez Durán', True, BLANCO)
-        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 5])
-        
-        self.linea_texto1 = self.fuente_descripciones.render('Tecnologia empleada, Python 3.7 libreria pyGame 1.9.6', True, BLANCO)
-        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 6])
-       
-        self.linea_texto1 = self.fuente_descripciones.render('Fecha: 23-02-2020', True, BLANCO)
-        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 7])
-
-        self.linea_texto1 = self.fuente_descripciones.render('Tutor del proyecto: Ramón Maldonado', True, BLANCO)
-        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 8])
-
-        self.linea_texto1 = self.fuente_descripciones.render('Bootcamp 0 Keepcoding.io', True, BLANCO)
-        self.pantalla.blit(self.linea_texto1, [62, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize * 9])
-
+        self.imprimir_listas(self.lista_acerca_de, 1.8)
         self.footer()
-
         self.main_loop_mostrar_info()
-        
+
+    def imprimir_listas(self, lista, distancia=1):
+        for i,fila in enumerate(lista):        
+            self.linea_texto1 = self.fuente_descripciones.render(f'{lista[i]}', True, BLANCO)
+            self.pantalla.blit(self.linea_texto1, [32 * distancia, ALTO_TEXTO_TITULOS + 82 * distancia + self.fd_linesize * i])
+
     def footer(self):
         # Texto por lineas y posicion en pantalla, (footer)
         self.linea_footer = self.fuente_titulo.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
