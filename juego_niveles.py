@@ -5,7 +5,7 @@ import os
 from random import choice, randint
 from asteroides import *
 from rocket import *
-from planeta import *
+from planet import *
 from menu import *
 
 # Variables de uso global
@@ -145,10 +145,10 @@ class Juego(pygame.sprite.Sprite):
             if self.nave.rect.y < 210:
                 self.nave.rect.y += 2
 
-            if self.nave.rect.x <= 500:   
+            if self.nave.rect.x <= 520:   
                 self.nave.rect.x += 2
 
-            if self.nave.rect.x >= 500:
+            if self.nave.rect.x >= 520:
                 self.animacion_girar_nave()
                 # self.ranking.mostrar_ranking(self.puntuacion)
                 # self.dentro_while = False
