@@ -5,6 +5,7 @@ import os
 from random import choice, randint
 from asteroides import *
 from rocket import *
+from planeta import *
 from menu import *
 
 # Variables de uso global
@@ -23,7 +24,7 @@ FPS = 60
 SUMA_SEGUNDO = pygame.USEREVENT
 SUBIR_NIVEL = pygame.USEREVENT + 1
 
-class Juego:
+class Juego(pygame.sprite.Sprite):
     clock = pygame.time.Clock()
     # Incializamos la puntuacion a 0
     puntuacion = 0
@@ -70,17 +71,19 @@ class Juego:
         # Entidades del juego, jugadores, obstaculos..., .......................
         # Creamos la instancia del jugador
         self.nave = Rocket()
-        self.planeta = Rocket()
         self.ranking = Ranking()
-        # self.menu = Menu(opciones)
+        self.planeta = Planeta()
 
         # Creacion de grupos de Sprite
         self.naveGroup = pygame.sprite.Group()
-        # Crear grupoAsteroides como pygame.sprite.Group()
+        # Crear grupo_asteroides como pygame.sprite.Group()
         self.grupo_asteroides = pygame.sprite.Group()
+        # Crear grupo_planeta como pygame.sprite.Group()
+        self.grupo_planeta = pygame.sprite.Group()
         self.allSprites = pygame.sprite.Group()
         # Agregamos al grupo al jugador
         self.naveGroup.add(self.nave)
+        self.grupo_planeta.add(self.planeta)
 
         self.num_asteroides_creados = 0
         self.num_max_asteroides = 5
@@ -89,6 +92,7 @@ class Juego:
         self.tiempo_actual = 0
 
         self.allSprites.add(self.nave)
+        self.allSprites.add(self.planeta)
 
     # Configuracion de los asteroides
     def configurar_obstaculos(self, velocidad, dimesion_asteroide):
@@ -132,11 +136,10 @@ class Juego:
             self.puntuacion = self.cronometro + self.num_asteroides_creados
         # print(self.puntuacion)
 
-    def aterriza_nave(self):
-        if self.cronometro == 2:
+    def aterriza_nave(self,dt):
+        if self.cronometro == 5:
             self.nave.girando = True
             # self.animacion_girar_nave()
-            
             if self.nave.rect.y > 210:
                 self.nave.rect.y -= 2
             if self.nave.rect.y < 210:
@@ -144,13 +147,15 @@ class Juego:
 
             if self.nave.rect.x <= 500:   
                 self.nave.rect.x += 2
-                
+
             if self.nave.rect.x >= 500:
                 self.animacion_girar_nave()
                 # self.ranking.mostrar_ranking(self.puntuacion)
                 # self.dentro_while = False
             # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
-
+        pygame.display.flip()
+        pygame.display.update()
+        
     def salir_del_juego(self):
         pygame.quit()
         # No Olvidar pasar 0 en sys.exit(0), sin el parametro -> "Exception has occurred: SystemExit"
@@ -214,11 +219,12 @@ class Juego:
         self.allSprites.update(dt)
         # Pintamos todos los Sprite del grupo general actualizados
         self.grupo_asteroides.draw(self.pantalla)
+        self.grupo_planeta.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
-        
+
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
-        
+
         # Agrego un delay
         pygame.time.delay(10)
 
@@ -236,7 +242,7 @@ class Juego:
 
             # Llamamos al broker de eventos
             self.manejar_eventos()
-            self.aterriza_nave()
+            self.aterriza_nave(dt)
 
             objetos_en_pantalla = len(self.grupo_asteroides)
             if objetos_en_pantalla < self.num_max_asteroides and self.nave.girando == False:
@@ -245,6 +251,12 @@ class Juego:
 
             if self.nave.nave_explotando == False:
                 puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt,self.puntuacion)
+            
+            if self.nave.rect.x >= 200:
+                self.grupo_planeta.update(dt)
+                # if self.planeta.rect.x <= 700:                
+                #     self.grupo_planeta.empty()
+                #     self.planeta.kill()
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
@@ -252,7 +264,7 @@ class Juego:
     def animacion_girar_nave(self):
         if self.image_nave_180 < 180:
             self.image_nave_180 += 1
-            print(f'Valor-> {self.image_nave_180}')            
+            # print(f'Valor-> {self.image_nave_180}')
 
         image_nave_copia = self.nave.image.copy()
 

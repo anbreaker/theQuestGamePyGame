@@ -40,10 +40,10 @@ class Rocket(pygame.sprite.Sprite):
         # Tamaño del "rectangulo" player, (ancho, alto)
         self.w_pict_rocket = self.rect.w
         self.h_pict_rocket = self.rect.h
-        
+
         # Sonidos para el rocket
         # self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
-        
+
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
         self.frames = []
@@ -108,17 +108,17 @@ class Rocket(pygame.sprite.Sprite):
         if self.nave_explotando:
             # Para las animaciones utilizamos lo que nos devuelve el clock
             self.tiempo_acutal += dt
-            
+
             # Para acelerar o disminuir las animaciones.
             if self.tiempo_acutal > self.tiempo_animacion:
                 # Actualizar tiempo para empezar a contar otro item
                 self.tiempo_acutal = 0
                 self.index += 1
-                
+
                 if self.index >= self.num_imagenes:
                     self.index -= 1
                     self.nave_explotando = False
-                    
+
                 self.image = self.frames[self.index]
         else:
             self.image = self.image_nave
