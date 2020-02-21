@@ -137,11 +137,9 @@ class Juego:
             self.nave.girando = True
             # self.animacion_girar_nave()
             
-            if self.nave.rect.y > 230:
-                # self.nave.rect.y -= self.nave.velocidad
+            if self.nave.rect.y > 210:
                 self.nave.rect.y -= 2
-            if self.nave.rect.y < 230:
-                # self.nave.rect.y += self.nave.velocidad
+            if self.nave.rect.y < 210:
                 self.nave.rect.y += 2
 
             if self.nave.rect.x <= 500:   
@@ -151,7 +149,6 @@ class Juego:
                 self.animacion_girar_nave()
                 # self.ranking.mostrar_ranking(self.puntuacion)
                 # self.dentro_while = False
-            print(self.nave.rect.x)
             # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
 
     def salir_del_juego(self):
@@ -252,9 +249,7 @@ class Juego:
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
 
-
     def animacion_girar_nave(self):
-        self.kill()
         if self.image_nave_180 < 180:
             self.image_nave_180 += 1
             print(f'Valor-> {self.image_nave_180}')            
