@@ -12,27 +12,29 @@
 
 ### Para instalar la versión que queramos de python:
 
-virtualenv venv --python=python3.7
+    virtualenv venv --python=python3.7
 
 ### Activar el entorno virtual:
 
-source venv/bin/activate
+    source venv/bin/activate
 
 ### Instalar pygame en el entorno activado:
 
-pip install pygame
+    pip install pygame
 
-### Tambien puedes instalar todas las dependencias del proyecto con el siguiente comando:
+### Tambien puedes instalar todas las dependencias del proyecto con el siguiente comando, con el fichero de configuración:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
-### Ejecucion del juego, en la consola con el entorno activado y operativo, navegar hasta la ruta raíz y ejecutar:
+### Ejecucion del juego, en la consola, con el entorno activado y operativo, navegar hasta la ruta raíz y ejecutar:
 
-python3 main.py
+    python3 main.py
 
 ## Informacion obtenida de las siguientes referencias principales
 
--   [Python](https://www.python.org/) - Lenguaje de programación empleado\* [pyGame](https://www.pygame.org/docs/) - Librería dedicada a juegos de python
+-   [Python](https://www.python.org/) - Lenguaje de programación empleado\* 
+-   [pyGame](https://www.pygame.org/docs/) - Librería dedicada a juegos de python
+-   [Tutoriales](https://techwithtim.net/tutorials/game-development-with-python/pygame-tutorial/pygame-tutorial-movement/) - Tutoriales y guias para utilizar pyGame
 
 ## Desarrollador ⌨️\*
 
