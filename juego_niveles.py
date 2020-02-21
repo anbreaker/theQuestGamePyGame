@@ -40,8 +40,8 @@ class Juego:
     # Condicion de salida bucle principal
     dentro_while = True
     
-
-
+    image_nave_180 = 0
+    
     def __init__(self):
 
         # Inicialización de la superficie de dibujo (display surface)
@@ -140,8 +140,9 @@ class Juego:
     def aterriza_nave(self):
         if self.cronometro == 3:
             self.nave.girando = True
+            self.animacion_girar_nave()
 
-            # print(f'aterriza-> {self.nave.girando}')
+            print(f'nave.girando-> {self.nave.girando}')
 
     def salir_del_juego(self):
         pygame.quit()
@@ -243,6 +244,18 @@ class Juego:
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
+
+
+    def animacion_girar_nave(self):
+        if self.image_nave_180 < 180:
+            self.image_nave_180 += 1
+            print(f'Valor-> {self.image_nave_180}')            
+
+        image_nave_copia = self.nave.image.copy()
+
+        image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
+        self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
+        pygame.display.update()
             
 if __name__ == '__main__':
     pygame.init()
