@@ -5,31 +5,26 @@ import os
 from random import choice, randint
 from asteroides import *
 from rocket import *
+from planet import *
 from menu import *
 
 # Variables de uso global
 
 # Definimos algunos colores
-VERDE = (30, 186, 22)
-BLANCO = (255, 255, 255)
-NEGRO = (0, 0, 0)
+VERDE = (30, 186, 22)       # Extremadura
+BLANCO = (255, 255, 255)    # Extremadura
+NEGRO = (0, 0, 0)           # Extremadura
 AMARILLO = (216, 229, 24)
 NARANJA = (255, 124, 67)
 
 # Fotogramas por segundo
 FPS = 60
 
-# Variables para el menu
-MOSTRAR_HISTORIA = 1
-COMO_JUGAR = 2
-INICIAR_JUEGO = 3
-SALIR = 0
-
 # Eventos personalizados (por cada nuevo evento una bandera)
 SUMA_SEGUNDO = pygame.USEREVENT
 SUBIR_NIVEL = pygame.USEREVENT + 1
 
-class Juego:
+class Juego(pygame.sprite.Sprite):
     clock = pygame.time.Clock()
     # Incializamos la puntuacion a 0
     puntuacion = 0
@@ -39,9 +34,9 @@ class Juego:
     nivel = 1
     # Condicion de salida bucle principal
     dentro_while = True
+    # Inicializamos el giro de la nave
+    image_nave_180 = 0
     
-
-
     def __init__(self):
 
         # Inicialización de la superficie de dibujo (display surface)
@@ -76,16 +71,19 @@ class Juego:
         # Entidades del juego, jugadores, obstaculos..., .......................
         # Creamos la instancia del jugador
         self.nave = Rocket()
-        self.planeta = Rocket()
-        # self.menu = Menu(opciones)
+        self.ranking = Ranking()
+        self.planeta = Planeta()
 
         # Creacion de grupos de Sprite
-        self.naveGroup = pygame.sprite.Group()
-        # Crear grupoAsteroides como pygame.sprite.Group()
+        self.grupo_nave = pygame.sprite.Group()
+        # Crear grupo_asteroides como pygame.sprite.Group()
         self.grupo_asteroides = pygame.sprite.Group()
+        # Crear grupo_planeta como pygame.sprite.Group()
+        self.grupo_planeta = pygame.sprite.Group()
         self.allSprites = pygame.sprite.Group()
         # Agregamos al grupo al jugador
-        self.naveGroup.add(self.nave)
+        self.grupo_nave.add(self.nave)
+        self.grupo_planeta.add(self.planeta)
 
         self.num_asteroides_creados = 0
         self.num_max_asteroides = 5
@@ -94,6 +92,7 @@ class Juego:
         self.tiempo_actual = 0
 
         self.allSprites.add(self.nave)
+        self.allSprites.add(self.planeta)
 
     # Configuracion de los asteroides
     def configurar_obstaculos(self, velocidad, dimesion_asteroide):
@@ -126,6 +125,13 @@ class Juego:
             # Contar puntos partida
             self.contador_puntos()
 
+    # Configuracion de los asteroides
+    def configurar_planeta(self):
+        # Creamos la instancia de Planeta
+        planeta = Planeta()
+        # Agregamos al grupo de asteroides
+        self.grupo_planeta.add(planeta)
+
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
         # la voy a basar en la cantidad de tiempo en pantalla + el numero de asteroides creados.
@@ -137,10 +143,28 @@ class Juego:
             self.puntuacion = self.cronometro + self.num_asteroides_creados
         # print(self.puntuacion)
 
-    def aterriza_nave(self):
-        if self.cronometro == 15 and self.nave.girando == True:
-            pass
+    def aterriza_nave(self,dt):
+        if self.cronometro == 5:
+            self.nave.girando = True
+            self.planeta.aparece_planeta = True
+            # self.animacion_girar_nave()
+            if self.nave.rect.y > 210:
+                self.nave.rect.y -= 2
+            if self.nave.rect.y < 210:
+                self.nave.rect.y += 2
 
+            if self.nave.rect.x <= 520:   
+                self.nave.rect.x += 2
+
+            if self.nave.rect.x >= 520:
+                self.animacion_girar_nave()
+                if self.image_nave_180 == 180:
+                    self.ranking.mostrar_ranking(self.puntuacion)
+                    self.dentro_while = False
+            # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
+        pygame.display.flip()
+        pygame.display.update()
+        
     def salir_del_juego(self):
         pygame.quit()
         # No Olvidar pasar 0 en sys.exit(0), sin el parametro -> "Exception has occurred: SystemExit"
@@ -159,25 +183,25 @@ class Juego:
                 # Para reproducir, con parametro de repeticion.
                 # pygame.mixer.music.play(5,0)
                 self.dentro_while = False
-            if evento.type == SUMA_SEGUNDO:
+            if evento.type == SUMA_SEGUNDO and self.nave.girando == False:
                 self.cronometro += 1
                 # print(f'Cronometro: {self.cronometro}')
-            if evento.type == SUBIR_NIVEL:
+            if evento.type == SUBIR_NIVEL and self.nave.girando == False:
                 self.nivel += 1
 
             # Control de movimientos nave
             if evento.type == KEYDOWN:
-                if evento.key == K_UP:
+                if evento.key == K_UP and self.nave.girando == False:
                     self.nave.subir()
-                if evento.key == K_DOWN:
+                if evento.key == K_DOWN and self.nave.girando == False:
                     self.nave.bajar()
 
         # Control de pulsacion de teclas sostenida
         tecla_sostenida = pygame.key.get_pressed()
 
-        if tecla_sostenida[K_UP]:
+        if tecla_sostenida[K_UP] and self.nave.girando == False:
             self.nave.subir()
-        if tecla_sostenida[K_DOWN]:
+        if tecla_sostenida[K_DOWN] and self.nave.girando == False:
             self.nave.bajar()
 
     def render(self, dt):
@@ -204,11 +228,12 @@ class Juego:
         self.allSprites.update(dt)
         # Pintamos todos los Sprite del grupo general actualizados
         self.grupo_asteroides.draw(self.pantalla)
+        self.grupo_planeta.draw(self.pantalla)
         self.allSprites.draw(self.pantalla)
-        
+
         # Actualizamos la pantalla con lo dibujado.
         pygame.display.flip()
-        
+
         # Agrego un delay
         pygame.time.delay(10)
 
@@ -220,23 +245,59 @@ class Juego:
             # Control de salida de partida por desgaste de vidas
             if self.nave.vidas == 0 and not self.nave.nave_explotando:
                 # print(f'NumVidas == 0 -> {self.nave.vidas}')
-                ranking = Ranking()
-                ranking.mostrar_ranking(self.puntuacion)
+                # ranking = Ranking()
+                self.ranking.mostrar_ranking(self.puntuacion)
                 self.dentro_while = False
-                # self.salir_del_juego()
+
             # Llamamos al broker de eventos
             self.manejar_eventos()
+            self.aterriza_nave(dt)
 
             objetos_en_pantalla = len(self.grupo_asteroides)
-            if objetos_en_pantalla < self.num_max_asteroides:
+            if objetos_en_pantalla < self.num_max_asteroides and self.nave.girando == False:
                 self.crear_asteroides(dt)
                 # print(f'Asteroides en pantalla-> {objetos_en_pantalla}')
 
-            # No borra
-            # self.nave.test_colisiones_rocket(self.grupo_asteroides)
-            # Borra al elemento colisionado (saca del grupo)
             if self.nave.nave_explotando == False:
                 puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt,self.puntuacion)
+            
+            if self.nave.rect.x >= 200:
+                self.grupo_planeta.update(dt)
+                # if self.planeta.rect.x <= 700:                
+                #     self.grupo_planeta.empty()
+                #     self.planeta.kill()
 
             # Llamada a la funcion de repintado de pantalla.
             self.render(dt)
+
+    def animacion_girar_nave(self):
+        if self.image_nave_180 < 180:
+            self.image_nave_180 += 1
+            # print(f'Valor-> {self.image_nave_180}')
+
+        image_nave_copia = self.nave.image.copy()
+
+        image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
+        self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
+        pygame.display.update()
+        
+        '''
+        yo lo que hice, fue eliminar la nave del player.group y hacerle un kill()
+        y luego pintar una imagen de la nave, en la misma posicion donde estaba la nave original
+        aunque igualmente hay que ahcer una copia de este modo
+        seria así
+        def rot_center(image, angle):
+            orig_rect = image.get_rect()
+            rot_image = pygame.transform.rotate(image, angle)
+            rot_rect = orig_rect.copy()
+            rot_rect.center = rot_image.get_rect().center
+            rot_image = rot_image.subsurface(rot_rect).copy()
+            return rot_image
+        le doy la posicion donde tiene que aparecer rect = surf.get_rect(x=700, y=300)
+        '''
+
+# Main pruebas rapido
+if __name__ == '__main__':
+    pygame.init()
+    menu = Menu()
+    menu.main_loop_menu()

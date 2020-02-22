@@ -12,7 +12,7 @@ class Rocket(pygame.sprite.Sprite):
     w_pict_rocket = 68
     h_pict_rocket = 40
     velocidad = 10
-    vidas = 1
+    vidas = 3
 
     # Constructor de la clase
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):
@@ -28,8 +28,6 @@ class Rocket(pygame.sprite.Sprite):
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
 
-        self.estados_nave = ['nave_volando', 'nave_explotando', 'nave_aterrizando']
-
         self.nave_explotando = False
         # Inicializacion de la imagen del player (es un rectangulo)
         self.image_nave = pygame.image.load(f'resources/images/{self.pict_rocket}').convert_alpha()
@@ -42,10 +40,10 @@ class Rocket(pygame.sprite.Sprite):
         # Tamaño del "rectangulo" player, (ancho, alto)
         self.w_pict_rocket = self.rect.w
         self.h_pict_rocket = self.rect.h
-        
+
         # Sonidos para el rocket
         # self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
-        
+
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
         self.frames = []
@@ -64,7 +62,6 @@ class Rocket(pygame.sprite.Sprite):
     def bajar(self):
         self.rect.y = min(self.rect.y + self.velocidad,ANCHO-self.h_pict_rocket)
 
-
     def test_colisiones_rocket(self, grupo_asteroides):
         # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), no saca el item del grupo (False)
         candidatos_a_colision = pygame.sprite.spritecollide(self, grupo_asteroides, False)
@@ -77,7 +74,7 @@ class Rocket(pygame.sprite.Sprite):
         # rocket choca (self), choca contra grupo que entra en la fucncion (grupo_asteroides), saca al item del grupo (True)
         candidatos_a_colision = pygame.sprite.spritecollide(self, grupo, True)
         numero_candidatos = len(candidatos_a_colision)
-        if numero_candidatos > 0:
+        if numero_candidatos > 0 and self.girando == False:
             # print(f'Vidas Totales-> {self.vidas}')
             # self.sonido_vida_menos.play()
             self.vidas -= 1
@@ -111,17 +108,17 @@ class Rocket(pygame.sprite.Sprite):
         if self.nave_explotando:
             # Para las animaciones utilizamos lo que nos devuelve el clock
             self.tiempo_acutal += dt
-            
+
             # Para acelerar o disminuir las animaciones.
             if self.tiempo_acutal > self.tiempo_animacion:
                 # Actualizar tiempo para empezar a contar otro item
                 self.tiempo_acutal = 0
                 self.index += 1
-                
+
                 if self.index >= self.num_imagenes:
                     self.index -= 1
                     self.nave_explotando = False
-                    
+
                 self.image = self.frames[self.index]
         else:
             self.image = self.image_nave

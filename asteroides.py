@@ -11,7 +11,7 @@ FPS = 60
 class Asteroides(pygame.sprite.Sprite):
 
     # Constructor de la clase
-    def __init__(self, x, y,dimesion):
+    def __init__(self, x, y, dimesion):
         # La dimension la paso al instanciar el objeto y la divido por el num de imagenes de la composicion.
         self.w = dimesion / 8
         self.h = dimesion / 8
@@ -20,7 +20,7 @@ class Asteroides(pygame.sprite.Sprite):
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.Surface((self.w, self.h), pygame.SRCALPHA, 32) 
+        self.image = pygame.Surface((self.w, self.h), pygame.SRCALPHA, 32)
         # Inicializacion de la imagen de los asteroides (es un rectangulo)
         # Convertimos la imagen en un rectangulo con x,y,w,h, -> devuelve (0,0,68,40)
         self.rect = self.image.get_rect()
@@ -40,23 +40,24 @@ class Asteroides(pygame.sprite.Sprite):
         self.tiempo_acutal = 0
 
     # Recortamos los asteroides y los guardamos en una lista
-    def load_frames(self,dimension):
-        self.sprite_sheet = pygame.transform.scale((pygame.image.load('resources/images/asteroides_128.png').convert_alpha()),(dimension,dimension))
-        
+    def load_frames(self, dimension):
+        self.sprite_sheet = pygame.transform.scale((pygame.image.load(
+            'resources/images/asteroides_128.png').convert_alpha()), (dimension, dimension))
+
         for fila in range(8):
             y = fila * self.h
             for columna in range(8):
                 x = columna * self.w
 
-                frame_asteroide = pygame.Surface((self.w, self.h), pygame.SRCALPHA).convert_alpha()
+                frame_asteroide = pygame.Surface(
+                    (self.w, self.h), pygame.SRCALPHA).convert_alpha()
                 # frame_asteroide_reescalado = pygame.transform.scale((frame_asteroide),(dimension,dimension))
                 frame_asteroide.blit(self.sprite_sheet, (0, 0), (x, y, self.w, self.h))
-                
+
                 self.frames.append(frame_asteroide)
 
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
-
 
     # Sobreescribimos el metodo update para las animaciones
     def update(self, dt):
@@ -67,7 +68,7 @@ class Asteroides(pygame.sprite.Sprite):
         if self.tiempo_acutal > self.tiempo_animacion:
             # Actualizar tiempo para empezar a contar otro item
             self.tiempo_acutal = 0
-            
+
             self.index += 1
 
             if self.index >= self.num_imagenes:
@@ -76,7 +77,7 @@ class Asteroides(pygame.sprite.Sprite):
             self.image = self.frames[self.index]
 
             self.rect.x -= self.velocidad
-            
-            if self.rect.x <= - self.w: # Al salir del ancho de pantalla
-                self.kill() # Remueve la instancia de cualquier grupo (los saca del grupo)
+
+            if self.rect.x <= - self.w:  # Al salir del ancho de pantalla
+                self.kill()  # Remueve la instancia de cualquier grupo (los saca del grupo)
                 del self # destruye la instancia del objeto de memoria (es decir borra la instancia del asteroide
