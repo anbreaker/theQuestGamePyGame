@@ -18,7 +18,8 @@ class Planeta(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         
-        self.fin_de_partida = False
+        # Condicion de aparicion del planeta
+        self.aparece_planeta = False
 
         # Inicializamos el Sprite, (ver pygame.doc)
         pygame.sprite.Sprite.__init__(self)
@@ -39,9 +40,10 @@ class Planeta(pygame.sprite.Sprite):
         self.tiempo_acutal = 0
 
     def update(self,dt):
-        # Utilizando la funcion posicionamos el planeta y dado cierta condicion iniciara aparacion.        
-        if self.rect.x > 600:
-            self.rect.x -= self.velocidad
+        if self.aparece_planeta == True:
+            # Utilizando la funcion posicionamos el planeta y dado cierta condicion iniciara aparacion.        
+            if self.rect.x > 600:
+                self.rect.x -= self.velocidad
 
 
 

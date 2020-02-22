@@ -75,14 +75,14 @@ class Juego(pygame.sprite.Sprite):
         self.planeta = Planeta()
 
         # Creacion de grupos de Sprite
-        self.naveGroup = pygame.sprite.Group()
+        self.grupo_nave = pygame.sprite.Group()
         # Crear grupo_asteroides como pygame.sprite.Group()
         self.grupo_asteroides = pygame.sprite.Group()
         # Crear grupo_planeta como pygame.sprite.Group()
         self.grupo_planeta = pygame.sprite.Group()
         self.allSprites = pygame.sprite.Group()
         # Agregamos al grupo al jugador
-        self.naveGroup.add(self.nave)
+        self.grupo_nave.add(self.nave)
         self.grupo_planeta.add(self.planeta)
 
         self.num_asteroides_creados = 0
@@ -125,6 +125,13 @@ class Juego(pygame.sprite.Sprite):
             # Contar puntos partida
             self.contador_puntos()
 
+    # Configuracion de los asteroides
+    def configurar_planeta(self):
+        # Creamos la instancia de Planeta
+        planeta = Planeta()
+        # Agregamos al grupo de asteroides
+        self.grupo_planeta.add(planeta)
+
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
         # la voy a basar en la cantidad de tiempo en pantalla + el numero de asteroides creados.
@@ -139,6 +146,7 @@ class Juego(pygame.sprite.Sprite):
     def aterriza_nave(self,dt):
         if self.cronometro == 5:
             self.nave.girando = True
+            self.planeta.aparece_planeta = True
             # self.animacion_girar_nave()
             if self.nave.rect.y > 210:
                 self.nave.rect.y -= 2
@@ -271,7 +279,21 @@ class Juego(pygame.sprite.Sprite):
         image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
         self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
         pygame.display.update()
-
+        
+        '''
+                yo lo que hice, fue eliminar la nave del player.group y hacerle un kill()
+        y luego pintar una imagen de la nave, en la misma posicion donde estaba la nave original
+        aunque igualmente hay que ahcer una copia de este modo
+        seria así
+        def rot_center(image, angle):
+            orig_rect = image.get_rect()
+            rot_image = pygame.transform.rotate(image, angle)
+            rot_rect = orig_rect.copy()
+            rot_rect.center = rot_image.get_rect().center
+            rot_image = rot_image.subsurface(rot_rect).copy()
+            return rot_image
+        le doy la posicion donde tiene que aparecer rect = surf.get_rect(x=700, y=300)
+        '''
 
 # Main pruebas rapido
 if __name__ == '__main__':
