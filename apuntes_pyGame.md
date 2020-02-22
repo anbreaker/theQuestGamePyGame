@@ -23,7 +23,7 @@
     pip3 freeze > requirements.txt
 
 ## Para instalar las dependencias del entorno virtual
-    pip install -r requirements.txt
+    pip install -r requirements.txt 
 
 
 
