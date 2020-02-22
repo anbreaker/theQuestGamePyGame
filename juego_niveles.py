@@ -282,8 +282,3 @@ class Juego(pygame.sprite.Sprite):
         image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
         self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
         pygame.display.update()
-
-if __name__ == '__main__':
-    pygame.init()
-    menu = Menu()
-    menu.main_loop_menu()
