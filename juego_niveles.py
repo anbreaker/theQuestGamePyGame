@@ -158,8 +158,9 @@ class Juego(pygame.sprite.Sprite):
 
             if self.nave.rect.x >= 520:
                 self.animacion_girar_nave()
-                # self.ranking.mostrar_ranking(self.puntuacion)
-                # self.dentro_while = False
+                if self.image_nave_180 == 180:
+                    self.ranking.mostrar_ranking(self.puntuacion)
+                    self.dentro_while = False
             # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
         pygame.display.flip()
         pygame.display.update()
@@ -281,7 +282,7 @@ class Juego(pygame.sprite.Sprite):
         pygame.display.update()
         
         '''
-                yo lo que hice, fue eliminar la nave del player.group y hacerle un kill()
+        yo lo que hice, fue eliminar la nave del player.group y hacerle un kill()
         y luego pintar una imagen de la nave, en la misma posicion donde estaba la nave original
         aunque igualmente hay que ahcer una copia de este modo
         seria así
