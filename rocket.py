@@ -21,7 +21,7 @@ class Rocket(pygame.sprite.Sprite):
         # Tamaño animacion nave
         self.w = 100
         self.h = 80
-        
+
         # Girar la nave para aterrizar
         self.girando = False
 
@@ -42,7 +42,7 @@ class Rocket(pygame.sprite.Sprite):
         self.h_pict_rocket = self.rect.h
 
         # Sonidos para el rocket
-        # self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
+        self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
 
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
@@ -76,7 +76,7 @@ class Rocket(pygame.sprite.Sprite):
         numero_candidatos = len(candidatos_a_colision)
         if numero_candidatos > 0 and self.girando == False:
             # print(f'Vidas Totales-> {self.vidas}')
-            # self.sonido_vida_menos.play()
+            self.sonido_vida_menos.play()
             self.vidas -= 1
 
         if self.vidas == 0:
@@ -102,9 +102,9 @@ class Rocket(pygame.sprite.Sprite):
         self.num_imagenes = len(self.frames)
         self.image = self.frames[self.index]
 
-
     # Sobreescribimos el metodo update para las animaciones
     def update(self, dt):
+        # Condicion para la sobreescritura del método
         if self.nave_explotando:
             # Para las animaciones utilizamos lo que nos devuelve el clock
             self.tiempo_acutal += dt

@@ -1,11 +1,9 @@
 import pygame
 import sys
-from ranking import *
 
 # Variables de uso global
 ANCHO = 500
 FPS = 60
-
 
 class Planeta(pygame.sprite.Sprite):
     pict_planet = 'planet.png'
@@ -17,7 +15,7 @@ class Planeta(pygame.sprite.Sprite):
     def __init__(self, x=800, y=-80):
         self.x = x
         self.y = y
-        
+
         # Condicion de aparicion del planeta
         self.aparece_planeta = False
 

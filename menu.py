@@ -4,25 +4,23 @@ import sys
 import os
 from mostrar_info import *
 
-
 AMARILLO = (216, 229, 24)
 NARANJA = (255, 124, 67)
-
 
 class Menu():
     # Constructor de la clase Menu
     def __init__(self):
         pygame.font.init()
         self.pantalla = pygame.display.set_mode((700, 500))
-        self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        self.fondo_pantalla = pygame.image.load('resources/images/inicio.png').convert()
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame -Menu-')
-        
+
         # Carga de archivo de audio
         pygame.mixer.music.load('resources/music/FASTER2019-01-02_-_8_Bit_Menu_-_David_Renda_-_FesliyanStudios.com.mp3')
-        
+
         # Para reproducir, con parametro de repeticion.
-        # pygame.mixer.music.play(5,0)
+        pygame.mixer.music.play(5,0)
 
         self.opciones = [
             ('· Mostrar Historia del juego', mostrar_historia),
