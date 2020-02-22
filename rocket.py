@@ -12,7 +12,7 @@ class Rocket(pygame.sprite.Sprite):
     w_pict_rocket = 68
     h_pict_rocket = 40
     velocidad = 10
-    vidas = 3
+    vidas = 10
 
     # Constructor de la clase
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):

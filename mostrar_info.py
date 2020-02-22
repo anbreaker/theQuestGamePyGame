@@ -21,6 +21,7 @@ NARANJA = (245, 150, 34)
 FPS = 60
 
 class Historia():
+
     # Listas con los textos de las distintas pantallas de los menus
     lista_mostrar_historia = [
         'La búsqueda comienza en un planeta tierra moribundo por el cambio',
@@ -79,24 +80,22 @@ class Historia():
         # Texto por lineas y posicion en pantalla
         self.linea_texto1 = self.fuente_titulo.render('Historia del juego:', True, VERDE)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
-
+        # Métodos para mostrar textos en pantalla
         self.imprimir_listas(self.lista_mostrar_historia)
         self.footer()
         self.main_loop_mostrar_info()
 
     def como_jugar(self):
-
         # Introduccion al juego:
         # Texto por lineas y posicion en pantalla
         self.linea_texto1 = self.fuente_titulo.render('Dinamica del juego, que hacer:', True, VERDE)
         self.pantalla.blit(self.linea_texto1, [10, ALTO_TEXTO_TITULOS + 10 + self.fd_linesize])
-
+        # Métodos para mostrar textos en pantalla
         self.imprimir_listas(self.lista_como_jugar)
         self.footer()
         self.main_loop_mostrar_info()
-        
-    def acerca_de(self):
 
+    def acerca_de(self):
         # Texto por lineas y posicion en pantalla, (Titulo)
         self.linea_titulo1 = self.fuente_titulo.render('Proyecto fin Bootcamp,', True, NARANJA)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
@@ -115,6 +114,7 @@ class Historia():
         # Presentacion del texto en pantalla
         self.pantalla.blit(self.linea_titulo2, [self.alineacion_centrada, self.fd_linesize * 4])
 
+        # Métodos para mostrar textos en pantalla
         self.imprimir_listas(self.lista_acerca_de, 1.8)
         self.footer()
         self.main_loop_mostrar_info()

@@ -112,7 +112,7 @@ def mostrar_como_jugar():
     # Instancia de Historia.
     historia = Historia()
     historia.como_jugar()
-    
+
 def iniciar_juego():
     print('Inicio del Juego...')
     # Instancia de Juego.

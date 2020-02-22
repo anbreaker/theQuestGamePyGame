@@ -36,6 +36,8 @@ class Juego(pygame.sprite.Sprite):
     dentro_while = True
     # Inicializamos el giro de la nave
     image_nave_180 = 0
+    # Inicializamos impacto 
+    impacto = False
 
     def __init__(self):
 
@@ -129,9 +131,9 @@ class Juego(pygame.sprite.Sprite):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
         # la voy a basar en la cantidad de tiempo en pantalla + el numero de asteroides creados.
         # El juego iniciara con 10 vidas para tratar de aterrizar, cada vida menos son 10 puntos
-        vidas_inicio_partida = 10
-        if vidas_inicio_partida < self.nave.vidas:
-            self.puntuacion = self.cronometro + self.num_asteroides_creados - (self.nave.vidas - vidas_inicio_partida) * 10
+        if self.impacto == True:
+            self.puntuacion -= 10
+            self.impacto = False 
         else:
             self.puntuacion = self.cronometro + self.num_asteroides_creados
         # print(self.puntuacion)
@@ -260,7 +262,10 @@ class Juego(pygame.sprite.Sprite):
             # Condicion para sumar puntos
             if self.nave.nave_explotando == False:
                 puntos = self.nave.test_colisiones_asteroides(self.grupo_asteroides,dt,self.puntuacion)
-            
+                if puntos == 1 and self.nave.girando == False:
+                    self.impacto = True
+                    self.contador_puntos()
+
             if self.nave.rect.x >= 200:
                 self.grupo_planeta.update(dt)
 
@@ -271,9 +276,14 @@ class Juego(pygame.sprite.Sprite):
         if self.image_nave_180 < 180:
             self.image_nave_180 += 1
             # print(f'Valor-> {self.image_nave_180}')
-
+        # Sin copiar la imagen no realiza la animacion... da un error por exceso de tamaño
         image_nave_copia = self.nave.image.copy()
 
         image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
         self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
         pygame.display.update()
+
+if __name__ == '__main__':
+    pygame.init()
+    menu = Menu()
+    menu.main_loop_menu()
