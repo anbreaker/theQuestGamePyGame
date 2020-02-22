@@ -32,11 +32,11 @@
 
 ## Informacion obtenida de las siguientes referencias principales
 
--   [Python](https://www.python.org/) - Lenguaje de programación empleado\* 
+-   [Python](https://www.python.org/) - Lenguaje de programación empleado
 -   [pyGame](https://www.pygame.org/docs/) - Librería dedicada a juegos de python
 -   [Tutoriales](https://techwithtim.net/tutorials/game-development-with-python/pygame-tutorial/pygame-tutorial-movement/) - Tutoriales y guias para utilizar pyGame
 
-## Desarrollador ⌨️\
+## Desarrollador ⌨️
 
 **Francisco Javier Antúnez Durán** | [GitHub: anbreaker](https://github.com/anbreaker) - [LinkedIn](https://www.linkedin.com/in/francisco-javier-ant%C3%BAnez-dur%C3%A1n-67319a6a/)
 📱[+34 637 128 809](+34637128809) :es: Spain

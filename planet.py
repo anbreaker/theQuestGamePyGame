@@ -11,7 +11,7 @@ class Planeta(pygame.sprite.Sprite):
     pict_planet = 'planet.png'
     w_pict_planet = 681
     h_pict_planet = 686
-    velocidad = 1
+    velocidad_aparicion_planeta = 1
 
     # Constructor de la clase
     def __init__(self, x=800, y=-80):
@@ -43,7 +43,7 @@ class Planeta(pygame.sprite.Sprite):
         if self.aparece_planeta == True:
             # Utilizando la funcion posicionamos el planeta y dado cierta condicion iniciara aparacion.        
             if self.rect.x > 600:
-                self.rect.x -= self.velocidad
+                self.rect.x -= self.velocidad_aparicion_planeta
 
 
 

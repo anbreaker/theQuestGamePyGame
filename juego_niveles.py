@@ -125,13 +125,6 @@ class Juego(pygame.sprite.Sprite):
             # Contar puntos partida
             self.contador_puntos()
 
-    # Configuracion de los asteroides
-    def configurar_planeta(self):
-        # Creamos la instancia de Planeta
-        planeta = Planeta()
-        # Agregamos al grupo de asteroides
-        self.grupo_planeta.add(planeta)
-
     def contador_puntos(self):
         # La puntuacion que se mostrará en marcador y con la cual se realizará el ranking de jugadores,
         # la voy a basar en la cantidad de tiempo en pantalla + el numero de asteroides creados.
@@ -144,17 +137,16 @@ class Juego(pygame.sprite.Sprite):
         # print(self.puntuacion)
 
     def aterriza_nave(self,dt):
-        if self.cronometro == 5:
+        if self.cronometro == 2:
             self.nave.girando = True
             self.planeta.aparece_planeta = True
-            # self.animacion_girar_nave()
             if self.nave.rect.y > 210:
-                self.nave.rect.y -= 2
+                self.nave.rect.y -= 3
             if self.nave.rect.y < 210:
-                self.nave.rect.y += 2
+                self.nave.rect.y += 3
 
-            if self.nave.rect.x <= 520:   
-                self.nave.rect.x += 2
+            if self.nave.rect.x <= 520:
+                self.nave.rect.x += 3
 
             if self.nave.rect.x >= 520:
                 self.animacion_girar_nave()

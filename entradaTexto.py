@@ -24,14 +24,14 @@ class Entrada():
         self.dimensiones = [LARGO, ANCHO]
         self.pantalla = pygame.display.set_mode(self.dimensiones)
         # Inicializacion de la imagen de fondo de la pantalla (sin efecto alpha)
-        self.fondo_pantalla = pygame.image.load('resources/images/background.png').convert()
+        self.fondo_pantalla = pygame.image.load('resources/images/fondo_ranking.png').convert()
         # Titulo de la barra de la aplicacion
         pygame.display.set_caption('The Quest Juego pyGame -Hall of Fame-')
         # Fuente para el texto que aparecerá en pantalla (tamaño 30 y 22)
         self.fuente_titulo = pygame.font.Font('resources/fonts/alatsi.ttf', 32)
 
         self.caracteres = ['']
-        self.font = pygame.font.Font('resources/fonts/alatsi.ttf', 84)
+        self.font = pygame.font.Font('resources/fonts/JetBrainsMono-Regular.ttf', 84)
         self.distancia = 76
         self.pos_x = 285
         self.pos_y = 100
@@ -57,7 +57,8 @@ class Entrada():
                     else:
                         if self.max_caracteres < 3:
                             self.caracteres[self.lineas] = str(self.caracteres[self.lineas] + evento.unicode)
-                            # print(f'Max_car -> {self.max_caracteres}')
+                            # print(f'Escribiendo -> {self.max_caracteres}')
+                            # print(f'Escribiendo -> {self.caracteres}')
                             self.max_caracteres += 1
                         if self.max_caracteres == 3 and evento.key == K_SPACE:
                             # print(f'nick... {self.caracteres}')
@@ -106,7 +107,7 @@ class Entrada():
             # iniciales sera None siempre y cuando no se haya llegado al final de la introducción de 3 caracteres, 
             iniciales = entrar_texto.teclas(eventos)
             if iniciales is not None:
-                print(f'Las Iniciales -> {iniciales}')
+                # print(f'Las Iniciales -> {iniciales}')
                 salir = False
             entrar_texto.mensaje(self.pantalla)
             pygame.display.update()
