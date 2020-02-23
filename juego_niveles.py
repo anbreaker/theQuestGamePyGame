@@ -156,11 +156,6 @@ class Juego(pygame.sprite.Sprite):
             if self.nave.rect.x >= 520:
                 # Animacion de aterrizaje... (no hace bien la animacion ¬¬ )
                 self.animacion_girar_nave()
-                # if self.image_nave_180 == 180:
-                #     # Llamada a la clase Ranking para guardar en bbdd
-                #     self.ranking.mostrar_ranking(self.puntuacion)
-                #     # Salida del bucle principal
-                #     self.dentro_while = False
             # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
         # Actualizaciones
         pygame.display.flip()
@@ -220,6 +215,9 @@ class Juego(pygame.sprite.Sprite):
         self.marcador_vidas = self.font.render(f'Vidas {str(self.nave.vidas)}', True, VERDE)
         self.marcador_cronometro = self.font.render(f'{str(self.cronometro)}\'s', True, AMARILLO)
 
+        # Funcion para renderizar los textos si se aterriza
+        self.textos_nave_aterrizada()
+
         # Pintamos marcadores
         self.pantalla.blit(self.marcador_puntos, (490, 5))
         self.pantalla.blit(self.marcador_nivel, (15,5))
@@ -242,6 +240,14 @@ class Juego(pygame.sprite.Sprite):
 
         # Agrego un delay
         pygame.time.delay(10)
+
+    def textos_nave_aterrizada(self):
+        # Texto por lineas y posicion en pantalla
+        if self.image_nave_180 == 180:
+            self.game_over = self.font.render('Encontramos un planeta, Salvados!', True, AMARILLO)
+            self.continuar_ranking = self.font.render('Pulsa Espacio para guardar.', True, NARANJA)
+            self.pantalla.blit(self.game_over, (50,200))
+            self.pantalla.blit(self.continuar_ranking, (180,450))
 
     def main_loop(self):
         contador = 0
@@ -278,6 +284,8 @@ class Juego(pygame.sprite.Sprite):
             self.render(dt)
 
     def animacion_girar_nave(self):
+        # Eliminacion del sprite original de rocket, repintar
+        #  en su posicion la animacion con una copia del propi sprite
         self.allSprites.remove(self.nave)
             
         if self.image_nave_180 < 180:
@@ -290,8 +298,3 @@ class Juego(pygame.sprite.Sprite):
         self.pantalla.blit(image_nave_copia, (522,212))
 
         pygame.display.update()
-
-if __name__ == '__main__':
-    pygame.init()
-    menu = Menu()
-    menu.main_loop_menu()

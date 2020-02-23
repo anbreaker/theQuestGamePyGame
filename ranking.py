@@ -132,7 +132,7 @@ class Ranking():
 
     def footer(self):
         # Texto por lineas y posicion en pantalla, (footer)
-        self.linea_footer = self.fuente_descripciones.render('Rellana y pulsa "Escape" para volver al Menu', True, AMARILLO)
+        self.linea_footer = self.fuente_descripciones.render('Pulsa "Escape" para volver al Menu', True, AMARILLO)
         # Para alinear el texto mido su tamaño con esta funcion que devuelve w,h
         self.ancho_linea_footer = self.linea_footer.get_rect().width
         # Calculo del posicionamiento de ancho_linea_footer
