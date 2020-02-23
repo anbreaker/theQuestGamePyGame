@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 import sys
 import os
-# import os.path
 from mostrar_info import *
 
 AMARILLO = (216, 229, 24)
