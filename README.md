@@ -4,39 +4,44 @@
 
 > Juego escrito en Python 3.7, Proyecto Final BootCamp Zero - IV Edición | KeepCoding.io
 
--   Historia del juego: La búsqueda comienza en un planeta tierra moribundo por el cambio climático. Partiremos a la búsqueda de un planeta compatible con la vida humana para colonizarlo.
+Historia del juego: La búsqueda comienza en un planeta tierra moribundo por el cambio climático. Partiremos a la búsqueda de un planeta compatible con la vida humana para colonizarlo.
 
 ## Requisitos de instalación 🔧
 
 -   Tener en el sistema operativo python3 - Instalar `pygame` en tu sistema operativo - Recomendación, montar un Entorno virtual, para ubuntu y distribuciones unix seguir el siguiente método:
 
 ### Para instalar la versión que queramos de python:
-
-    virtualenv venv --python=python3.7
+```python
+virtualenv venv --python=python3.7
+```
 
 ### Activar el entorno virtual:
-
-    source venv/bin/activate
+```python
+source venv/bin/activate
+```
 
 ### Instalar pygame en el entorno activado:
-
-    pip install pygame
-
-### Tambien puedes instalar todas las dependencias del proyecto con el siguiente comando, con el fichero de configuración:
-
-    pip install -r requirements.txt
-
+```python
+pip install pygame
+```
+### También puedes instalar todas las dependencias del proyecto con el siguiente comando, con el fichero de configuración:
+```python
+pip install -r requirements.txt
+```
 ### Ejecucion del juego, en la consola, con el entorno activado y operativo, navegar hasta la ruta raíz y ejecutar:
-
+```python
     python3 main.py
-
-### Si deseas un script ejecutable en linux (Dentro de tu entorno virtual, habiendo realizado los pasos anteriores, el main esta preparado para ello ver 1ª Línea del codigo)
--   #### Para dar permisos al fichero
--   chmod +x main.py
--   #### Para ejecutar, desde la raiz
--   ./main.py
-
-## Informacion obtenida de las siguientes referencias principales
+```
+### Si deseas un script ejecutable en linux (Dentro de tu entorno virtual, habiendo realizado los pasos anteriores, el main esta preparado para ello ver 1ª Línea del código)- 
+#### Para dar permisos al fichero
+```bash
+chmod +x main.py- 
+```    
+#### Para ejecutar, desde la raíz
+```bash
+./main.py
+```
+## Información obtenida de las siguientes referencias principales
 
 -   [Python](https://www.python.org/) - Lenguaje de programación empleado
 -   [pyGame](https://www.pygame.org/docs/) - Librería dedicada a juegos de python
