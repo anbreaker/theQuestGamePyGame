@@ -30,6 +30,12 @@
 
     python3 main.py
 
+### Si deseas un script ejecutable en linux (el main esta preparado para ello ver 1ª Línea del codigo)
+-   #### Para dar permisos al fichero
+-   chmod +x main.py
+-   #### Para ejecutar, desde la raiz
+-   ./main.py
+
 ## Informacion obtenida de las siguientes referencias principales
 
 -   [Python](https://www.python.org/) - Lenguaje de programación empleado
