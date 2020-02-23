@@ -30,7 +30,7 @@
 
     python3 main.py
 
-### Si deseas un script ejecutable en linux (Dentro de tu entorno virtual habiendo realizado los pasos anteriores, el main esta preparado para ello ver 1ª Línea del codigo)
+### Si deseas un script ejecutable en linux (Dentro de tu entorno virtual, habiendo realizado los pasos anteriores, el main esta preparado para ello ver 1ª Línea del codigo)
 -   #### Para dar permisos al fichero
 -   chmod +x main.py
 -   #### Para ejecutar, desde la raiz
