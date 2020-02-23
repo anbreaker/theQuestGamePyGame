@@ -140,7 +140,7 @@ class Juego(pygame.sprite.Sprite):
 
     def aterriza_nave(self,dt):
         # La aparicion del planeta la defino segun un tiempo 't' de juego
-        if self.cronometro == 18:
+        if self.cronometro == 12:
             # Cambio de banderas condicionales segun la instancia
             self.nave.girando = True
             self.planeta.aparece_planeta = True
@@ -156,11 +156,11 @@ class Juego(pygame.sprite.Sprite):
             if self.nave.rect.x >= 520:
                 # Animacion de aterrizaje... (no hace bien la animacion ¬¬ )
                 self.animacion_girar_nave()
-                if self.image_nave_180 == 180:
-                    # Llamada a la clase Ranking para guardar en bbdd
-                    self.ranking.mostrar_ranking(self.puntuacion)
-                    # Salida del bucle principal
-                    self.dentro_while = False
+                # if self.image_nave_180 == 180:
+                #     # Llamada a la clase Ranking para guardar en bbdd
+                #     self.ranking.mostrar_ranking(self.puntuacion)
+                #     # Salida del bucle principal
+                #     self.dentro_while = False
             # print(f'{self.nave.rect.x}x , y{self.nave.rect.y}')
         # Actualizaciones
         pygame.display.flip()
@@ -177,6 +177,11 @@ class Juego(pygame.sprite.Sprite):
             # Sí, pulsa Salir
             if evento.type == pygame.QUIT:
                 self.salir_del_juego()
+            if evento.type == KEYDOWN and evento.key == K_SPACE and self.image_nave_180 == 180:
+                # Llamada a la clase Ranking para guardar en bbdd
+                self.ranking.mostrar_ranking(self.puntuacion)
+                # Salida del bucle principal
+                self.dentro_while = False
             if evento.type == KEYDOWN and evento.key == K_ESCAPE:
                 # Para Musica
                 pygame.mixer.music.stop()
@@ -273,6 +278,8 @@ class Juego(pygame.sprite.Sprite):
             self.render(dt)
 
     def animacion_girar_nave(self):
+        self.allSprites.remove(self.nave)
+            
         if self.image_nave_180 < 180:
             self.image_nave_180 += 1
             # print(f'Valor-> {self.image_nave_180}')
@@ -280,5 +287,11 @@ class Juego(pygame.sprite.Sprite):
         image_nave_copia = self.nave.image.copy()
 
         image_nave_copia = pygame.transform.rotate(image_nave_copia, self.image_nave_180)
-        self.pantalla.blit(image_nave_copia, (self.nave.rect.x,self.nave.rect.y))
+        self.pantalla.blit(image_nave_copia, (522,212))
+
         pygame.display.update()
+
+if __name__ == '__main__':
+    pygame.init()
+    menu = Menu()
+    menu.main_loop_menu()

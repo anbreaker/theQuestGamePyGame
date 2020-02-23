@@ -12,7 +12,7 @@ class Rocket(pygame.sprite.Sprite):
     w_pict_rocket = 68
     h_pict_rocket = 40
     velocidad = 10
-    vidas = 10
+    vidas = 3
 
     # Constructor de la clase
     def __init__(self, x=0, y=(ANCHO/2)-h_pict_rocket):
@@ -43,6 +43,7 @@ class Rocket(pygame.sprite.Sprite):
 
         # Sonidos para el rocket
         self.sonido_vida_menos = pygame.mixer.Sound('resources/music/vida-1.wav')
+        self.sonido_sin_vidas = pygame.mixer.Sound('resources/music/explosion_final.wav')
 
         # Preparacion de los frames
         # Alamacenamos los frames en una lista
@@ -76,11 +77,13 @@ class Rocket(pygame.sprite.Sprite):
         numero_candidatos = len(candidatos_a_colision)
         if numero_candidatos > 0 and self.girando == False:
             # print(f'Vidas Totales-> {self.vidas}')
-            self.sonido_vida_menos.play()
+            if self.vidas > 1:
+                self.sonido_vida_menos.play()
             self.vidas -= 1
 
         if self.vidas == 0:
             # Llamada a metodo sobreescrito para animacin explosion.
+            self.sonido_sin_vidas.play()
             self.update(dt)
             self.nave_explotando = True
             # print(f'Numero Vidas quedan-> {self.vidas}')
