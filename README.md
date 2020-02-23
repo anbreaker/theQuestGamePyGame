@@ -47,6 +47,10 @@ chmod +x main.py-
 -   [pyGame](https://www.pygame.org/docs/) - Librería dedicada a juegos de python
 -   [Tutoriales](https://techwithtim.net/tutorials/game-development-with-python/pygame-tutorial/pygame-tutorial-movement/) - Tutoriales y guias para utilizar pyGame
 
+## Para ver en youtube un ejemplo (click en la imagen)
+
+[![](https://github.com/anbreaker/theQuestGamePyGame/blob/master/resources/images/presentacion.png?raw=true)](https://www.youtube.com/watch?v=pGkf877gxXg&feature=youtu.be")
+
 ## Desarrollador ⌨️
 
 **Francisco Javier Antúnez Durán** | [GitHub: anbreaker](https://github.com/anbreaker) - [LinkedIn](https://www.linkedin.com/in/francisco-javier-ant%C3%BAnez-dur%C3%A1n-67319a6a/)
