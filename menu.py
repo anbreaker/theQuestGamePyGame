@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import sys
 import os
+# import os.path
 from mostrar_info import *
 
 AMARILLO = (216, 229, 24)
@@ -120,11 +121,14 @@ def iniciar_juego():
     juego.main_loop()
 
 def ranking_juego():
-    print('Muestra ranking del juego...')
-    # Instancia de Ranking.
-    ranking = Ranking() 
-    # ranking.mostrar_ranking_textos_pantalla()
-    ver = ranking.ver_base_datos()
+    if os.path.isfile('ranking.db'):
+        print('Muestra ranking del juego...')
+        # Instancia de Ranking.
+        ranking = Ranking() 
+        # ranking.mostrar_ranking_textos_pantalla()
+        ver = ranking.ver_base_datos()
+    else:
+        print('Es la primera partida aun no existen registros en la base de datos :)')
 
 def acerca_de():
     print('Función que muestra acerca_de.')

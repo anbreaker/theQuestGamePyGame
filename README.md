@@ -8,7 +8,7 @@ Historia del juego: La búsqueda comienza en un planeta tierra moribundo por el 
 
 ## Requisitos de instalación 🔧
 
--   Tener en el sistema operativo python3 - Instalar `pygame` en tu sistema operativo - Recomendación, montar un Entorno virtual, para ubuntu y distribuciones unix seguir el siguiente método:
+Tener en el sistema operativo python3 - Instalar `pygame` en tu sistema operativo - Recomendación, montar un Entorno virtual, para ubuntu y distribuciones unix seguir el siguiente método:
 
 ### Para instalar la versión que queramos de python:
 ```python
